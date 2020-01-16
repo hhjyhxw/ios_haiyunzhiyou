@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/shoplist/shoplist",
+    "pages/index/index",
+    "pages/goodtype/goodtype",
+    "pages/carts/carts",
+    "pages/mycenter/mycenter"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "ios_haiyunzhiyou",
+  "compilerVersion": "2.4.6",
+  "usingComponents": {}
+}

@@ -1,0 +1,39 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/shoplist/shoplist",
+		   "style": {
+		   	"navigationBarTitleText": "附近小店"
+		   }
+		}
+		,
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "海韵之友"
+			}
+		},
+		{
+	    "path" : "pages/goodtype/goodtype",
+		   "style" : {  
+				  // "navigationStyle":"custom"  
+				  "navigationBarTitleText": "分类商品"
+			   } 
+		},
+		{
+            "path" : "pages/carts/carts",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/mycenter/mycenter",
+            "style" : {}
+        }
+       
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

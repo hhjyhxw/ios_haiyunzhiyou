@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "海韵之友",
+  "usingComponents": {
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot"
+  }
+}
