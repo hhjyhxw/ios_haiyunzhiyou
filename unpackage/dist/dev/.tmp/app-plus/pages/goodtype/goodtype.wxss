@@ -21,10 +21,10 @@
 		    border: 1px solid #CCC;
 		    outline: 0;
 		    border-radius: 5px;
-		    font-size: 0.8rem;
+		    font-size: 0.7rem;
 }
 .holderclass{
-		 font-size: 0.8rem;
+		 font-size: 0.7rem;
 }
 .all_shop{
 		margin-bottom: 5rem;
@@ -149,7 +149,7 @@
 	    background-color: #EBEBEB;
 }
 .addToCaret{
-		    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAeUExURQAAAMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzAtt/6YAAAAJdFJOUwByjyrzFU3Sr6AOO1AAAAEVSURBVDjLdZS5E8FAFMYfEUZnMgwlM442hWF0rpjRhUmjMyjoHA2lhtY4x39rRWJfkv1ekd3sbzffy76DyDN9du7391WbQjY6HOe23ii8csH1cdf8TbRyha/HOvIT2Yxc17Yme6nJl0UmcHzwnz2Dgit/n2EGgVb6jclb2PfW1B3q0zBI9txhQxHLu9LFKIh/5R0zCjRLPEqkMEPcalsFEjaXiHe5SEpKpN9SZE0TUgF60FINTtwpDgyBlGBJOzVokqUGDl08x9+eXb1NPkj74O4DS33CweLQXfiD8ErgJcJrZ4FiQASKhZZFUIQWJgNOH5hwMEVxUsMygIWDSw0Wpyhn1il0Vs6wAeCWgZuM25aGd9aWPpFaQtf43enTAAAAAElFTkSuQmCC) 100% 100% no-repeat scroll;
+		    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAeUExURQAAAOE/P+E/P+E/P+E/P+E/P+E/P+E/P+E/P+E/P9mJX74AAAAJdFJOUwByjyrzFU3Sr6AOO1AAAAEVSURBVDjLdZS5E8FAFMYfEUZnMgwlM442hWF0rpjRhUmjMyjoHA2lhtY4x39rRWJfkv1ekd3sbzffy76DyDN9du7391WbQjY6HOe23ii8csH1cdf8TbRyha/HOvIT2Yxc17Yme6nJl0UmcHzwnz2Dgit/n2EGgVb6jclb2PfW1B3q0zBI9txhQxHLu9LFKIh/5R0zCjRLPEqkMEPcalsFEjaXiHe5SEpKpN9SZE0TUgF60FINTtwpDgyBlGBJOzVokqUGDl08x9+eXb1NPkj74O4DS33CweLQXfiD8ErgJcJrZ4FiQASKhZZFUIQWJgNOH5hwMEVxUsMygIWDSw0Wpyhn1il0Vs6wAeCWgZuM25aGd9aWPpFaQtf43enTAAAAAElFTkSuQmCC) 100% 100% no-repeat scroll;
 		    background-size: 24px 24px;
 			display: block;
 			/* width: 30px;

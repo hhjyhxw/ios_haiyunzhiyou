@@ -72,7 +72,7 @@
   padding-left: 0.3rem;
 }
 .shoplist .shop_name {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 5rem;
   font-weight: bold;
 }
@@ -113,8 +113,10 @@
   background-size: 5.5px 16.5px;
   color: transparent;
   display: block;
-  margin-right: -8.2rem;
   margin-top: 1.1rem;
+  margin-right: -4.2rem;
+  margin-top: 1.1rem;
+  float: right;
 }
 .active {
   background-color: #E13F3F;

@@ -104,13 +104,13 @@
 				latitude:'',
 				info: [{
 					content: '内容 A',
-					imgurl:'../../static/image/temp/banner_hyy.png'
-				}, {
-					content: '内容 B',
 					imgurl:'../../static/image/temp/banner_hyyx.png'
 				}, {
-					content: '内容 C',
+					content: '内容 B',
 					imgurl:'../../static/image/temp/banner1.png'
+				}, {
+					content: '内容 C',
+					imgurl:'../../static/image/temp/banner_hyyx.png'
 				}],
 				current: 0,//广告列表属性
 				mode: 'dot',//广告列表属性
@@ -209,7 +209,7 @@
 		     line-height: 2.5rem;
 		     padding: 0 1.6rem;
 		     color: #fff;
-		     font-size: 0.8rem;
+		     font-size: 0.7rem;
 		     position: relative;
 	}
 	.lbs-btn{
@@ -255,10 +255,10 @@
 		    border: 1px solid #CCC;
 		    outline: 0;
 		    border-radius: 5px;
-		    font-size: 0.8rem;
+		    font-size: 0.7rem;
 	}
 	.holderclass{
-		 font-size: 0.8rem;
+		 font-size: 0.7rem;
 	}
 	.adlist{
 		height: 100%;
@@ -336,7 +336,7 @@
 		      height: 2rem;
 		      line-height: 2rem;
 		      position: relative;
-		      font-size: 0.9rem;
+		      font-size: 0.8rem;
 		      background-color: white;
 			  border-bottom: 1px solid lightgray;
 	}
@@ -361,6 +361,7 @@
 		    position: relative;
 		   /* min-height: 13.5rem; */
 		    vertical-align: top;
+			font-size: 0.7rem;
 	}
 	.shop-goods .wrap .good_img {
 		    text-align: center;

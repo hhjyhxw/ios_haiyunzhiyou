@@ -9,7 +9,7 @@
 			</view>
 			<!-- 店铺列表 -->
 			<view class="allshop">
-				<view class="shoplist" v-for="(item,index) in supplierList" :key="index">
+				<view class="shoplist" v-for="(item,index) in supplierList" :key="index" @click="toShopDetail(item.id)">
 					<image class="shop_img" :src="item.supplierImg"></image>
 					<view class="shop_info">
 						<view class="shop_name">{{item.companyName}}</view>
@@ -65,6 +65,7 @@
 				latitude:'',
 				supplierList:[
 					{
+						id:1,
 						companyName:'旗舰店',
 						supplierImg:'../../static/image/ic_sy_jsyl.png',
 						businessHours:'09:00-18:00',
@@ -73,6 +74,7 @@
 						distances:230
 					},
 					{
+						id:2,
 						companyName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
@@ -81,6 +83,7 @@
 						distances:299
 					},
 					{
+						id:3,
 						companyName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
@@ -89,6 +92,7 @@
 						distances:299
 					},
 					{
+						id:3,
 						companyName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
@@ -97,6 +101,7 @@
 						distances:299
 					},
 					{
+						id:3,
 						companyName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
@@ -105,6 +110,7 @@
 						distances:299
 					},
 					{
+						id:3,
 						companyName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
@@ -145,6 +151,13 @@
 					}
 					
 				});
+			},
+			
+			//跳转店铺详情页
+			toShopDetail(shopId) {
+				uni.navigateTo({
+					 url: '/pages/shopdetail/shopdetail?shopId='+shopId
+				})
 			},
 			
 			firstPage() {
@@ -219,7 +232,7 @@
 		padding-left: 0.3rem;
 	}
 	.shoplist .shop_name{
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		font-weight: 5rem;
 		font-weight: bold;
 	}
@@ -260,8 +273,10 @@
 		   background-size: 5.5px 16.5px;
 		   color: transparent;
 		   display: block;
-		   margin-right: -8.2rem;
 		   margin-top: 1.1rem;
+		   margin-right: -4.2rem;
+		   margin-top: 1.1rem;
+		   float: right;
    }
    
 	.active {

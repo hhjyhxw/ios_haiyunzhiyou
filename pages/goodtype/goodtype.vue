@@ -11,7 +11,7 @@
 				<view class="link-shop" v-for="(item ,index) in supplierList" :key="index">
 					<!-- 店铺 -->
 					<view >
-						<view class="shop-name shop-name-a">
+						<view class="shop-name shop-name-a" @click="toShopDetail(item.id)">
 							<image class="shop-icon"  :src="item.supplierImg"></image>
 							<view class="shop_detail_name">{{item.companyName}}</view>
 							<view class="time_send">
@@ -23,7 +23,7 @@
 					<!-- 商品列表 -->
 					<view class="shop-goods">
 						<view class="wrap norest"  v-for="(item2 ,index2) in item.goodsList" :key="index2">
-							<view class="good">
+							<view class="good" @click="toGoodsDetail(item2.id)">
 								<view class="good_img">
 									<image  :src="item2.defaultSourceImagePath"></image>
 								</view>
@@ -56,6 +56,7 @@
 		data() {
 			return {
 				supplierList:[{
+						id:1,
 						companyName:'旗舰店',
 						supplierImg:'../../static/image/ic_sy_jsyl.png',
 						businessHours:'09:00-18:00',
@@ -91,6 +92,7 @@
 						]
 					},
 					{
+							id:2,
 							companyName:'千山店',
 							supplierImg:'../../static/image/ic_sy_xxsg.png',
 							businessHours:'09:00-18:00',
@@ -130,6 +132,7 @@
 			}
 		},
 		methods: {
+			//加入购物车
 			addToCaret(goodId){
 				uni.showLoading({
 					 title: '处理中',
@@ -141,8 +144,21 @@
 				    uni.hideLoading();
 				}, 300);
 				
-				
-			}
+			},
+			
+			//跳转店铺详情页
+			toShopDetail(shopId) {
+				uni.navigateTo({
+					 url: '/pages/shopdetail/shopdetail?shopId='+shopId
+				})
+			},
+			//跳转商品详情情页
+			toGoodsDetail(goodId) {
+				uni.navigateTo({
+					 url: '/pages/gooddetail/gooddetail?goodId='+goodId
+				})
+			},
+			
 			
 		}
 	}
@@ -173,10 +189,10 @@
 		    border: 1px solid #CCC;
 		    outline: 0;
 		    border-radius: 5px;
-		    font-size: 0.8rem;
+		    font-size: 0.7rem;
 	}
 	.holderclass{
-		 font-size: 0.8rem;
+		 font-size: 0.7rem;
 	}
 	
 	.all_shop{
@@ -306,7 +322,7 @@
 	    background-color: #EBEBEB;
 	}
 	.addToCaret{
-		    background: url(../../static/image/btn_gg_tj_disabled.png) 100% 100% no-repeat scroll;
+		    background: url(../../static/image/btn_gg_tj_normal.png) 100% 100% no-repeat scroll;
 		    background-size: 24px 24px;
 			display: block;
 			/* width: 30px;

@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/shoplist/shoplist",
     "pages/index/index",
+    "pages/shopdetail/shopdetail",
+    "pages/shoplist/shoplist",
     "pages/goodtype/goodtype",
     "pages/carts/carts",
-    "pages/mycenter/mycenter"
+    "pages/mycenter/mycenter",
+    "pages/gooddetail/gooddetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

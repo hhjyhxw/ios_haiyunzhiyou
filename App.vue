@@ -17,7 +17,7 @@
 	.page{
 		width:100%;
 		height: 100%;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		
 	}
 </style>
