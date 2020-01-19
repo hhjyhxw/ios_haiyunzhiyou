@@ -19,7 +19,7 @@ const active = 'pro';
 /**
  * 开发服务器地址
  */
-const webUrl_dev = 'http://127.0.0.1:8081/hyzy';
+const webUrl_dev = 'http://www.haiyunzy.com';
 
 
 /**
@@ -28,6 +28,8 @@ const webUrl_dev = 'http://127.0.0.1:8081/hyzy';
 const webUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
 const apiUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
 const loginUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
+const hosturl = 'https://http://www.haiyunzy.com';
+
 
 export default {
     client,
@@ -36,5 +38,6 @@ export default {
     debug,
     webUrl: active === 'dev' ? webUrl_dev : webUrl_pro,
     apiUrl: active === 'dev' ? apiUrl_dev : apiUrl_pro,
-    loginUrl: active === 'dev' ? loginUrl_dev : loginUrl_pro
+    loginUrl: active === 'dev' ? loginUrl_dev : loginUrl_pro,
+	hosturl
 }

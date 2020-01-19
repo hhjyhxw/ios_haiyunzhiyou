@@ -1,6 +1,47 @@
 <template>
 	<view>
-			<view>个人中心</view>
+			<view class="carousel">
+				<view class="userInfo">
+					<image class="heardurl" src="http://thirdwx.qlogo.cn/mmopen/HpicclFcicSt5tNZQSr2vPT1NVZSjiaoUCACetNbCd7Cy2ibIobUFJibHM7M8l7MTIRPqXaxZKoW1ZHuEjFYefhyyVkicvkZ1Fh10D/132"></image>
+					<view class="user">
+						<view class="name">阿木木</view>
+						<view class="phone"><text></text>5077144027</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="list-group">
+				<view class="list-group-item">
+					<label class="icon icon1"></label>
+					<label class="iconinfo">待付款</label>
+					<label class="arr"></label>
+					<label class="badge2">2</label>
+				</view>
+				<view class="list-group-item">
+					<label class="icon icon2"></label>
+					<label class="iconinfo">待收货</label>
+					<label class="arr"></label>
+					<label class="badge2">2</label>
+				</view>
+				<view class="list-group-item">
+					<label class="icon icon3"></label>
+					<label class="iconinfo">已完成</label>
+					<label class="arr"></label>
+					<label class=""></label>
+				</view>
+				<view class="list-group-item">
+					<label class="icon icon5"></label>
+					<label class="iconinfo">收货地址</label>
+					<label class="arr"></label>
+					<label class=""></label>
+				</view>
+				<view class="list-group-item" @click="calling('07718098670')">
+					<label class="icon icon6"></label>
+					<label class="iconinfo">客服电话</label>
+					<label class="arr"></label>
+					<label class=""></label>
+				</view>
+			</view>
 			
 			
 			<view  class="footer">
@@ -46,6 +87,14 @@
 			
 		},
 		methods: {
+			
+			//打电话
+			calling(phone){
+				uni.makePhoneCall({
+				    phoneNumber: phone //仅为示例
+				});
+			},
+			
 			firstPage() {
 				uni.redirectTo({
 				    url: '/pages/index/index'
@@ -72,6 +121,138 @@
 </script>
 
 <style lang="scss">
+	.carousel{
+		box-sizing: border-box;
+	}
+	
+	.userInfo{
+		    width: 100%;
+		    padding: 1rem;
+		    box-sizing: border-box;
+		    background-color: #e13f3f;
+		    border-bottom: 1px solid #EBEBEB;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: -ms-flexbox;
+		    display: flex;
+		    -webkit-box-align: center;
+		    -webkit-align-items: center;
+		    -ms-flex-align: center;
+		    align-items: center
+	}
+	.heardurl{
+		width: 2.5rem;
+		height: 2.5rem;
+		    display: block;
+		    margin-right: 0.5rem;
+		    border: 1px solid #CDCDCD;
+		    border-radius: 100%;
+	}
+	.userInfo .user {
+	    display: block;
+	    -webkit-box-flex: 1;
+	    -webkit-flex: 1;
+	    -ms-flex: 1;
+	    flex: 1;
+	    color: #fff;
+	    line-height: 1.6;
+	    background: url(../../static/image/ic_fj_arrow.png) 100% 50% no-repeat;
+	    background-size: 5.5px auto;
+	}
+	.carousel .userInfo .user .name {
+	    font-size: 0.8rem;
+	}
+	.userInfo .user .phone {
+	    font-size: 0.7rem;
+	}
+	.userInfo .user .phone text {
+	    width: 1.2rem;
+	    height: 2rem;
+	    background: url(../../static/image/ico.png) left no-repeat;
+		background-position: -0.5rem 0;
+		background-size: 3.1rem;
+	    display: inline-block;
+	    vertical-align: middle;
+	}
+	.list-group{
+		padding: 0 0 0 1.2rem;
+		margin: 0.5rem 0;
+		border-top: 1px solid #EBEBEB;
+		border-bottom: 1px solid #EBEBEB;
+		background-color: #fff;
+	}
+	.list-group .list-group-item {
+	    position: relative;
+	    display: block;
+	    padding: 0 1.5rem 0 0;
+			border-bottom: 1px solid #EBEBEB;
+		height: 2.3rem;
+		line-height: 2.3rem;
+		border-bottom: 1px solid #EBEBEB;
+		font-size: 0.7rem
+	}
+	
+	.list-group .list-group-item .icon {
+	    width: 2rem;
+	    background-size: 18px 18px;
+	    vertical-align: middle;
+		display: inline-block;
+		height: 2rem;
+		vertical-align: middle;
+		padding-right: .4rem;
+	}
+	
+	.list-group .list-group-item .arr {
+	    background: url(../../static/image/ic_fj_arrow.png) 100% 50% no-repeat;
+	    background-size: 5.5px auto;
+	    height: 2rem;
+	    width: 2rem;
+	    display: block;
+	    position: absolute;
+	    right: 1.6rem;
+	    top: 0;
+	}
+	.list-group-item .badge2 {
+	       display: block;
+	       position: absolute;
+	       right: 3.6rem;
+	       top: 0.4rem;
+	       background-color: #E13F3F;
+	       height: 1.2rem;
+	       line-height: 1.2rem;
+	       padding: 0 .6em;
+	       font-size: 1rem;
+	       color: #fff;
+	       text-align: center;
+	       white-space: nowrap;
+	       vertical-align: baseline;
+	       border-radius: 20%;
+	}
+	
+	.list-group .list-group-item .icon1 {
+	    background: url(../../static/image/ic_wd_dzf.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
+	.list-group .list-group-item .icon2 {
+	    background: url(../../static/image/ic_wd_dsh.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
+	 .list-group .list-group-item .icon3 {
+		background: url(../../static/image/ic_wd_ywc.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
+	.list-group .list-group-item .icon4 {
+		background: url(../../static/image/ic_wd_ywc.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
+	.list-group .list-group-item .icon5 {
+		background: url(../../static/image/ic_wd_shdz.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
+	.list-group .list-group-item .icon6 {
+		background: url(../../static/image/ic_wd_kfdh.png) 0 50% no-repeat;
+		background-size: 2rem 2rem;
+	}
 	.active {
 	    background-color: #E13F3F;
 	}

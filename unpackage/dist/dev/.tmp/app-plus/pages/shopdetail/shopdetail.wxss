@@ -219,6 +219,16 @@
 			align-items: center;
 			overflow: hidden;
 }
+.norest .good_img:after {
+	    position: absolute;
+	    bottom: 0;
+	    left: 0.7rem;
+	    right: 0.7rem;
+	    content: "\6682\65E0\8D27";
+	    font-size: 0.7rem;
+	    color: #fff;
+	    background-color: rgba(0, 0, 0, 0.5);
+}
 .wrapper-cont .good-list  .txt {
 	    -webkit-box-flex: 1;
 	    -webkit-flex: 1;

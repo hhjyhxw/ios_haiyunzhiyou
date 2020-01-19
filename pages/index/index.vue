@@ -47,7 +47,7 @@
 	<view class="shop-goods">
 		
 		<view class="wrap" v-for="(item ,index) in perfectGoodsList" :key="index">
-			<view class="good">
+			<view class="good" @click="toGoodsDetail(item.id)">
 				<view class="good_img">
 					<image :src="item.imgurl"></image>
 				</view>
@@ -116,26 +116,31 @@
 				mode: 'dot',//广告列表属性
 				perfectGoodsList:[
 					{
+						id:1,
 						name:'龙眼',
 						imgurl:'../../static/image/temp/goods-demo.png',
 						price:'263.00'
 					},
 					{
+						id:1,
 						name:'新水果',
 						imgurl:'../../static/image/temp/good-demo.jpg',
 						price:'250.00'
 					},
 					{
+						id:1,
 						name:'荔枝',
 						imgurl:'../../static/image/temp/good-demo.png',
 						price:'682.00'
 					},
 					{
+						id:1,
 						name:'牛肉',
 						imgurl:'../../static/image/temp/goods-demo.jpg',
 						price:'589.00'
 					},
 					{
+						id:1,
 						name:'龙虾',
 						imgurl:'../../static/image/temp/good-demo.jpg',
 						price:'289.00'
@@ -174,6 +179,12 @@
 			toGoogType(goodsCategoryId) {
 				uni.navigateTo({
 					 url: '/pages/goodtype/goodtype?goodsCategoryId='+goodsCategoryId
+				})
+			},
+			//跳转商品详情情页
+			toGoodsDetail(goodId) {
+				uni.navigateTo({
+					 url: '/pages/gooddetail/gooddetail?goodId='+goodId
 				})
 			},
 			
