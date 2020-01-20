@@ -61,6 +61,26 @@
             	"navigationBarTitleText": "选择收货地址"
             }
         }
+        ,{
+            "path" : "pages/myaddresslist/myaddresslist",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/add-address/add-address",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/orderdetail/orderdetail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/paysuccess/paysuccess",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/payerror/payerror",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
