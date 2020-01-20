@@ -31,7 +31,8 @@
 		{
             "path" : "pages/carts/carts",
             "style": {
-            	 "navigationStyle":"custom"  
+            	 // "navigationStyle":"custom" 
+				  "navigationBarTitleText": "购物车"
             }
         }
         ,{
@@ -46,6 +47,18 @@
             "path" : "pages/gooddetail/gooddetail",
             "style": {
             	"navigationBarTitleText": "商品详情"
+            }
+        }
+        ,{
+            "path" : "pages/preorder/preorder",
+            "style": {
+            	"navigationBarTitleText": "订单确认"
+            }
+        }
+        ,{
+            "path" : "pages/addresslist/addresslist",
+            "style": {
+            	"navigationBarTitleText": "选择收货地址"
             }
         }
     ],

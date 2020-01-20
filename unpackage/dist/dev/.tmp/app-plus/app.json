@@ -6,7 +6,8 @@
     "pages/goodtype/goodtype",
     "pages/carts/carts",
     "pages/mycenter/mycenter",
-    "pages/gooddetail/gooddetail"
+    "pages/gooddetail/gooddetail",
+    "pages/preorder/preorder"
   ],
   "window": {
     "navigationBarTextStyle": "black",

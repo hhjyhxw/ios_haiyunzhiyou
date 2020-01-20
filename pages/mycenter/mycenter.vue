@@ -66,7 +66,7 @@
 				      			</view>
 				    		</view>
 				     		
-							<view class="menu active"  @click="toMyCenter" :class="{active: mycenterisActive}">
+							<view class="menu active"  @click="toMyCenter">
 									<view  id="wode">
 											<span class="menu-icon menu-icon4"></span>
 											<view id="headerMemberCenter">我的</view></view>

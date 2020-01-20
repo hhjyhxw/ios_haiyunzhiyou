@@ -3,19 +3,19 @@
 			<view class="main-container">
 				<view class="header">
 					<view class="btn-back" @click="backPage"></view>
-					<view class="gwc">购物车</view>
-					<view class="del-caret"></view>
+					<view class="gwc"></view>
+					<view class="del-caret" @click="deleteAll"></view>
 				</view>
 				
 				<view class="caret-list" v-for="(item,index) in supplierList" :key="index">
 					<view class="shop_header">
-						<view class="selectshoplabl"><radio class="selectShop"></radio></view>
+						<view class="selectshoplabl"><radio class="selectShop" :checked="item.checked" @click="selectShop(index)"></radio></view>
 						<label class="shop_name">{{item.supplierName}}</label>
 						<label class="arr" @click="toShopDetail(item.id)"></label>
 					</view>
 					<view class="goodsList" v-for="(item2,index2) in item.careItemList" :key="index2">
 						<view class="col1">
-							<radio class="selectOne"></radio>
+							<radio class="selectOne" :checked="item2.checked" @click="selectOne(index,index2)"></radio>
 						</view>
 						<view class="col2">
 							<image class="good_img" :src="item2.goodImg"></image>
@@ -23,15 +23,15 @@
 						<view class="col3">
 							<view class="goodName">{{item2.pName}}</view>
 							<view class="calc">
-								<label class="minus">减一</label>
-								<input class="goodsNum" value="1" />
-								<label class="plus">加一</label>
+								<label class="minus" @click="minus(index,index2)">减一</label>
+								<input  type="number" class="goodsNum" :value="item2.goodNum" />
+								<label class="plus"  @click="plus(index,index2)">加一</label>
 							</view>
 						</view>
 						<view class="col4">
 							<view class="p1"></view>
 							<view class="p2">￥{{item2.price}}</view>
-							<view class="del-list">删除</view>
+							<view class="del-list" @click="deleteOne(index,index2)">删除</view>
 						</view>
 					</view>
 					<!-- goodsList end -->
@@ -45,15 +45,15 @@
 				<view class="total">
 					<view class="flex">
 						<view class="sp1">
-							<radio class="selectAll">全选</radio>
+							<radio class="selectAll" :checked="selectAllChecked" @click="selectAll">全选</radio>
 						</view>
 						<view class="sp2">
-							合计:￥<label>0.88</label>
+							合计:￥<label>{{totalMoney}}</label>
 						</view>
 					</view>
 				</view>
 				
-				<view class="submit">去结算</view>
+				<view class="submit" @click="toPrepay">去结算</view>
 			</view>
 			
 			
@@ -68,6 +68,7 @@
 					{
 						id:1,
 						supplierName:'旗舰店',
+						checked:true,
 						careItemList:[
 							{
 								goodsId:1,
@@ -75,7 +76,9 @@
 								isMarketable:false,
 								pName:'荔枝',
 								price:0.88,
-								goodImg:'../../static/logo.png'//listImgPath
+								goodImg:'../../static/logo.png',//listImgPath
+								checked:true,
+								goodNum:2
 							},
 							{
 								goodsId:1,
@@ -83,7 +86,9 @@
 								isMarketable:false,
 								pName:'第一干锅',
 								price:0.89,
-								goodImg:'../../static/image/temp/good-demo.jpg'//listImgPath
+								goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
+								checked:true,
+								goodNum:1
 							},
 							
 						]
@@ -91,6 +96,7 @@
 					{
 						id:1,
 						supplierName:'家政服务',
+						checked:true,
 						careItemList:[
 							{
 								goodsId:1,
@@ -98,7 +104,9 @@
 								isMarketable:false,
 								pName:'月卡',
 								price:0.88,
-								goodImg:'../../static/logo.png'//listImgPath
+								goodImg:'../../static/logo.png',//listImgPath
+								checked:true,
+								goodNum:1
 							},
 							{
 								goodsId:1,
@@ -106,12 +114,16 @@
 								isMarketable:false,
 								pName:'年卡',
 								price:0.89,
-								goodImg:'../../static/image/temp/good-demo.jpg'//listImgPath
+								goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
+								checked:true,
+								goodNum:3
 							},
 							
 						]
 					}
 				],
+				selectAllChecked:false,
+				totalMoney:0.88,
 			}
 		},
 		onLoad(){
@@ -120,8 +132,8 @@
 		methods: {
 			//返回
 			backPage() {
-				uni.navigateBack({
-				    delta: 1
+				uni.redirectTo({
+				     url: '/pages/index/index'
 				});
 			},
 			//跳转店铺详情页
@@ -130,6 +142,160 @@
 					 url: '/pages/shopdetail/shopdetail?shopId='+shopId
 				})
 			},
+			//去结算
+			toPrepay() {
+				var careItemids ='';
+				uni.navigateTo({
+					  url: '/pages/preorder/preorder?careItemids='+careItemids,
+				})
+			},
+			
+			//减一
+			minus(index,index2){
+				var good = this.supplierList[index].careItemList[index2];
+				if(good.goodNum<=0){
+					good.goodNum = 1;
+				}else{
+					good.goodNum = good.goodNum+1;
+				}
+				this.recaculate();
+			},
+			//加一
+			plus(index,index2){
+				var good = this.supplierList[index].careItemList[index2];
+				if(good.goodNum<=0){
+					good.goodNum = 1;
+				}else{
+					if(good.goodNum>=100){
+						good.goodNum = 100;
+					}else{
+						good.goodNum = good.goodNum+1;
+					}
+					
+				}
+				this.recaculate();
+			},
+			//单选
+			selectOne(index,index2){
+				var good = this.supplierList[index].careItemList[index2];
+				if(good.checked){
+					good.checked = false;
+					//判断是否全部都取消
+					var flag = false;
+					this.supplierList[index].careItemList.forEach(function(item){
+						if(item.checked){
+							flag = true;
+						}
+					});
+					if(!flag){
+						this.supplierList[index].checked = false;
+					}
+				}else{
+					good.checked = true;
+					this.supplierList[index].checked = true;
+				}
+				this.recaculate();
+			},
+			//选中指定店铺
+			selectShop(index){
+				var shop = this.supplierList[index]
+				if(shop.checked){
+					shop.checked = false;
+					shop.careItemList.forEach(function(item){
+						item.checked = false;
+					});
+				}else{
+					shop.checked = true;
+					shop.careItemList.forEach(function(item){
+						item.checked = true;
+					});
+				}
+				this.recaculate();
+			},
+			//全选
+			selectAll(){
+				if(this.selectAllChecked){
+					this.selectAllChecked = false;
+					this.supplierList.forEach(function(item){
+						item.checked = false;
+						item.careItemList.forEach(function(item2){
+							item2.checked = false;
+						});
+					});
+				}else{
+					this.selectAllChecked = true;
+					this.supplierList.forEach(function(item){
+						item.checked = true;
+						item.careItemList.forEach(function(item2){
+							item2.checked = true;
+						});
+					});
+				}
+				this.recaculate();
+			},
+			//删除单个选中
+			deleteOne(index,index2){
+				
+				var good =  this.supplierList[index].careItemList[index2];
+				var that = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确认删除全部商品"'+good.pName+'"吗?',
+				    success: function (res) {
+				        if (res.confirm) {
+				           that.supplierList[index].careItemList.splice(index2,1);
+						   //删除完商品则把 店铺页删除
+						   if(that.supplierList[index].careItemList.length==0){
+								that.supplierList.splice(index,1);
+						   }
+						   that.recaculate();
+				        } else if (res.cancel) {
+				            return;
+				        }
+				    }
+				});
+				
+			},
+			//删除全部选中
+			deleteAll(){
+				var that = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确认删除全部商品?',
+				    success: function (res) {
+				        if (res.confirm) {
+				           that.supplierList = null;
+						  // that.recaculate();
+						   that.totalMoney = 0.00;
+				        } else if (res.cancel) {
+				            return;
+				        }
+				    }
+				});
+				
+			},
+			//计算选中商品金额
+			recaculate(){
+				var total = 0;
+				if(this.supplierList!=null){
+					this.supplierList.forEach(function(item){
+						if(item.checked){
+							item.careItemList.forEach(function(item2){
+								if(item2.checked){
+									total += item2.goodNum*item2.price;
+								}
+							});
+						}
+					});
+					total = total.toFixed(2);
+					this.totalMoney = total;
+				}
+				
+			}
+			
+			
+			
+			
 		}
 	}
 </script>
@@ -238,7 +404,7 @@
 	    background: url(../../static/image/but_1_minus_light.png) 50% 50% no-repeat;
 	    background-size: auto 22px;
 		display: inline-block;
-		height: 1.2rem;
+		height: 1.4rem;
 		width: 28px;
 		text-indent: -9999px;
 	}
@@ -246,7 +412,7 @@
 	   background: url(../../static/image/but_1_add_light.png) 50% 50% no-repeat;
 	   background-size: auto 22px;
 	   display: inline-block;
-	   height: 1.2rem;
+	   height: 1.4rem;
 	   width: 28px;
 	   text-indent: -9999px;
 	}
@@ -254,13 +420,21 @@
 	    display: inline-block;
 	    vertical-align: top;
 	    width: 3rem;
-	    height: 1.2rem;
-	    font-size: 1.2.7rem;
+	    height: 1.4rem;
+	    font-size: 0.7rem;
 	    box-sizing: border-box;
 	    border-radius: 0;
 	    text-align: center;
 	    border: 1px solid #DADADA;
 	    -webkit-appearance: none;
+	}
+	uni-input {
+	    display: block;
+	    font-size: 16px;
+	    line-height: 1.4rem;
+	    height: 1.4rem;
+	    min-height: 1rem;
+	    overflow: hidden;
 	}
 	.col4 {
 	    position: relative;
@@ -283,7 +457,7 @@
 	    position: absolute;
 	    bottom: -1px;
 	    right: 1rem;
-	    width: 100%;
+	    width: 20%;
 	    height: 35px;
 	    background: url(../../static/image/but_delete.png) 100% 50% no-repeat;
 	    background-size: auto 15px;
@@ -367,7 +541,7 @@
 		right: 0;
 		bottom: 0;
 		display: block;
-		width: 100%;
+		width: 20%;
 		height: 100%;
 		-webkit-appearance: none;
 		/* background: url(../../static/image/but_gou_gray.png) 13px 50% no-repeat transparent; */

@@ -70,7 +70,7 @@
 				<view class="caret-icon"><label >{{cartNum}}</label></view>
 				<view class="total-money"></view>
 			</view>
-			<view class="right">去结算</view>
+			<view class="right" @click="toCart">去结算</view>
 		</view>
 	</view>
 </template>
@@ -203,6 +203,12 @@
 				uni.navigateTo({
 					 url: '/pages/gooddetail/gooddetail?goodId='+goodId
 				})
+			},
+			//跳转购物车
+			toCart() {
+				uni.redirectTo({
+				    url: '/pages/carts/carts'
+				});
 			},
 		}
 	}
