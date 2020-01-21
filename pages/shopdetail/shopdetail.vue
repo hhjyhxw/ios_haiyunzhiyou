@@ -48,7 +48,8 @@
 			<view class="wrapper wrapper-cont scroll">
 				<view class="good-list">
 					<view class="norest goodItem" v-for="(item,index) in goodList" :key="index" >
-						<image class="good_img" :src="item.defaultSourceImagePath"  @click="toGoodsDetail(item.id)"></image>
+						<view class="good_img">
+							<image  :src="item.defaultSourceImagePath"  @click="toGoodsDetail(item.id)"></image></view>
 						<view class="txt"  @click="toGoodsDetail(item.id)">
 							<view class="name">{{item.name}}</view>
 							<view class="txt-fav-icon">海韵优选</view>
@@ -427,7 +428,10 @@
 		.content .wrapper-cont.more:after {
 		  display: block; }
 			
-			
+			.good_img image{
+				max-width: 8rem;
+				max-height: 100%;
+			}
 			.good_img {
 					text-align: center;
 					/* margin: auto auto auto auto; */
@@ -447,13 +451,14 @@
 			
 			.norest .good_img:after {
 			    position: absolute;
-			    bottom: 0;
-			    left: 0.7rem;
+			    bottom: 17px;
+			    left: 1rem;
 			    right: 0.7rem;
 			    content: "暂无货";
 			    font-size: 0.7rem;
 			    color: #fff;
 			    background-color: rgba(0, 0, 0, 0.5);
+				width:3.5rem;
 			}
 			
 			.wrapper-cont .good-list  .txt {

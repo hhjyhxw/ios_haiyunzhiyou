@@ -7,7 +7,14 @@
     "pages/carts/carts",
     "pages/mycenter/mycenter",
     "pages/gooddetail/gooddetail",
-    "pages/preorder/preorder"
+    "pages/preorder/preorder",
+    "pages/addresslist/addresslist",
+    "pages/myaddresslist/myaddresslist",
+    "pages/add-address/add-address",
+    "pages/orderdetail/orderdetail",
+    "pages/paysuccess/paysuccess",
+    "pages/payerror/payerror",
+    "pages/orderlist/orderlist"
   ],
   "window": {
     "navigationBarTextStyle": "black",

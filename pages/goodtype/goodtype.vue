@@ -297,7 +297,8 @@
 		-webkit-box-orient: vertical;
 		color: #666;
 		text-overflow: ellipsis; 
-		 white-space: nowrap 
+		 white-space: nowrap;
+		     font-size: 0.7rem;
 	}
 	.shop-goods .wrap .txt-fav-icon{
 		    display: block;

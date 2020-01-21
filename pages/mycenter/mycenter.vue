@@ -11,25 +11,31 @@
 			</view>
 			
 			<view class="list-group">
-				<view class="list-group-item">
+				<!-- <view class="list-group-item" @click="toOrderList('UNCOMPLETED')">
+					<label class="icon icon1"></label>
+					<label class="iconinfo">全部订单</label>
+					<label class="arr"></label>
+					<label class="badge2">2</label>
+				</view> -->
+				<view class="list-group-item" @click="toOrderList('UNPAID')">
 					<label class="icon icon1"></label>
 					<label class="iconinfo">待付款</label>
 					<label class="arr"></label>
 					<label class="badge2">2</label>
 				</view>
-				<view class="list-group-item">
+				<view class="list-group-item"  @click="toOrderList('UNSHIPPED')">
 					<label class="icon icon2"></label>
 					<label class="iconinfo">待收货</label>
 					<label class="arr"></label>
 					<label class="badge2">2</label>
 				</view>
-				<view class="list-group-item">
+				<view class="list-group-item"  @click="toOrderList('COMPLETED')">
 					<label class="icon icon3"></label>
 					<label class="iconinfo">已完成</label>
 					<label class="arr"></label>
 					<label class=""></label>
 				</view>
-				<view class="list-group-item">
+				<view class="list-group-item" @click="toMyaddresslist()">
 					<label class="icon icon5"></label>
 					<label class="iconinfo">收货地址</label>
 					<label class="arr"></label>
@@ -87,7 +93,12 @@
 			
 		},
 		methods: {
-			
+			//
+			toOrderList(status) {
+				uni.navigateTo({
+				    url: '/pages/orderlist/orderlist?status='+status
+				});
+			},
 			//打电话
 			calling(phone){
 				uni.makePhoneCall({
@@ -114,6 +125,11 @@
 			toMyCenter() {
 				uni.redirectTo({
 				    url: '/pages/mycenter/mycenter'
+				});
+			},
+			toMyaddresslist() {
+				uni.navigateTo({
+				    url: '/pages/myaddresslist/myaddresslist'
 				});
 			},
 		}

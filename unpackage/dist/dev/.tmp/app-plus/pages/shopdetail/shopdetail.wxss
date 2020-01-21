@@ -206,6 +206,10 @@
 .content .wrapper-cont.more:after {
   display: block;
 }
+.good_img image{
+		max-width: 8rem;
+		max-height: 100%;
+}
 .good_img {
 			text-align: center;
 			/* margin: auto auto auto auto; */
@@ -221,13 +225,14 @@
 }
 .norest .good_img:after {
 	    position: absolute;
-	    bottom: 0;
-	    left: 0.7rem;
+	    bottom: 17px;
+	    left: 1rem;
 	    right: 0.7rem;
 	    content: "\6682\65E0\8D27";
 	    font-size: 0.7rem;
 	    color: #fff;
 	    background-color: rgba(0, 0, 0, 0.5);
+		width:3.5rem;
 }
 .wrapper-cont .good-list  .txt {
 	    -webkit-box-flex: 1;
