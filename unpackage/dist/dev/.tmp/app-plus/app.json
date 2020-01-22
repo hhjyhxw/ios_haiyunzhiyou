@@ -22,6 +22,29 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
+  "tabBar": {
+    "color": "#cdcdcd",
+    "selectedColor": "#50B7EA",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/shoplist/shoplist",
+        "text": "附近小店"
+      },
+      {
+        "pagePath": "pages/carts/carts",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/mycenter/mycenter",
+        "text": "个人中心"
+      }
+    ]
+  },
   "nvueCompiler": "uni-app",
   "renderer": "auto",
   "splashscreen": {

@@ -106,7 +106,8 @@
 }
 
 .address-wrap .address .list .item  .tel {
-	color: #666
+	color: #666;
+	padding-left:1rem;
 }
 
 .address-wrap .address .list .item .addressdetail {

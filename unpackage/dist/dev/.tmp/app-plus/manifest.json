@@ -36,7 +36,6 @@
     },
     "popGesture": "close",
     "launchwebview": {
-      "render": "always",
       "id": "1",
       "kernel": "WKWebview",
       "uni-app": "auto"
@@ -88,6 +87,12 @@
       }
     },
     "allowsInlineMediaPlayback": true,
+    "safearea": {
+      "background": "#FFFFFF",
+      "bottom": {
+        "offset": "auto"
+      }
+    },
     "uni-app": {
       "compilerVersion": "2.4.6",
       "control": "v8",
@@ -96,6 +101,34 @@
       "nvue": {
         "flex-direction": "column"
       }
+    },
+    "tabBar": {
+      "color": "#cdcdcd",
+      "selectedColor": "#50B7EA",
+      "borderStyle": "rgba(255,255,255,0.4)",
+      "list": [
+        {
+          "pagePath": "pages/index/index",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/shoplist/shoplist",
+          "text": "附近小店"
+        },
+        {
+          "pagePath": "pages/carts/carts",
+          "text": "购物车"
+        },
+        {
+          "pagePath": "pages/mycenter/mycenter",
+          "text": "个人中心"
+        }
+      ],
+      "height": "50px",
+      "child": [
+        "lauchwebview"
+      ],
+      "selected": 0
     }
   }
 }

@@ -57,7 +57,7 @@
 		</view>
 	</view>
 	
-	<view  class="footer">
+	<!-- <view  class="footer">
 		  		<view class="menus">
 		    		<view  class="menu  active"  @click="firstPage">
 		      			<view id="shouye">
@@ -85,20 +85,28 @@
 									<view id="headerMemberCenter">我的</view></view>
 							</view>
 					</view>
-	</view>
+	</view> -->
+	
+	
+		 <view class="container999">
+			<tabBar :currentPage="currentPage"></tabBar>
+		</view>
 	</view>
 	
 	
 </template>
 
 <script>
-	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue"
+	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue";
+	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
 		components: {
-			uniSwiperDot
+			uniSwiperDot,
+			tabBar
 		},
 		data() {
 			return {
+				currentPage:'index',
 				address:'西乡塘区',
 				longitude:'',
 				latitude:'',

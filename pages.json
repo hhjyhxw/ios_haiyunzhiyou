@@ -75,7 +75,9 @@
         }
         ,{
             "path" : "pages/orderdetail/orderdetail",
-            "style" : {}
+            "style": {
+            	"navigationBarTitleText": "订单明细"
+            }
         }
         ,{
             "path" : "pages/paysuccess/paysuccess",
@@ -97,5 +99,29 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#cdcdcd",
+	    "selectedColor": "#50B7EA",
+	    "borderStyle": "white",
+	    "list": [
+	        {
+	            "pagePath": "pages/index/index",
+	            "text": "首页"
+	        },
+	        {
+	            "pagePath": "pages/shoplist/shoplist",
+	            "text": "附近小店"
+	        },
+	        {
+	                "pagePath": "pages/carts/carts",
+	                "text": "购物车"
+	        },
+	        {
+	                "pagePath": "pages/mycenter/mycenter",
+	                "text": "个人中心"
+	        }
+	    ]
 	}
+	
 }

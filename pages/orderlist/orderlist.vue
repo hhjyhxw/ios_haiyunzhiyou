@@ -27,7 +27,7 @@
 						</view>
 					</view>
 					
-					<view class="item">
+					<view class="item" @click="toOrderitem(item.id)">
 						<view class="order-bd">
 							<view class="order-info">
 								<view>
@@ -50,7 +50,7 @@
 		
 		
 		
-		<view  class="footer">
+		<!-- <view  class="footer">
 			  		<view class="menus">
 			    		<view  class="menu"  @click="firstPage">
 			      			<view id="shouye">
@@ -78,17 +78,26 @@
 										<view id="headerMemberCenter">我的</view></view>
 								</view>
 						</view>
+		</view> -->
+		<view class="container999">
+			<tabBar :currentPage="currentPage"></tabBar>
 		</view>
 	</view>
 </template>
 
 <script>
+	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
+		components: {
+			tabBar
+		},
 		data() {
 			return {
-				status:'UNCOMPLETED',
+				currentPage:'mycenter',
+				status:'UNCOMPLETED',//订单状态：未支付 、待发货、已完成、全部
 				orderlist:[
-					{
+					{	
+						id:0,
 						supplierName:'旗舰店',
 						goodimg:'../../static/logo.png',
 						totalProductQuantity:2,
@@ -100,6 +109,7 @@
 						createDate:'2019-08-12 00:10:25'
 					},
 					{
+						id:1,
 						supplierName:'旗舰店',
 						goodimg:'../../static/logo.png',
 						totalProductQuantity:2,
@@ -111,6 +121,7 @@
 						createDate:'2019-08-12 00:09:25'
 					},
 					{
+						id:2,
 						supplierName:'家政服务',
 						goodimg:'../../static/logo.png',
 						totalProductQuantity:3,
@@ -122,6 +133,7 @@
 						createDate:'2019-08-13 00:10:25'
 					},
 					{
+						id:3,
 						supplierName:'家政服务',
 						goodimg:'../../static/logo.png',
 						totalProductQuantity:3,
@@ -143,6 +155,11 @@
 			//切换订单列表
 			getOderList(status){
 				this.status = status;
+			},
+			toOrderitem(orderid){
+				uni.navigateTo({
+					 url: '/pages/orderdetail/orderdetail'
+				});
 			},
 			firstPage() {
 				uni.redirectTo({

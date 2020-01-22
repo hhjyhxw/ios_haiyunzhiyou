@@ -132,7 +132,7 @@
 		methods: {
 			//返回
 			backPage() {
-				uni.redirectTo({
+				uni.switchTab({
 				     url: '/pages/index/index'
 				});
 			},

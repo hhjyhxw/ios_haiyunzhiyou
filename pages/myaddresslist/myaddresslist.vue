@@ -25,42 +25,51 @@
 			</view>
 		</view>
 		
-		<view  class="footer">
-			  		<view class="menus">
-			    		<view  class="menu"  @click="firstPage">
-			      			<view id="shouye">
-								<span class="menu-icon menu-icon1"></span>
-								<view>首页</view>
-							</view>
-			    		</view>
-			    		<view class="menu" @click="shoplist"> 
-			      			<view id="fujin">
-								<span class="menu-icon menu-icon2"></span>
-								<view>附近小店</view>
-							</view>
-			    		</view>
-			    		<view class="menu  gwc"  @click="toCart" >
-			      			<view id="gouwu">
-			        			<span class="menu-icon menu-icon3"></span>
-								<div>购物车</div>
-								<span  id="headerCarItemQuantity" class="count"></span>
-			      			</view>
-			    		</view>
-			     		
-						<view class="menu active"  @click="toMyCenter" >
-								<view  id="wode">
-										<span class="menu-icon menu-icon4"></span>
-										<view id="headerMemberCenter">我的</view></view>
+<!-- 			<view  class="footer">
+						<view class="menus">
+							<view  class="menu"  @click="firstPage">
+								<view id="shouye">
+									<span class="menu-icon menu-icon1"></span>
+									<view>首页</view>
 								</view>
-						</view>
-		</view>
+							</view>
+							<view class="menu" @click="shoplist"> 
+								<view id="fujin">
+									<span class="menu-icon menu-icon2"></span>
+									<view>附近小店</view>
+								</view>
+							</view>
+							<view class="menu  gwc"  @click="toCart" >
+								<view id="gouwu">
+									<span class="menu-icon menu-icon3"></span>
+									<div>购物车</div>
+									<span  id="headerCarItemQuantity" class="count"></span>
+								</view>
+							</view>
+							
+							<view class="menu active"  @click="toMyCenter" >
+									<view  id="wode">
+											<span class="menu-icon menu-icon4"></span>
+											<view id="headerMemberCenter">我的</view></view>
+									</view>
+							</view>
+			</view> 
+			-->
+			<view class="container999">
+				<tabBar :currentPage="currentPage"></tabBar>
+			</view>
 	</view>
 </template>
 
 <script>
+	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
+		components: {
+			tabBar
+		},
 		data() {
 			return {
+				currentPage:'mycenter',
 				addresslist:[
 					{
 						name:'zdh',
