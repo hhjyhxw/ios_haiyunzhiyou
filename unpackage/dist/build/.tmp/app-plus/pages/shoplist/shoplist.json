@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "附近小店",
+  "usingComponents": {
+    "tab-bar": "/components/zwy-tabBar/tabBar"
+  }
+}

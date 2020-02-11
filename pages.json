@@ -41,8 +41,6 @@
             	"navigationBarTitleText": "个人中心"
             }
         }
-       
-       
         ,{
             "path" : "pages/gooddetail/gooddetail",
             "style": {
@@ -92,7 +90,25 @@
             "style": {
             	"navigationBarTitleText": "我的订单"
             }
-        }
+        },
+		{
+		    "path" : "pages/login/login",
+		    "style": {
+		    	"navigationBarTitleText": "登陆"
+		    }
+		},
+		{
+		    "path" : "pages/reg/reg",
+		    "style": {
+		    	"navigationBarTitleText": "注册"
+		    }
+		},
+		{
+		    "path" : "pages/pwd/pwd",
+		    "style": {
+		    	"navigationBarTitleText": "忘记密码"
+		    }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -70,10 +70,10 @@ export default {
 		let now = util.formatDate('yyyyMMddHHmmss',new Date());
 		options.header = Object.assign({}, options.header,
 			_token,
-			{'client': config.client},
-			{'version': config.version},
-			{'requestTime': now},
-			{'sign': util.signString(JSON.stringify(options.data),now)},
+			// {'client': config.client},
+			// {'version': config.version},
+			// {'requestTime': now},
+			// {'sign': util.signString(JSON.stringify(options.data),now)},
 		);
 
 		return new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ export default {
 				_reslog(response);
 				if (statusCode === 200) { //成功
 					if(response.data.code == '4001' || response.data.code == '4002') { //服务器token过期
-						uni.navigateTo({url: '/pages/login/index'});
+						uni.navigateTo({url: '/pages/login/login'});
 					} else if(response.data.code == '-1' || response.data.code == '500') {
 						uni.showModal({title: '提示', content: '系统出错了~',showCancel:false});
 					}

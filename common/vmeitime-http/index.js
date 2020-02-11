@@ -11,7 +11,7 @@ import config from '@/common/utils/config';
 
 // 获取用户信息
 export const getUserIno = () => {
-	return http.post('/user/user/get', {'accessToken': uni.getStorageSync('accessToken')})
+	return http.get('/user/user/get', {'accessToken': uni.getStorageSync('accessToken')})
 };
 
 
@@ -21,12 +21,12 @@ export const getUserIno = () => {
 
 //########################### 小程序登录接口 ##################################
 
-export const login = (data) => {
-	http.config.baseUrl = config.loginUrl;
-	var result = http.post('/login/loginDo', data);
-	http.config.baseUrl = config.apiUrl;
-	return result;
-};
+
+
+
+export const login = (data) => {return http.get('/appLogin!login.action', data)};
+
+export const register = (data) => {return http.get('/appLogin!register.action', data)};
 
 //########################### 小程序支付接口 ##################################
 
@@ -34,10 +34,14 @@ export const login = (data) => {
 export const toPay = (data) => { return http.post('/pay/pay', data)};
 
 
+//###################广告列表######
+export const getAdsList = () => { return http.post('/ads!getAdvertisementList.action')};
 
 
 export default {
-	
+	login,
+	register,
+	getAdsList,
 	toPay,
 	getUserIno
 

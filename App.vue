@@ -20,4 +20,5 @@
 		font-size: 0.7rem;
 		
 	}
+
 </style>

@@ -19,16 +19,18 @@ const active = 'pro';
 /**
  * 开发服务器地址
  */
-const webUrl_dev = 'http://www.haiyunzy.com';
-
+const webUrl_dev = 'http://www.haiyunzy.com/newapp';
+const apiUrl_dev = 'http://www.haiyunzy.com/newapp';
+const loginUrl_dev = 'http://www.haiyunzy.com/newapp';
 
 /**
  * 正式服务器地址
  */
-const webUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
-const apiUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
-const loginUrl_pro = 'https://http://www.haiyunzy.com/hyzy';
-const hosturl = 'https://http://www.haiyunzy.com';
+const webUrl_pro = 'http://www.haiyunzy.com/newapp';
+const apiUrl_pro = 'http://www.haiyunzy.com/newapp';
+const loginUrl_pro = 'http://www.haiyunzy.com/newapp';
+const hosturl = 'http://www.haiyunzy.com';
+const imghosturl =  'http://www.haiyunzy.com/mall/';
 
 
 export default {
@@ -39,5 +41,6 @@ export default {
     webUrl: active === 'dev' ? webUrl_dev : webUrl_pro,
     apiUrl: active === 'dev' ? apiUrl_dev : apiUrl_pro,
     loginUrl: active === 'dev' ? loginUrl_dev : loginUrl_pro,
-	hosturl
+	hosturl,
+	imghosturl
 }

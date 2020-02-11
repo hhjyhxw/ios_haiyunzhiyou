@@ -5,7 +5,7 @@
     "iPad"
   ],
   "id": "__UNI__ADA8003",
-  "name": "ios_haiyunzhiyou",
+  "name": "海韵之友",
   "version": {
     "name": "1.0.0",
     "code": "100"
@@ -48,6 +48,20 @@
     "usingComponents": true,
     "nvueCompiler": "uni-app",
     "distribute": {
+      "icons": {
+        "ios": {
+          "iphone": {
+            "app@2x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/120.png",
+            "app@3x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/180.png",
+            "spotlight@2x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/80.png",
+            "spotlight@3x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/120.png",
+            "settings@2x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/58.png",
+            "settings@3x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/87.png",
+            "notification@2x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/40.png",
+            "notification@3x": "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/60.png"
+          }
+        }
+      },
       "google": {
         "permissions": [
           "<uses-feature android:name=\"android.hardware.camera\"/>",

@@ -17,7 +17,7 @@
 				    <swiper class="swiper-box" @change="change">
 				        <swiper-item v-for="(item ,index) in info" :key="index">
 				            <view class="swiper-item">
-								<image :src="item.imgurl"></image>
+								<image :src="item.adImage"></image>
 				            </view>
 				        </swiper-item>
 				    </swiper>
@@ -112,13 +112,13 @@
 				latitude:'',
 				info: [{
 					content: '内容 A',
-					imgurl:'../../static/image/temp/banner_hyyx.png'
+					adImage:'../../static/image/temp/banner_hyyx.png'
 				}, {
 					content: '内容 B',
-					imgurl:'../../static/image/temp/banner1.png'
+					adImage:'../../static/image/temp/banner1.png'
 				}, {
 					content: '内容 C',
-					imgurl:'../../static/image/temp/banner_hyyx.png'
+					adImage:'../../static/image/temp/banner_hyyx.png'
 				}],
 				current: 0,//广告列表属性
 				mode: 'dot',//广告列表属性
@@ -158,6 +158,11 @@
 		},
 		onLoad() {
 			this.getLocationInfo();
+			this.getAdsList();
+			 uni.$on('LoginBack',()=> {
+				 this.getLocationInfo();
+				 this.getAdsList();
+			 });
 		},
 		methods: {
 			//滚动图改变
@@ -182,7 +187,20 @@
 				    }
 				});
 			},
-			
+			//获取广告列表
+			getAdsList(){
+				this.$api.getAdsList().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						 console.log("data==="+JSON.stringify(res.list));
+						  console.log(this.$config.imghosturl);
+						if(res.list!=null){
+							var list = res.list;
+							list.forEach(p => p.adImage = this.$config.imghosturl+p.adImage);
+							this.info = res.list
+						}
+					}); 
+			},
 			//跳转商品分类
 			toGoogType(goodsCategoryId) {
 				uni.navigateTo({

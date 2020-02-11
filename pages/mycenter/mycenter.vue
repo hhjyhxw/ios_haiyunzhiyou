@@ -47,6 +47,16 @@
 					<label class="arr"></label>
 					<label class=""></label>
 				</view>
+				<navigator url="../login/login">
+					<view class="list-group-item">
+				
+						<label class="icon icon6"></label>
+						<label class="iconinfo">登陆</label>
+						<label class="arr"></label>
+						<label class=""></label>
+						
+				</view>
+				</navigator>
 			</view>
 			
 			

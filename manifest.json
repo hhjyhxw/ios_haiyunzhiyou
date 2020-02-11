@@ -1,5 +1,5 @@
 {
-    "name" : "ios_haiyunzhiyou",
+    "name" : "海韵之友",
     "appid" : "__UNI__ADA8003",
     "description" : "",
     "versionName" : "1.0.0",
@@ -55,6 +55,20 @@
             /* SDK配置 */
             "sdkConfigs" : {
                 "maps" : {}
+            },
+            "icons" : {
+                "ios" : {
+                    "iphone" : {
+                        "app@2x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/120.png",
+                        "app@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/180.png",
+                        "spotlight@2x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/80.png",
+                        "spotlight@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/120.png",
+                        "settings@2x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/58.png",
+                        "settings@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/87.png",
+                        "notification@2x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/40.png",
+                        "notification@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/60.png"
+                    }
+                }
             }
         }
     },
