@@ -222,7 +222,7 @@
 			//跳转商品分类
 			toGoogType(goodsCategoryId) {
 				uni.navigateTo({
-					 url: '/pages/goodtype/goodtype?goodsCategoryId='+goodsCategoryId
+					 url: '/pages/goodtype/goodtype?goodsCategoryId='+goodsCategoryId+'&lng='+this.longitude+'&lat='+this.latitude+'&nameKey='
 				})
 			},
 			//跳转商品详情情页

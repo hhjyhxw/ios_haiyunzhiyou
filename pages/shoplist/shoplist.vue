@@ -10,16 +10,17 @@
 			<!-- 店铺列表 -->
 			<view class="allshop">
 				<view class="shoplist" v-for="(item,index) in supplierList" :key="index" @click="toShopDetail(item.id)">
-					<image class="shop_img" :src="item.supplierImg"></image>
+					
+					<view class="shop_img"><image class="shop_img_in" :src="item.supplierImg"></image></view>
 					<view class="shop_info">
-						<view class="shop_name">{{item.companyName}}</view>
+						<view class="shop_name">{{item.storeName}}</view>
 						<view class="shop_busnesstime">服务时间：{{item.businessHours}}</view>
 						<view class="shop_address">地址:{{item.address}}</view>
-						<view class="shop_tel">电话:{{item.contactphone}}</view>
-						<view class="shop_distance">{{item.distances}}m</view>
+						<view class="shop_tel">电话:{{item.contactPhone}}</view>
+						<view class="shop_distance">{{item.disatance}}m</view>
 					</view>
 					<view class="shop_go">
-						<label class="shop_go_i">箭头</label>
+						<!-- <label class="shop_go_i">箭头</label> -->
 					</view>
 				</view>
 			</view>
@@ -74,82 +75,74 @@
 				supplierList:[
 					{
 						id:1,
-						companyName:'旗舰店',
+						storeName:'旗舰店',
 						supplierImg:'../../static/image/ic_sy_jsyl.png',
 						businessHours:'09:00-18:00',
 						address:'南宁市西乡塘北湖路28号',
-						contactphone:'15077144027',
-						distances:230
+						contactPhone:'15077144027',
+						disatance:230
 					},
 					{
 						id:2,
-						companyName:'家政服务',
+						storeName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
 						address:'南宁市西乡塘北湖路50号',
-						contactphone:'15077144027',
-						distances:299
+						contactPhone:'15077144027',
+						disatance:299
 					},
 					{
 						id:3,
-						companyName:'家政服务',
+						storeName:'家政服务',
 						supplierImg:'../../static/image/ic_sy_jjry.png',
 						businessHours:'09:00-18:00',
 						address:'南宁市西乡塘北湖路50号',
-						contactphone:'15077144027',
+						contactPhone:'15077144027',
 						distances:299
 					},
-					{
-						id:3,
-						companyName:'家政服务',
-						supplierImg:'../../static/image/ic_sy_jjry.png',
-						businessHours:'09:00-18:00',
-						address:'南宁市西乡塘北湖路50号',
-						contactphone:'15077144027',
-						distances:299
-					},
-					{
-						id:3,
-						companyName:'家政服务',
-						supplierImg:'../../static/image/ic_sy_jjry.png',
-						businessHours:'09:00-18:00',
-						address:'南宁市西乡塘北湖路50号',
-						contactphone:'15077144027',
-						distances:299
-					},
-					{
-						id:3,
-						companyName:'家政服务',
-						supplierImg:'../../static/image/ic_sy_jjry.png',
-						businessHours:'09:00-18:00',
-						address:'南宁市西乡塘北湖路50号',
-						contactphone:'15077144027',
-						distances:299
-					}
+					
 				]
 			}
 		},
 		onLoad(){
 			this.getLocationInfo();
+			// var data ={
+			// 	lng:this.longitude,
+			// 	lat:this.latitude
+			// };
+			///this.getshopList(data);
+			uni.$on('LoginBack',()=> {
+				let data ={
+					lng:that.longitude,
+					lat:that.latitude
+				};
+				this.getshopList(data);
+			});
 		},
 		methods: {
 			
 			//定位到当前位置
-			getLocationInfo(){
+			async getLocationInfo(){
 				// uni.showLoading({
 				//     title: '定位中...'
 				// });
 				var that = this;
-				uni.getLocation({
+				let result = await uni.getLocation({
 				    type: 'wgs84',
 					geocode:true,
 				    success: function (res) {
 							 //console.log('当前位置的经度：' + JSON.stringify(res));
-						that.longitude = res.latitude;
+						that.longitude = res.longitude;
 						that.latitude = res.latitude;
 						var address = res.address.street+res.address.streetNum;
 						that.address = address;
 						uni.hideLoading()
+						let data ={
+							lng:that.longitude,
+							lat:that.latitude
+						};
+						that.getshopList(data);
+						
 					},
 					fail:function(){
 						uni.hideLoading()
@@ -159,8 +152,28 @@
 					}
 					
 				});
+				let data ={
+					lng:that.longitude,
+					lat:that.latitude
+				};
+				//that.getshopList(data);
 			},
-			
+			//获取附近小店列表
+			getshopList(data){
+				 console.log("data==="+JSON.stringify(data));
+				this.$api.shoplist(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						 console.log("data==="+JSON.stringify(res.list));
+						  console.log(this.$config.imghosturl);
+						if(res.list!=null){
+							var list = res.list;
+							//list.forEach(p => p.supplierImg = this.$config.imghosturl+p.supplierImg);
+							this.supplierList = list;
+						}
+						
+					}); 
+			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({
@@ -231,13 +244,18 @@
 		padding: 1rem 0rem;
 		border-bottom: 1px solid lightgray;
 	}
-	.shoplist .shop_img{
+/* 	.shoplist .shop_img{
+		flex: 1;
+	} */
+	.shop_img_in{
 		width: 2.5rem;
 		height: 2.5rem;
 		margin-top:0.5rem;
+		border-radius:50%;
 	}
 	.shoplist .shop_info{
 		padding-left: 0.3rem;
+		flex: 2;
 	}
 	.shoplist .shop_name{
 		font-size: 0.7rem;
@@ -274,7 +292,8 @@
    }
   .shop_go{
   	       width: 40px;
-  	       border-bottom: 1px solid #EBEBEB;
+  	       /* border-bottom: 1px solid #EBEBEB; */
+		   flex: 1;
   }
     .shop_go label{
 		   background: url(../../static/image/ic_fj_arrow.png) 50% 50% no-repeat;
@@ -282,7 +301,7 @@
 		   color: transparent;
 		   display: block;
 		   margin-top: 1.1rem;
-		   margin-right: -4.2rem;
+		   /* margin-right: -3.2rem; */
 		   margin-top: 1.1rem;
 		   float: right;
    }

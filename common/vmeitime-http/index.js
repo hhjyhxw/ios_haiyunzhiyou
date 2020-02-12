@@ -31,7 +31,11 @@ export const perfectgoods = (data) => {return http.get('/goods!getPerfectGoodsLi
 //商品详情
 export const gooddetail = (data) => {return http.get('/goods!goodDetail.action', data)};
 
+//附近小店
+export const shoplist = (data) => {return http.get('/supplier!storelist.action', data)};
 
+//点击分类 获取店铺及对应店铺商品
+export const goodtypelist = (data) => {return http.get('/supplier!goodslist.action', data)};
 
 //###################广告列表######
 export const getAdsList = () => { return http.post('/ads!getAdvertisementList.action')};
@@ -47,6 +51,8 @@ export default {
 	getAdsList,
 	perfectgoods,
 	gooddetail,
+	shoplist,
+	goodtypelist,
 	toPay,
 	getUserIno
 

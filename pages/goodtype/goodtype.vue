@@ -55,81 +55,21 @@
 	export default {
 		data() {
 			return {
-				supplierList:[{
-						id:1,
-						companyName:'旗舰店',
-						supplierImg:'../../static/image/ic_sy_jsyl.png',
-						businessHours:'09:00-18:00',
-						goodsList:[
-							{
-								id:1,
-								name:'千叶荔枝_一骥红尘',
-								isSelect:false,//是否是海韵优选
-								marketPrice:'128.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-							},
-							{
-								id:1,
-								name:'龙眼',
-								isSelect:true,//是否是海韵优选
-								marketPrice:'168.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-							},
-							{
-								id:1,
-								name:'芒果',
-								isSelect:false,//是否是海韵优选
-								marketPrice:'178.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-							},
-							{
-								id:1,
-								name:'雪莉',
-								isSelect:true,//是否是海韵优选
-								marketPrice:'288.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-							}
-						]
-					},
-					{
-							id:2,
-							companyName:'千山店',
-							supplierImg:'../../static/image/ic_sy_xxsg.png',
-							businessHours:'09:00-18:00',
-							goodsList:[
-								{
-									id:1,
-									name:'荔枝',
-									isSelect:true,//是否是海韵优选
-									marketPrice:'128.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-								},
-								{
-									id:1,
-									name:'龙眼',
-									isSelect:true,//是否是海韵优选
-									marketPrice:'168.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-								},
-								{
-									id:1,
-									name:'芒果',
-									isSelect:true,//是否是海韵优选
-									marketPrice:'178.00',
-								defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-								},
-								{
-									id:1,
-									name:'雪莉',
-									isSelect:true,//是否是海韵优选
-									marketPrice:'288.00',
-									defaultSourceImagePath:'../../static/image/temp/good-demo.png'
-								}
-							]
-						},
-				],
+				queryData:{},
+				supplierList:[],
 				cartNum:0 //购物车物品数量
 			}
+		},
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+			//console.log(option); //打印出上个页面传递的参数。
+			this.queryData = {
+				lng:option.lng,
+				lat:option.lat,
+				nameKey:'',
+				goodsCategoryId:option.goodsCategoryId
+			};
+			this.getShopAndGoodsLiSt(this.queryData);
+			
 		},
 		methods: {
 			//加入购物车
@@ -146,6 +86,24 @@
 				
 			},
 			
+			//根据经纬度、分类、或者搜索关键自 获取店铺和商品信息
+			getShopAndGoodsLiSt(data){
+				this.$api.goodtypelist(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.supplierList!=null && res.supplierList.length>0){
+							let supplierList = res.supplierList;
+							 supplierList.forEach((p) => {
+									p.goodsList.forEach((k) => {
+										k.defaultSourceImagePath = this.$config.imghosturl+k.defaultSourceImagePath
+									});
+							 });
+							 this.supplierList = supplierList;
+	
+						}
+					}); 
+			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({
