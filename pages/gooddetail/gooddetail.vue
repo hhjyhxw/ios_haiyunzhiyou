@@ -31,9 +31,9 @@
 			<view class="goods-menu-item">
 				<text class="textwarn">提示</text><text class="text2">{{goods.promoteMessage}}</text>
 			</view>
-			<view class="goods-menu-item">
+			<!-- <view class="goods-menu-item">
 				<text class="text1">运费</text><text>平台免运费</text>
-			</view>
+			</view> -->
 		</view>
 		
 		<view class="spileline"></view>
