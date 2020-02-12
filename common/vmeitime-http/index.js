@@ -15,33 +15,38 @@ export const getUserIno = () => {
 };
 
 
-// 模拟登录
-//export const testLogin = (data) => {return http.post('/user/test/login', data)};
-
-
 //########################### 小程序登录接口 ##################################
 
 
 
-
+//登陆
 export const login = (data) => {return http.get('/appLogin!login.action', data)};
 
+//注册
 export const register = (data) => {return http.get('/appLogin!register.action', data)};
 
-//########################### 小程序支付接口 ##################################
+//优选商品
+export const perfectgoods = (data) => {return http.get('/goods!getPerfectGoodsList.action', data)};
 
-// 支付
-export const toPay = (data) => { return http.post('/pay/pay', data)};
+//商品详情
+export const gooddetail = (data) => {return http.get('/goods!goodDetail.action', data)};
+
 
 
 //###################广告列表######
 export const getAdsList = () => { return http.post('/ads!getAdvertisementList.action')};
+
+//########################### 小程序支付接口 ##################################
+// 支付
+export const toPay = (data) => { return http.post('/pay/pay', data)};
 
 
 export default {
 	login,
 	register,
 	getAdsList,
+	perfectgoods,
+	gooddetail,
 	toPay,
 	getUserIno
 

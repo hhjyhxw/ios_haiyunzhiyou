@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 头部商品图片 -->
-		<image class="goods-img maiwan" src="../../static/image/temp/goods-demo.jpg" ></image>
+		<image class="goods-img maiwan" :src="goods.defaultSourceImagePath" ></image>
 		
 		<!-- 商品信息 -->
 		<view class="goods-info">
@@ -103,10 +103,30 @@
 				}
 			}
 		},
-		onLoad(){
-			this.getData();
+	   onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option.goodId); //打印出上个页面传递的参数。
+			var data ={id:option.goodId};
+			this.getGoods(data);
+			
 		},
 		methods: {
+			//获取商品信息
+			getGoods(data){
+				this.$api.gooddetail(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.code=='0000'){
+							var regood = res.good;
+							regood.defaultSourceImagePath = this.$config.imghosturl+regood.defaultSourceImagePath;
+							this.goods = regood;
+							this.supplier = regood.supplier;
+							if(regood.introduction!=null){
+								this.getData(regood.introduction);
+							}
+						}
+					}); 
+			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({
@@ -119,12 +139,17 @@
 				    url: '/pages/carts/carts'
 				});
 			},
-			getData(){
-				var content='<p><img alt="" src="/upload/image/201609/1d14e75de6834c13a38c8e8ca9e8e0cb.jpg"/></p><p class="MsoNormal" style="text-align: left; text-indent: 28pt;"><strong style="line-height: 1.5; text-indent: 28.1pt;"><span style="color: rgb(238, 51, 238); font-family: 宋体; font-size: 14pt;">★</span></strong><strong style="line-height: 1.5; text-indent: 28.1pt;"><span style="color: rgb(238, 51, 238); font-family: 宋体; font-size: 14pt;">温馨提示：</span></strong></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><span style="font-size: 10px;">1</span><span style="font-family: 宋体; font-size: 10px;">、家政保洁</span><span style="font-size: 10px;">3</span><span style="font-family: 宋体; font-size: 10px;">小时起服务</span><span style="font-size: 10px;"> </span><span style="font-family: 宋体; font-size: 10px;">，服务时间</span><span style="font-size: 10px;">8</span><span style="font-family: 宋体; font-size: 10px;">：</span><span style="font-size: 10px;">00-18</span><span style="font-family: 宋体; font-size: 10px;">：</span><span style="font-size: 10px;">00<!--?xml:namespace prefix="o"--><!--?xml:namespace--></span></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><span style="font-size: 10px;">2</span><span style="font-family: 宋体; font-size: 10px;">、周一至周五建议提前</span><span style="font-size: 10px;">24</span><span style="font-family: 宋体; font-size: 10px;">小时预约，周末建议提前</span><span style="font-size: 10px;">2-3</span><span style="font-family: 宋体; font-size: 10px;">天预约，如需更改服务时间，请提前</span><span style="font-size: 10px;">24</span><span style="font-family: 宋体; font-size: 10px;">小时联系客服进行修改（服务热线</span><span style="font-family: 宋体; font-size: 10px;">：13768806667</span><span style="font-family: 宋体; font-size: 10px;">小何）</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><span style="font-size: 10px;">3</span><span style="font-family: 宋体; font-size: 10px;">、目前东边最远只能到埌东客运站（仙葫经济开发区还不能接受预约，敬请期待）</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><br/></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><span style="font-family: 宋体; font-size: 10px;">4</span><span style="font-family: 宋体; font-size: 10px;">、为保护保洁员的人身安全，高层无保护的外墙玻璃一般不给予保洁，在得到安全保障下尽量保洁</span></p><p class="MsoNormal" style="text-indent: 28pt; mso-char-indent-count: 2.0;"><span style="line-height: 28px; text-indent: 37px; font-family: 宋体; font-size: 10px;">5、办卡仅限同一地址使用</span></p><p><span style="line-height: 1.5;"><span style="color: rgb(238, 51, 238);">&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: rgb(238, 51, 238); font-family: 宋体; font-size: 14pt; font-weight: bold;">日常保洁范围</span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">客厅：物品整理、家具表面除尘、沙发表面除尘、地面除尘无死角、垃圾桶清理</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">卧室：家具和房门表面除尘、地面除尘、垃圾桶清理</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">书房：物品整理、书柜和书桌等家具表面除尘、房门和地面除尘</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">卫生间：水龙头和洗手台表面清洁、玻璃镜面去水渍水印、坐便器表面清洁、门和墙面清洁、地面除尘</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">厨房：油烟机、灶台表面清洁、厨房家电家具表面除尘、水池清洗、门、地面除尘</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">内门窗：窗槽和窗框除尘</span><span style="font-size: 14pt;"></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="font-family: 宋体; font-size: 10px;">阳台：防盗网表面除尘、地面除尘</span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px; font-size: 18px;"><strong>六区清洁</strong></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px; font-size: 18px;"><strong><img alt="" src="/upload/image/201609/b535b61f531b47de9f423ef48ac939f8.jpg"/><br/></strong></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong>九项服务</strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong><img alt="" src="/upload/image/201609/05dab74e8579410d88b2ab7561adb167.jpg"/><br/></strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong>服务标准</strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong><img alt="" src="/upload/image/201609/d201eef9352e44048302d7f4ed58f225.jpg"/><br/></strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong>工具装备</strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong><img alt="" src="/upload/image/201609/4652c1e7056c4182889dbc948876401b.jpg"/><br/></strong></span></span></span></p><p class="MsoNormal" style="text-indent: 28pt;"><span style="color: rgb(238, 51, 238); text-indent: 0px;"><span style="font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong><img alt="" src="/upload/image/201609/48838ac78ffa4d2ba6b4372045967251.jpg"/><br/></strong></span></span></span></p><p class="MsoNormal" style="text-align: left; text-indent: 0px;"><span style="color: rgb(238, 51, 238); font-family: 宋体;"><span style="line-height: 28px; font-size: 18px;"><strong>&nbsp;服务热线</strong></span></span></p><p class="MsoNormal" style="text-align: left; text-indent: 0px;"><span style="color: rgb(229, 51, 51); font-size: 18px; background-color: rgb(255, 229, 0);">客服电话：</span><span style="color: rgb(229, 51, 51); line-height: 27px; font-family: Tahoma, sans-serif; font-size: 18px; background-color: rgb(255, 229, 0);">13768806667（小何）</span></p><p><span style="color: rgb(229, 51, 51); font-size: 18px; background-color: rgb(255, 229, 0);"> </span></p><p class="1" style="margin: 0cm 0cm 0pt 21pt; text-indent: -21pt;"><br/></p><p><br/></p>';
+			//富文本
+			getData(goodDetail){
+
 				// var htmlString = content.replace(/\\/g, "").replace(/<img/g, "<img style=\"display:none;\"");
 				//content = content.replace(/(<img [^>]*src=['"]?)(?!https?)(\/[^ '">]+)/g,"http://www.haiyunzy.com");
-				content=content.replace(new RegExp(/src=\"/g), `style="display: block;margin: 0 auto;max-width: 100%" src="http://www.haiyunzy.com`)
-				this.nodes = htmlParser(content);
+				if(goodDetail.indexOf('http://www.haiyunzy.com')== -1){
+					goodDetail=goodDetail.replace(new RegExp(/src=\"/g), `style="display: block;margin: 0 auto;max-width: 100%" src="http://www.haiyunzy.com`);
+				}else{
+				goodDetail=goodDetail.replace(new RegExp(/src=\"/g), `style="display: block;margin: 0 auto;max-width: 100%" src="`);	
+				}
+				this.nodes = htmlParser(goodDetail);
 				//this.nodes =htmlNodes;
 			},
 			

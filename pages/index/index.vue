@@ -49,10 +49,10 @@
 		<view class="wrap" v-for="(item ,index) in perfectGoodsList" :key="index">
 			<view class="good" @click="toGoodsDetail(item.id)">
 				<view class="good_img">
-					<image :src="item.imgurl"></image>
+					<image :src="item.defaultSourceImagePath"></image>
 				</view>
 				<view class="txt-normal">{{item.name}}</view>
-				<view class="price">{{item.price}}</view>
+				<view class="price">{{item.marketPrice}}</view>
 			</view>
 		</view>
 	</view>
@@ -126,32 +126,32 @@
 					{
 						id:1,
 						name:'龙眼',
-						imgurl:'../../static/image/temp/goods-demo.png',
-						price:'263.00'
+						defaultSourceImagePath:'../../static/image/temp/goods-demo.png',
+						marketPrice:'263.00'
 					},
 					{
 						id:1,
 						name:'新水果',
-						imgurl:'../../static/image/temp/good-demo.jpg',
-						price:'250.00'
+						defaultSourceImagePath:'../../static/image/temp/good-demo.jpg',
+						marketPrice:'250.00'
 					},
 					{
 						id:1,
 						name:'荔枝',
-						imgurl:'../../static/image/temp/good-demo.png',
-						price:'682.00'
+						defaultSourceImagePath:'../../static/image/temp/good-demo.png',
+						marketPrice:'682.00'
 					},
 					{
 						id:1,
 						name:'牛肉',
-						imgurl:'../../static/image/temp/goods-demo.jpg',
-						price:'589.00'
+						defaultSourceImagePath:'../../static/image/temp/goods-demo.jpg',
+						marketPrice:'589.00'
 					},
 					{
 						id:1,
 						name:'龙虾',
-						imgurl:'../../static/image/temp/good-demo.jpg',
-						price:'289.00'
+						defaultSourceImagePath:'../../static/image/temp/good-demo.jpg',
+						marketPrice:'289.00'
 					}
 				]
 			}
@@ -160,8 +160,8 @@
 			this.getLocationInfo();
 			this.getAdsList();
 			 uni.$on('LoginBack',()=> {
-				 this.getLocationInfo();
 				 this.getAdsList();
+				
 			 });
 		},
 		methods: {
@@ -183,7 +183,6 @@
 						var address = res.address.street+res.address.streetNum;
 						that.address = address;
 						
-						
 				    }
 				});
 			},
@@ -197,7 +196,26 @@
 						if(res.list!=null){
 							var list = res.list;
 							list.forEach(p => p.adImage = this.$config.imghosturl+p.adImage);
-							this.info = res.list
+							this.info = list;
+						}
+						//获取优选商品
+						if(res.list!=null){
+							this.getPerfectGoodsList();
+						}
+						
+						
+					}); 
+			},
+			//获取优选商品
+			getPerfectGoodsList(){
+				this.$api.perfectgoods().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.list!=null){
+							var perfectGoodsList = res.list;
+							perfectGoodsList.forEach(p => p.defaultSourceImagePath = this.$config.imghosturl+p.defaultSourceImagePath);
+							this.perfectGoodsList = perfectGoodsList;
 						}
 					}); 
 			},
