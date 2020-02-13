@@ -173,8 +173,8 @@
       box-sizing: border-box;
       border-left: 1px solid #E5E5E5;
       overflow: auto;
-      -webkit-overflow-scrolling: touch;
-}
+      -webkit-overflow-scrolling: touch; 
+	  margin-bottom: 5rem;}
 .norest{
 	  display: -webkit-box;
 	  display: -webkit-flex;

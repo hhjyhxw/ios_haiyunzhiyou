@@ -12,7 +12,7 @@
 				    <swiper class="swiper-box" @change="change">
 				        <swiper-item v-for="(item ,index) in info" :key="index">
 				            <view class="swiper-item">
-								<image :src="item.imgurl"></image>
+								<image :src="item.imageUrl"></image>
 				            </view>
 				        </swiper-item>
 				    </swiper>
@@ -22,7 +22,7 @@
 		<!-- 店铺信息 -->
 		 <view class="shop-info">
 		       <view class="shop-bd">
-				   <image class="shop-icon" src="../../static/image/ic_sy_xxsg.png"></image>
+				   <image class="shop-icon" :src="supplier.supplierImg"></image>
 					<view class="bd">
 						<view class="shop_name">{{supplier.companyName}}</view>
 						 <view>
@@ -86,13 +86,13 @@
 			return {
 				info: [{
 					content: '内容 A',
-					imgurl:'../../static/image/temp/banner_hyyx.png'
+					imageUrl:'../../static/image/temp/banner_hyyx.png'
 				}, {
 					content: '内容 B',
-					imgurl:'../../static/image/temp/banner1.png'
+					imageUrl:'../../static/image/temp/banner1.png'
 				}, {
 					content: '内容 C',
-					imgurl:'../../static/image/temp/banner_hyyx.png'
+					imageUrl:'../../static/image/temp/banner_hyyx.png'
 				}],
 				current: 0,//广告列表属性
 				mode: 'dot',//广告列表属性
@@ -169,13 +169,77 @@
 					},
 				],
 				cartNum:0,//购物车商品数量
+				queryData:{
+					pageNo: 1,//商品列表 页码
+					totalPage: 0,//商品列表总页数
+					sid:-1,//店铺id
+					goodsCategoryId:-1,//商品分类
+				}
 			}
+		},
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option.shopId); //打印出上个页面传递的参数。
+			var data ={sid:option.shopId};
+			this.shopdetail(data);
+			
 		},
 		methods: {
 			//滚动图改变
 			 change(e) {
 				this.current = e.detail.current;
 			},
+			//获取店铺主信息、店铺广告、店铺商品分类
+			shopdetail(data){
+				this.$api.shopdetail(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.code=='0000'){
+							this.supplier = res.supplier;
+							this.typeList = res.typeList;
+							let adlist = res.adlist;
+							adlist.forEach(p => p.imageUrl = this.$config.imghosturl+p.imageUrl);
+							this.info = adlist;
+							//获取第一个分类商品
+							var data ={
+								sid:res.supplier.id,
+								goodsCategoryId:this.typeList[0].id,
+								pageNo:1,
+								pageSize:20
+							};
+							this.queryData = data;
+							this.typeList[0].isAacitve=true;
+							this.getGoodsList(data,true);
+						}
+					}); 
+			},
+			//根据店铺id商品分类id获取商品列表
+			// getGoodsLists(data){
+			// 	this.$api.goodslistBySidAndCatoid(data).then(res =>
+			// 		{
+			// 			 console.log(JSON.stringify(res));
+			// 			  console.log(this.$config.imghosturl);
+			// 			if(res.list!=null){
+			// 				var perfectGoodsList = res.list;
+			// 				perfectGoodsList.forEach(p => p.defaultSourceImagePath = this.$config.imghosturl+p.defaultSourceImagePath);
+			// 				this.perfectGoodsList = perfectGoodsList;
+			// 			}
+			// 		}); 
+			// },
+			async getGoodsList (data,first) {
+			    let result = await this.$api.goodslistBySidAndCatoid(data);
+			    if(result.code != '0000') return;
+			    this.queryData.totalPage = result.total;
+			    // 格式化图片
+			    result.list.forEach(p => p.defaultSourceImagePath = this.$config.imghosturl+p.defaultSourceImagePath);
+				//console.log("result.list=="+JSON.stringify(result.list));
+			    if(first) {//是否是刷新 或者第一次加载
+			        this.goodList = result.list;
+			    } else {
+			        this.goodList = this.goodList.concat(result.list);
+			    }
+			},
+			
 			//选择分类
 			chooseType(index){
 				this.typeList.forEach((item,i) => {
@@ -184,7 +248,12 @@
 					}else{
 						item.isAacitve = false;
 					}
-				  })
+				  });
+				  console.log("index=="+index);
+				  console.log("this.typeList[index].id=="+this.typeList[index].id);
+				  this.queryData.goodsCategoryId = this.typeList[index].id;
+				  this.queryData.pageNo = 1;
+				  this.getGoodsList(this.queryData,true);
 			},
 			//加入购物车
 			addToCaret(goodId){
@@ -211,6 +280,27 @@
 				    url: '/pages/carts/carts'
 				});
 			},
+		},
+		onUnload() {
+		    uni.$off('LoginBack');
+		},
+		onPullDownRefresh(){//下拉刷新
+		    //this.queryData.pageNo = 1;
+		    //this.queryData.totalPage = 0;
+		   // this.getGoodsList(this.queryData,true);
+		   // uni.stopPullDownRefresh();
+		},
+		onReachBottom(){//页面滚动到底部的事件
+			if (this.queryData.pageNo > this.queryData.totalPage) {
+				return false;
+			}
+		    this.queryData.pageNo = this.queryData.pageNo + 1;
+			 console.log("pageNo==="+this.queryData.pageNo);
+			  console.log("totalPage==="+this.queryData.totalPage);
+		    if (this.queryData.pageNo > this.queryData.totalPage) {
+		        return false;
+		    }
+		    this.getGoodsList(this.queryData,false);
 		}
 	}
 </script>
@@ -397,7 +487,8 @@
 		      box-sizing: border-box;
 		      border-left: 1px solid #E5E5E5;
 		      overflow: auto;
-		      -webkit-overflow-scrolling: touch; }
+		      -webkit-overflow-scrolling: touch; 
+			  margin-bottom: 5rem;}
 			  
 		  .norest{
 			  display: flex;

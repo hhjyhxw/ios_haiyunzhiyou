@@ -34,11 +34,33 @@ export const gooddetail = (data) => {return http.get('/goods!goodDetail.action',
 //附近小店
 export const shoplist = (data) => {return http.get('/supplier!storelist.action', data)};
 
-//点击分类 获取店铺及对应店铺商品
+//点击首页分类 获取店铺及对应店铺商品
 export const goodtypelist = (data) => {return http.get('/supplier!goodslist.action', data)};
 
-//###################广告列表######
+//店铺主信息/店铺广告/店铺商品分类
+export const shopdetail = (data) => {return http.get('/supplier!shopdetail.action', data)};
+
+//点击分类 获取对应分类商品
+export const goodslistBySidAndCatoid = (data) => {return http.get('/supplier!goodslistBySidAndCatoid.action', data)};
+
+
+//###################首页广告列表######
 export const getAdsList = () => { return http.post('/ads!getAdvertisementList.action')};
+
+
+//###################购物车#####
+//购物车列表
+export const cartItemList = () => { return http.get('/cartitem!cartItemList.action')};
+//校验库存
+export const checkStore = (data) => { return http.get('/cartitem!checkStore.action',data)};
+//清空构成车
+export const deleteCarItems = (data) => { return http.get('/cartitem!deleteCarItems.action',data)};
+//减少构成车
+export const decrease = (data) => { return http.get('/cartitem!minuses.action',data)};
+//添加购物车
+export const increase = (data) => { return http.get('/cartitem!add.action',data)};
+//修改购物车文本框
+export const updatecarItem = (data) => { return http.get('/cartitem!updatecarItem.action',data)};
 
 //########################### 小程序支付接口 ##################################
 // 支付
@@ -53,6 +75,14 @@ export default {
 	gooddetail,
 	shoplist,
 	goodtypelist,
+	shopdetail,
+	goodslistBySidAndCatoid,
+	cartItemList,
+	checkStore,
+	deleteCarItems,
+	decrease,
+	increase,
+	updatecarItem,
 	toPay,
 	getUserIno
 

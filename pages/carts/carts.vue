@@ -18,13 +18,13 @@
 							<radio class="selectOne" :checked="item2.checked" @click="selectOne(index,index2)"></radio>
 						</view>
 						<view class="col2">
-							<image class="good_img" :src="item2.goodImg"></image>
+							<image class="good_img" :src="item2.listImgPath"></image>
 						</view>
 						<view class="col3">
 							<view class="goodName">{{item2.pName}}</view>
 							<view class="calc">
 								<label class="minus" @click="minus(index,index2)">减一</label>
-								<input  type="number" class="goodsNum" :value="item2.goodNum" />
+								<input  type="number" class="goodsNum" :value="item2.quantity" />
 								<label class="plus"  @click="plus(index,index2)">加一</label>
 							</view>
 						</view>
@@ -68,6 +68,7 @@
 					{
 						id:1,
 						supplierName:'旗舰店',
+						logoUrl:'',
 						checked:true,
 						careItemList:[
 							{
@@ -76,19 +77,19 @@
 								isMarketable:false,
 								pName:'荔枝',
 								price:0.88,
-								goodImg:'../../static/logo.png',//listImgPath
+								listImgPath:'../../static/logo.png',//listImgPath
 								checked:true,
-								goodNum:2
+								quantity:2
 							},
 							{
 								goodsId:1,
 								productId:1,
 								isMarketable:false,
-								pName:'第一干锅',
-								price:0.89,
-								goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
+								pName:'荔枝',
+								price:0.88,
+								listImgPath:'../../static/logo.png',//listImgPath
 								checked:true,
-								goodNum:1
+								quantity:2
 							},
 							
 						]
@@ -102,21 +103,21 @@
 								goodsId:1,
 								productId:1,
 								isMarketable:false,
-								pName:'月卡',
+								pName:'荔枝',
 								price:0.88,
-								goodImg:'../../static/logo.png',//listImgPath
+								listImgPath:'../../static/logo.png',//listImgPath
 								checked:true,
-								goodNum:1
+								quantity:2
 							},
 							{
 								goodsId:1,
 								productId:1,
 								isMarketable:false,
-								pName:'年卡',
-								price:0.89,
-								goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
+								pName:'荔枝',
+								price:0.88,
+								listImgPath:'../../static/logo.png',//listImgPath
 								checked:true,
-								goodNum:3
+								quantity:2
 							},
 							
 						]
@@ -127,7 +128,7 @@
 			}
 		},
 		onLoad(){
-			
+			this.getcartItemList();
 		},
 		methods: {
 			//返回
@@ -135,6 +136,24 @@
 				uni.switchTab({
 				     url: '/pages/index/index'
 				});
+			},
+			//获取购物车商品
+			getcartItemList(){
+				 console.log("data==="+JSON.stringify(data));
+				this.$api.cartItemList(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.list!=null){
+							let supplierList = res.list;
+							 supplierList.forEach((p) => {
+									p.careItemList.forEach((k) => {
+										k.listImgPath = this.$config.imghosturl+k.listImgPath
+									});
+							 });
+							 this.supplierList = supplierList;
+						}
+					}); 
 			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
@@ -153,23 +172,23 @@
 			//减一
 			minus(index,index2){
 				var good = this.supplierList[index].careItemList[index2];
-				if(good.goodNum<=0){
-					good.goodNum = 1;
+				if(good.quantity<=0){
+					good.quantity = 1;
 				}else{
-					good.goodNum = good.goodNum+1;
+					good.quantity = good.quantity+1;
 				}
 				this.recaculate();
 			},
 			//加一
 			plus(index,index2){
 				var good = this.supplierList[index].careItemList[index2];
-				if(good.goodNum<=0){
-					good.goodNum = 1;
+				if(good.quantity<=0){
+					good.quantity = 1;
 				}else{
-					if(good.goodNum>=100){
-						good.goodNum = 100;
+					if(good.quantity>=100){
+						good.quantity = 100;
 					}else{
-						good.goodNum = good.goodNum+1;
+						good.quantity = good.quantity+1;
 					}
 					
 				}
@@ -282,7 +301,7 @@
 						if(item.checked){
 							item.careItemList.forEach(function(item2){
 								if(item2.checked){
-									total += item2.goodNum*item2.price;
+									total += item2.quantity*item2.price;
 								}
 							});
 						}

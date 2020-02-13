@@ -23,7 +23,7 @@
 			<view class="goods-menu-item">
 				<view class="text1">月销<text class="text2">{{goods.monthSalesCount}}</text></view>
 				<view class="text1">库存<text class="text2">{{goods.store-goods.freezeStore}}</text></view>
-				<view class="text1">商品产地<text class="text2">{{goods.producingArea}}</text></view>
+				<view class="text1">商品产地<text class="text2">{{goods.producingArea | nullFilter}}</text></view>
 			</view>
 			<view class="goods-menu-item">
 				<text class="text2">{{goods.promotionInfo}}</text>
@@ -56,33 +56,62 @@
 			 <rich-text :nodes="nodes"></rich-text>
 		</view>
 		
-		<!-- 底部 -->
 		<view class="footer">
+			<uni-goods-nav :fill="true"  :options="options" :button-group="buttonGroup"  @click="onClick" @buttonClick="buttonClick" ></uni-goods-nav>
+		</view>
+		<!-- 底部 -->
+		<!-- <view class="footer">
 			<view class="item total" @click="toCart">
 				<view class="iconcart"> 
 					<label class="count">0</label>
 				</view>
 			</view>
-			<view class="item cart">
+			<view class="item cart" @click="addCart">
 				加入购物车
 			</view>
 			<view class="item buy">
 				立即购买
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
 	import htmlParser from '@/common/utils/html-parser'
 	import imgrouter from '@/common/utils/imgrouter'
+	import uniGoodsNav from '@/components/uni-goods-nav/uni-goods-nav.vue'
 	export default {
+	    components: {uniGoodsNav},
 		data() {
 			return {
+				 options: [{
+				          icon: '../../static/image/title_but_3_gray.png',
+				          text: '',
+						  info: 2
+				        },
+						{
+				          icon: '',
+				          text: '',
+				        }, {
+				          icon: '',
+				          text: '',
+				        }],
+				        buttonGroup: [{
+				          text: '加入购物车',
+				          backgroundColor: '#ff0000',
+				          color: '#fff'
+				        },
+				        {
+				          text: '立即购买',
+				          backgroundColor: '#ffa200',
+				          color: '#fff'
+				        }
+				        ],
 				nodes:[],
 				goods:{
 					name:'日常保洁月卡（4次每次3小时）',
 					defaultSourceImagePath:'',//商品图片
+					pid:1,
 					marketPrice:2568.00,//市场价
 					originalPrice:3000.00,//原价
 					monthSalesCount:3,//月销
@@ -109,7 +138,26 @@
 			this.getGoods(data);
 			
 		},
+		filters: {
+			//空值过滤
+		  nullFilter (value) {
+			if(value==null || value=='null'){
+				return '';
+			}
+		  },
+		},
 		methods: {
+			//
+			onClick (e) {
+				uni.showToast({
+				  title: `点击${e.content.text}`,
+				  icon: 'none'
+				})
+			  },
+			  buttonClick (e) {
+				console.log(e)
+				this.addCart();
+			  },
 			//获取商品信息
 			getGoods(data){
 				this.$api.gooddetail(data).then(res =>
@@ -124,6 +172,32 @@
 							if(regood.introduction!=null){
 								this.getData(regood.introduction);
 							}
+						}
+					}); 
+			},
+			//添加构成车
+			addCart(){
+				var data ={pid:this.goods.pid};
+				console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+				this.$api.increase(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							this.options[0].info++;
+							uni.showToast({
+							    title: '添加成功',
+							    duration: 2000
+							});
+						}else if(res.code=='0001'){
+							uni.showToast({
+							    title: res.message,
+							    duration: 2000
+							});
+						}else{
+							uni.showToast({
+							    title: '添加失败',
+							    duration: 2000
+							});
 						}
 					}); 
 			},
