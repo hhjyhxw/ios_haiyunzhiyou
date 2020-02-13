@@ -56,9 +56,9 @@ export const checkStore = (data) => { return http.get('/cartitem!checkStore.acti
 //清空构成车
 export const deleteCarItems = (data) => { return http.get('/cartitem!deleteCarItems.action',data)};
 //减少构成车
-export const decrease = (data) => { return http.get('/cartitem!minuses.action',data)};
+export const ajaxMinuses = (data) => { return http.get('/cartitem!ajaxMinuses.action',data)};
 //添加购物车
-export const increase = (data) => { return http.get('/cartitem!add.action',data)};
+export const ajaxAdd = (data) => { return http.get('/cartitem!ajaxAdd.action',data)};
 //修改购物车文本框
 export const updatecarItem = (data) => { return http.get('/cartitem!updatecarItem.action',data)};
 
@@ -80,8 +80,8 @@ export default {
 	cartItemList,
 	checkStore,
 	deleteCarItems,
-	decrease,
-	increase,
+	ajaxMinuses,
+	ajaxAdd,
 	updatecarItem,
 	toPay,
 	getUserIno

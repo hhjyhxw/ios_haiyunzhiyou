@@ -179,7 +179,7 @@
 			addCart(){
 				var data ={pid:this.goods.pid};
 				console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
-				this.$api.increase(data).then(res =>
+				this.$api.ajaxAdd(data).then(res =>
 					{
 						 console.log(JSON.stringify(res));
 						if(res.code=='0000'){
