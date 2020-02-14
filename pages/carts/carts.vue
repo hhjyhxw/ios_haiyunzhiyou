@@ -24,7 +24,7 @@
 							<view class="goodName">{{item2.pName}}</view>
 							<view class="calc">
 								<label class="minus" @click="minus(index,index2)">减一</label>
-								<input  type="number" class="goodsNum" :value="item2.quantity" />
+								<input  type="number" class="goodsNum" :value="item2.quantity" @input="updateGoodNum(index,index2,$event)"/>
 								<label class="plus"  @click="plus(index,index2)">加一</label>
 							</view>
 						</view>
@@ -123,11 +123,14 @@
 						]
 					}
 				],
-				selectAllChecked:false,
+				selectAllChecked:true,
 				totalMoney:0.88,
 			}
 		},
 		onLoad(){
+			
+		},
+		onShow(){
 			this.getcartItemList();
 		},
 		methods: {
@@ -139,8 +142,7 @@
 			},
 			//获取购物车商品
 			getcartItemList(){
-				 console.log("data==="+JSON.stringify(data));
-				this.$api.cartItemList(data).then(res =>
+				this.$api.cartItemList().then(res =>
 					{
 						 console.log(JSON.stringify(res));
 						  console.log(this.$config.imghosturl);
@@ -152,6 +154,7 @@
 									});
 							 });
 							 this.supplierList = supplierList;
+							 this.recaculate();
 						}
 					}); 
 			},
@@ -172,12 +175,35 @@
 			//减一
 			minus(index,index2){
 				var good = this.supplierList[index].careItemList[index2];
-				if(good.quantity<=0){
+				if(good.quantity<=1){
 					good.quantity = 1;
 				}else{
-					good.quantity = good.quantity+1;
+					var data ={pid:good.productId};
+					console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+					this.$api.ajaxMinuses(data).then(res =>
+						{
+							 console.log(JSON.stringify(res));
+							if(res.code=='0000'){
+								good.quantity--;
+								this.recaculate();
+								// uni.showToast({
+								//     title: '减少成功',
+								//     duration: 2000
+								// });
+							}else if(res.code=='0001'){
+								uni.showToast({
+								    title: res.message,
+								    duration: 2000
+								});
+							}else{
+								uni.showToast({
+								    title: '操作失败',
+								    duration: 2000
+								});
+							}
+						}); 
 				}
-				this.recaculate();
+				
 			},
 			//加一
 			plus(index,index2){
@@ -188,11 +214,86 @@
 					if(good.quantity>=100){
 						good.quantity = 100;
 					}else{
-						good.quantity = good.quantity+1;
+								var data ={pid:good.productId};
+								console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+								this.$api.ajaxAdd(data).then(res =>
+									{
+										 console.log(JSON.stringify(res));
+										if(res.code=='0000'){
+											good.quantity++;
+											this.recaculate();
+											// uni.showToast({
+											// 	title: '增加成功',
+											// 	duration: 2000
+											// });
+											
+										}else if(res.code=='0001'){
+											uni.showToast({
+												title: res.message,
+												duration: 2000
+											});
+										}else{
+											uni.showToast({
+												title: '操作失败',
+												duration: 2000
+											});
+										}
+									}); 
 					}
 					
 				}
-				this.recaculate();
+				
+			},
+			updateGoodNum(index,index2,e){
+					console.log("e==="+JSON.stringify(e)); //打印出上个页面传递的参数。
+					console.log("e.detail.value==="+JSON.stringify(e.detail.value)); //打印出上个页面传递的参数。
+					var quantity = e.detail.value;
+					if(quantity==null || quantity==''){
+						return;
+					}
+					quantity = parseInt(quantity);
+				var good = this.supplierList[index].careItemList[index2];
+				var oldnum = good.quantity;
+				if(quantity<=0){
+					quantity = 1;
+					good.quantity = 1;
+					this.supplierList[index].careItemList[index2].quantity = 1;
+				}else{
+						if(quantity>=20){
+							quantity = 20;
+							this.supplierList[index].careItemList[index2].quantity = 20;
+						}
+						var data ={pid:good.productId,quantities:quantity};
+						console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+						this.$api.updatecarItem(data).then(res =>
+							{
+								 console.log(JSON.stringify(res));
+								if(res.code=='0000'){
+									//good.quantity = quantity;
+									this.supplierList[index].careItemList[index2].quantity = quantity;
+									this.recaculate();
+									// uni.showToast({
+									// 	title: '修改成功',
+									// 	duration: 2000
+									// });
+									
+								}else if(res.code=='0001'){
+									good.quantity = oldnum;
+									uni.showToast({
+										title: res.message,
+										duration: 2000
+									});
+								}else{
+									good.quantity = oldnum;
+									uni.showToast({
+										title: '操作失败',
+										duration: 2000
+									});
+								}
+							}); 
+			
+					
+				}
 			},
 			//单选
 			selectOne(index,index2){
@@ -259,15 +360,40 @@
 				var that = this;
 				uni.showModal({
 				    title: '提示',
-				    content: '确认删除全部商品"'+good.pName+'"吗?',
+				    content: '确认删除商品"'+good.pName+'"吗?',
 				    success: function (res) {
 				        if (res.confirm) {
-				           that.supplierList[index].careItemList.splice(index2,1);
-						   //删除完商品则把 店铺页删除
-						   if(that.supplierList[index].careItemList.length==0){
-								that.supplierList.splice(index,1);
-						   }
-						   that.recaculate();
+							  var data = {pids:good.productId+";"};
+							  that.$api.deleteCarItems(data).then(res =>
+							  	{
+							  		 console.log(JSON.stringify(res));
+							  		if(res.code=='0000'){
+							  			
+							  			that.supplierList[index].careItemList.splice(index2,1);
+							  			//删除完商品则把 店铺页删除
+							  			if(that.supplierList[index].careItemList.length==0){
+							  				that.supplierList.splice(index,1);
+							  			}
+							  			that.recaculate();
+							  			// uni.showToast({
+							  			// 	title: '删除成功',
+							  			// 	duration: 2000
+							  			// });
+							  			
+							  		}else if(res.code=='0001'){
+							  			uni.showToast({
+							  				title: res.message,
+							  				duration: 2000
+							  			});
+							  		}else{
+							  			good.quantity = oldnum;
+							  			uni.showToast({
+							  				title: '删除失败',
+							  				duration: 2000
+							  			});
+							  		}
+							  	}); 
+							  
 				        } else if (res.cancel) {
 				            return;
 				        }
@@ -283,9 +409,43 @@
 				    content: '确认删除全部商品?',
 				    success: function (res) {
 				        if (res.confirm) {
-				           that.supplierList = null;
-						  // that.recaculate();
-						   that.totalMoney = 0.00;
+							var pids='';
+							that.supplierList.forEach((p)=>{
+								p.careItemList.forEach((k)=>{
+									 console.log(k.checked);
+									if(k.checked){
+										pids+=k.productId+";";
+									}
+								});
+							});
+							var data = {pids:pids};
+							that.$api.deleteCarItems(data).then(res =>
+								{
+									 console.log(JSON.stringify(res));
+									if(res.code=='0000'){
+										// that.supplierList = null;
+										// that.recaculate();
+										 //that.totalMoney = 0.00;
+										// uni.showToast({
+										// 	title: '删除成功',
+										// 	duration: 2000
+										// });
+										that.getcartItemList();
+										
+									}else if(res.code=='0001'){
+										uni.showToast({
+											title: res.message,
+											duration: 2000
+										});
+									}else{
+										good.quantity = oldnum;
+										uni.showToast({
+											title: '删除失败',
+											duration: 2000
+										});
+									}
+								}); 
+						
 				        } else if (res.cancel) {
 				            return;
 				        }

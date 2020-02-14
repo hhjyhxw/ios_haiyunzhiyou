@@ -66,12 +66,12 @@
 		</view>
 		
 		<!-- 底部 -->
-		<view class="settle show">
+		<view class="settle show"  @click="toCart">
 			<view class="left">
 				<view class="caret-icon"><label >{{cartNum}}</label></view>
 				<view class="total-money"></view>
 			</view>
-			<view class="right" @click="toCart">去结算</view>
+			<view class="right">去结算</view>
 		</view>
 	</view>
 </template>
@@ -276,7 +276,7 @@
 			},
 			//跳转购物车
 			toCart() {
-				uni.redirectTo({
+				uni.switchTab({
 				    url: '/pages/carts/carts'
 				});
 			},

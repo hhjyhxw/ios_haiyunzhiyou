@@ -87,7 +87,7 @@
 				 options: [{
 				          icon: '../../static/image/title_but_3_gray.png',
 				          text: '',
-						  info: 2
+						  info: 0
 				        },
 						{
 				          icon: '',
@@ -97,14 +97,17 @@
 				          text: '',
 				        }],
 				        buttonGroup: [{
+							
 				          text: '加入购物车',
 				          backgroundColor: '#ff0000',
-				          color: '#fff'
+				          color: '#fff',
+						  id:1
 				        },
 				        {
 				          text: '立即购买',
 				          backgroundColor: '#ffa200',
-				          color: '#fff'
+				          color: '#fff',
+						  id:2
 				        }
 				        ],
 				nodes:[],
@@ -149,14 +152,16 @@
 		methods: {
 			//
 			onClick (e) {
-				uni.showToast({
-				  title: `点击${e.content.text}`,
-				  icon: 'none'
-				})
+				this.toCart();
 			  },
 			  buttonClick (e) {
 				console.log(e)
-				this.addCart();
+				if(e.content.id==1){
+					this.addCart();
+				}else if(e.content.id==2){
+					this.toPreorder();
+				}
+				//this.addCart();
 			  },
 			//获取商品信息
 			getGoods(data){
@@ -201,6 +206,13 @@
 						}
 					}); 
 			},
+			
+			//跳转立即购买
+			toPreorder() {
+				uni.navigateTo({
+					 url: '/pages/preorder/preorder?pid='+this.goods.pid+'&pretype=1'
+				})
+			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({
@@ -209,7 +221,7 @@
 			},
 			//跳转购物车
 			toCart() {
-				uni.redirectTo({
+				uni.switchTab({
 				    url: '/pages/carts/carts'
 				});
 			},
