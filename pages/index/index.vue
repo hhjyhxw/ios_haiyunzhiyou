@@ -14,7 +14,7 @@
 		<!-- 广告列表-->
 		<view class="adlist">
 				<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
-				    <swiper class="swiper-box" @change="change">
+				    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
 				        <swiper-item v-for="(item ,index) in info" :key="index">
 				            <view class="swiper-item">
 								<image :src="item.adImage"></image>
@@ -106,6 +106,9 @@
 		},
 		data() {
 			return {
+				autoplay: true,
+				interval: 2500,
+				duration: 500,
 				currentPage:'index',
 				address:'西乡塘区',
 				longitude:'',

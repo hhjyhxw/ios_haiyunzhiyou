@@ -3,7 +3,7 @@
 		
 		<view class="main-container">
 			<!-- 收货地址 -->
-			<view class="address" @click="toSelectAddress">
+			<view class="address" @click="toSelectAddress" v-if="receiver!=null">
 				<view class="">
 					<image class="lbs" src="../../static/image/ic_ddqr_dz.png"></image>
 				</view>
@@ -11,6 +11,18 @@
 					<view class="persion"><text>zdh</text><text class="persiontext2">15077144027</text></view>
 					<view class="addressdetail">
 						<text>广西壮族自治区 南宁市 西乡唐区衡阳街道广西壮族自治区 南宁市 西乡唐区衡阳街道</text>
+					</view>
+				</view>
+				<view >
+					<label class="arr"></label>
+				</view>
+			</view>
+			<!-- 收货地址 -->
+			<view class="address" @click="toSelectAddress" v-if="receiver==null">
+				
+				<view class="receiveinfo2" style="display:block;margin 1px auto;">
+					<view class="addressdetail">
+						<text>+添加收货地址</text>
 					</view>
 				</view>
 				<view >
@@ -28,7 +40,7 @@
 					<view class="goods" v-for="(item2,index2) in item.careItemList" :key="index2">
 						<view class="products">
 							<text class="name">{{item2.pName}}</text>
-							<text class="num">x{{item2.goodNum}}</text>
+							<text class="num">x{{item2.quantity}}</text>
 							<text class="xmoney">￥{{item2.price}}</text>
 						</view>
 					</view>
@@ -38,14 +50,14 @@
 							<radio class="shsmNotice" disabled="true" checked="true">送货上门</radio>
 						</view>
 						<view class="shsmNotice sm">
-							<text>由【{{item.supplierName}}】发货</text><text>门店地址：{{item.sendAddress}}</text>
+							<text>由【{{item.supplierName}}】发货</text><text>门店地址：{{item.supplierAddress}}</text>
 						</view>
 						<view class="message">
 							<label>买家留言:</label><input  />
 						</view>
 						<view class="totalinfo">
-							<label class="totalproduct">共计<text class="totalinfo_text">{{item.totalCount}}</text>件商品</label>
-							<label class="totalpost">邮费：<text class="totalinfo_text">￥{{item.postFee}}</text></label>
+							<label class="totalproduct">共计<text class="totalinfo_text">{{item.totalNum}}</text>件商品</label>
+						<!--	<label class="totalpost">邮费：<text class="totalinfo_text">￥{{item.postFee}}</text></label> -->
 							<label class="totalprice">合计:<text class="totalinfo_text">{{item.totalAmount}}</text></label>
 						</view>
 					</view>
@@ -88,14 +100,15 @@
 	export default {
 		data() {
 			return {
+				receiver:null,
 				supplierList:[
 						{
 							id:1,
 							supplierName:'旗舰店',
-							sendAddress:'北湖南路23号',
+							supplierAddress:'北湖南路23号',
 							checked:true,
 							totalAmount:0.98,
-							totalCount:3,
+							totalNum:3,
 							postFee:5,
 							careItemList:[
 								{
@@ -106,59 +119,49 @@
 									price:0.88,
 									goodImg:'../../static/logo.png',//listImgPath
 									checked:true,
-									goodNum:2
-								},
-								{
-									goodsId:1,
-									productId:1,
-									isMarketable:false,
-									pName:'第一干锅',
-									price:0.89,
-									goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
-									checked:true,
-									goodNum:1
-								},
+									quantity:2
+								}
 								
 							]
 						},
 						{
 							id:1,
-							supplierName:'家政服务',
-							sendAddress:'衡阳西路23号',
+							supplierName:'旗舰店',
+							supplierAddress:'北湖南路23号',
 							checked:true,
 							totalAmount:0.98,
-							totalCount:3,
+							totalNum:3,
 							postFee:5,
 							careItemList:[
 								{
 									goodsId:1,
 									productId:1,
 									isMarketable:false,
-									pName:'月卡',
+									pName:'荔枝',
 									price:0.88,
 									goodImg:'../../static/logo.png',//listImgPath
 									checked:true,
-									goodNum:1
-								},
-								{
-									goodsId:1,
-									productId:1,
-									isMarketable:false,
-									pName:'年卡',
-									price:0.89,
-									goodImg:'../../static/image/temp/good-demo.jpg',//listImgPath
-									checked:true,
-									goodNum:3
-								},
+									quantity:2
+								}
 								
 							]
-						}
+						},
 					],
 					selectAllChecked:false,
 					totalMoney:0.88,
 					totalDistcont:0.88,
+					buyType:''
 			}
 		},
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option.pids); //打印出上个页面传递的参数。
+			console.log(option.buyType); //打印出上个页面传递的参数。
+			var data ={buyType:option.buyType,pids:option.pids};
+			this.buyType = option.buyType;
+			this.getPreOrderList(data);
+			
+		},
+		
 		methods: {
 			//跳转店铺详情页
 			toShopDetail(shopId) {
@@ -172,6 +175,20 @@
 				uni.navigateTo({
 					url: '/pages/addresslist/addresslist?userId='+userId
 				})
+			},
+			//获取购物车商品
+			getPreOrderList(data){
+				this.$api.preOrder(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						  console.log(this.$config.imghosturl);
+						if(res.list!=null){
+							 this.supplierList = res.list;
+							 this.totalMoney = res.totalMoney;
+							 this.totalDistcont = res.totalDistcont;
+							 this.receiver = res.receiver;
+						}
+					}); 
 			},
 			
 		}
@@ -244,6 +261,14 @@
 .main-container .address .receiveinfo {
 	    font-size: 0.7rem;
 		color: #666;
+}
+.main-container .address .receiveinfo2 {
+	        font-size: 0.7rem;
+	        color: #666;
+	        display: block;
+	        justify-content: center;
+	        align-content: center;
+	        margin: 1px auto;
 }
 .main-container .address .arr {
 	background: url(../../static/image/ic_fj_arrow.png) 100% 50% no-repeat;

@@ -167,8 +167,19 @@
 			//去结算
 			toPrepay() {
 				var careItemids ='';
+				this.supplierList.forEach((p) => {
+						if(p.checked){
+							p.careItemList.forEach((k) => {
+								if(k.checked){
+									careItemids+=k.productId+'@@@';
+								}
+							});
+						}
+						
+				});
+				 console.log(JSON.stringify("careItemids=="+careItemids));
 				uni.navigateTo({
-					  url: '/pages/preorder/preorder?careItemids='+careItemids,
+					  url: '/pages/preorder/preorder?pids='+careItemids+'&buyType=cartiem',
 				})
 			},
 			

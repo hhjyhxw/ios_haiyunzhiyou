@@ -58,6 +58,17 @@
 	    font-size: 0.7rem;
 		color: #666;
 }
+.main-container .address .receiveinfo2 {
+	        font-size: 0.7rem;
+	        color: #666;
+	        display: block;
+	        -webkit-box-pack: center;
+	        -webkit-justify-content: center;
+	                justify-content: center;
+	        -webkit-align-content: center;
+	                align-content: center;
+	        margin: 1px auto;
+}
 .main-container .address .arr {
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAhBAMAAAD9tUxFAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAtUExURQAAAMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzGXgKJAAAAAOdFJOUwDzD5AipuZiNb/Td0tKBUQztwAAAG1JREFUCNdjMCxgAIE8ITAV9xhMOb5zAFHM7wJAFJPcC7DovpdgSu3dBRDF/m4BmLvuOZg690wBRHG+2wCiON6hmOf3ENk8lncJSDyoHEQlVB/UFKiZEBug9qm9O4BwC9RlUJOgrobaCfURxH8AygQryV9ZW84AAAAASUVORK5CYII=) 100% 50% no-repeat;
 	background-size: 5.5px auto;

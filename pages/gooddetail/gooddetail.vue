@@ -210,7 +210,7 @@
 			//跳转立即购买
 			toPreorder() {
 				uni.navigateTo({
-					 url: '/pages/preorder/preorder?pid='+this.goods.pid+'&pretype=1'
+					 url: '/pages/preorder/preorder?pids='+this.goods.pid+'@@@&buyType=buyNow'
 				})
 			},
 			//跳转店铺详情页
