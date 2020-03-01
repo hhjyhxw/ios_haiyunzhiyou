@@ -25,14 +25,14 @@
 					<view class="shop-goods">
 						<view class="wrap norest"  v-for="(item2 ,index2) in item.goodsList" :key="index2">
 							<view class="good" @click="toGoodsDetail(item2.id)">
-								<view class="good_img">
+								<view class="good_img"  :class="{good_img_icon:item2.maiwan }">
 									<image  :src="item2.defaultSourceImagePath"></image>
 								</view>
 								<view class="txt-normal">{{item2.name}}</view>
 								<!-- <view class="txt-fav-icon" v-if="item2.isSelect==true">海韵优选</view> -->
 								<view class="price">￥{{item2.marketPrice}}</view>
 							</view>
-							<view class="addToCaret" @click="addToCaret(item2.id)">添加</view>
+							<view class="addToCaret" @click="addCart(item2.pid)">添加</view>
 						</view>
 					</view>
 					<!-- 店铺商品列表end -->
@@ -57,7 +57,9 @@
 		data() {
 			return {
 				queryData:{},
-				supplierList:[],
+				supplierList:[
+					{"companyName":"吉之沐","goodsList":[{"supplier":null,"marketPrice":39,"store":2,"salesCount":2,"freezeStore":2,"introduction":"<p>壮家鸭王健康美味，特色小吃，有鸭王的生活，更有滋味</p>","defaultSourceImagePath":"/upload/image/goods/20180912/HYZY_C8A0EC1D5A12/d701a483bdc743eda974a19b1da72c70.jpg","promoteMessage":"无","originalPrice":58,"promotionInfo":"无","producingArea":"广西南宁","pid":35176,"monthSalesCount":0,"maiwan":true,"name":"壮家鸭王礼盒套装12个/盒","id":29334}],"contactPhone":"18078117467","businessHours":"07:30~22:00","supplierImg":"http://res.haiyunzy.com/mall/upload/image/supplier/20180904/null/1d53fa083c4940c7a2f934238fc72b59.png","address":"南宁市青秀区凤岭南","id":610}
+				],
 				cartNum:0 //购物车物品数量
 			}
 		},
@@ -70,21 +72,35 @@
 				goodsCategoryId:option.goodsCategoryId
 			};
 			this.getShopAndGoodsLiSt(this.queryData);
+			this.getCartNum();
 			
 		},
 		methods: {
 			//加入购物车
-			addToCaret(goodId){
-				uni.showLoading({
-					 title: '处理中',
-					 mask:true
-				})
-				var that = this;
-				setTimeout(function () {
-					that.cartNum = that.cartNum +1;
-				    uni.hideLoading();
-				}, 300);
-				
+			addCart(pid){
+				var data ={pid:pid};
+				console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+				this.$api.ajaxAdd(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							this.options[0].info++;
+							uni.showToast({
+							    title: '添加成功',
+							    duration: 2000
+							});
+						}else if(res.code=='0001'){
+							uni.showToast({
+							    title: res.message,
+							    duration: 2000
+							});
+						}else{
+							uni.showToast({
+							    title: '添加失败',
+							    duration: 2000
+							});
+						}
+					}); 
 			},
 			
 			//根据经纬度、分类、或者搜索关键自 获取店铺和商品信息
@@ -105,6 +121,14 @@
 						}
 					}); 
 			},
+			getCartNum(){
+				this.$api.getCartNum().then(res =>
+						{
+							if(res.code=='0000'){
+								this.cartNum=res.cartNum;
+							}
+						}); 
+			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({
@@ -119,7 +143,7 @@
 			},
 			//跳转购物车
 			toCart() {
-				uni.redirectTo({
+				uni.switchTab({
 				    url: '/pages/carts/carts'
 				});
 			},
@@ -288,7 +312,7 @@
 	}
 	.addToCaret{
 		    background: url(../../static/image/btn_gg_tj_normal.png) 100% 100% no-repeat scroll;
-		    background-size: 24px 24px;
+		    background-size: 16px 16px;
 			display: block;
 			/* width: 30px;
 			height: 30px; */
@@ -297,16 +321,20 @@
 			right: 0.6rem;
 			bottom:1rem;
 		}
-		.norest .good_img:after {
-		    position: absolute;
-		    bottom: 0;
-		    left: 0.7rem;
-		    right: 0.7rem;
-		    content: "暂无货";
-		   /* font-size: 1.3rem; */
-		    color: #fff;
-		    background-color: rgba(0,0,0,.5);
-			bottom:4.5rem;
+		.good_img_icon:after {
+	
+			content: "暂无货~";
+			position: absolute;
+			bottom: 4rem;
+			left: 29px;
+			display: block;
+			width: 56%;
+			height: 1rem;
+			line-height:1rem;
+			color: #fff;
+			font-size: 0.7rem;
+			text-align: center;
+			  background-color: rgba(0,0,0,.5);
 		}
 		
 		.settle {

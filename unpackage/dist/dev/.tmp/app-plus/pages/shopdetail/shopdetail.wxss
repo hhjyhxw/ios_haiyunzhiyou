@@ -223,7 +223,7 @@
 			align-items: center;
 			overflow: hidden;
 }
-.norest .good_img:after {
+.good_img_icon:after {
 	    position: absolute;
 	    bottom: 17px;
 	    left: 1rem;

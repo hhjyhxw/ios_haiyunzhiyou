@@ -47,6 +47,13 @@
 					<label class="arr"></label>
 					<label class=""></label>
 				</view>
+				<view class="list-group-item" @click="logout()">
+					<label class="icon icon3"></label>
+					<label class="iconinfo">退出登陆</label>
+					<label class="arr"></label>
+					<label class=""></label>
+				</view>
+				<!--
 				<navigator url="../login/login">
 					<view class="list-group-item">
 				
@@ -57,6 +64,7 @@
 						
 				</view>
 				</navigator>
+				-->
 			</view>
 			
 			
@@ -122,6 +130,17 @@
 				    phoneNumber: phone //仅为示例
 				});
 			},
+			logout(){
+				try {
+				    uni.clearStorageSync();
+				} catch (e) {
+				    // error
+				}
+				uni.redirectTo({
+					url: '/pages/login/login'
+				});
+			},
+			
 			
 			firstPage() {
 				uni.redirectTo({

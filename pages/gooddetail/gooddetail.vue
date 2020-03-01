@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 头部商品图片 -->
-		<image class="goods-img maiwan" :src="goods.defaultSourceImagePath" ></image>
+		<image class="goods-img" :class="{maiwan:  goods.maiwan }" :src="goods.defaultSourceImagePath" ></image>
 		
 		<!-- 商品信息 -->
 		<view class="goods-info">
@@ -111,6 +111,7 @@
 				        }
 				        ],
 				nodes:[],
+				
 				goods:{
 					name:'日常保洁月卡（4次每次3小时）',
 					defaultSourceImagePath:'',//商品图片
@@ -122,7 +123,8 @@
 					freezeStore:20,//冻结库存
 					producingArea:'青藏高原',//产地
 					promoteMessage:'每次派1名家政人员工作3小时（100平米内）。办卡仅限同一地址使用',
-					promotionInfo:'一张月卡可以使用四次'
+					promotionInfo:'一张月卡可以使用四次',
+					isMaiwan:false
 					
 				},
 				supplier:{
@@ -140,6 +142,9 @@
 			var data ={id:option.goodId};
 			this.getGoods(data);
 			
+		},
+		onShow:function(){
+			this.getCartNum();
 		},
 		filters: {
 			//空值过滤
@@ -162,6 +167,14 @@
 					this.toPreorder();
 				}
 				//this.addCart();
+			  },
+			  getCartNum(){
+			  	this.$api.getCartNum().then(res =>
+			  			{
+			  				if(res.code=='0000'){
+								this.options[0].info = res.cartNum;
+			  				}
+			  			}); 
 			  },
 			//获取商品信息
 			getGoods(data){

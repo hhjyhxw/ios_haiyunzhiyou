@@ -61,6 +61,8 @@ export const ajaxMinuses = (data) => { return http.get('/cartitem!ajaxMinuses.ac
 export const ajaxAdd = (data) => { return http.get('/cartitem!ajaxAdd.action',data)};
 //修改购物车文本框
 export const updatecarItem = (data) => { return http.get('/cartitem!updatecarItem.action',data)};
+//获取购物车总商品数量
+export const getCartNum = (data) => { return http.get('/cartitem!getCartNum.action',data)};
 
 //########################### 小程序支付接口 ##################################
 //订单确认
@@ -102,6 +104,7 @@ export default {
 	ajaxMinuses,
 	ajaxAdd,
 	updatecarItem,
+	getCartNum,
 	preOrder,
 	createOrder,
 	addresslist,

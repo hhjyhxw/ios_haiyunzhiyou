@@ -181,6 +181,7 @@
 <style>
 	.content {
 	    background-color: #F7F7F7;
+		margin-bottom: 10rem;
 	}
 	 .address-add{
 		padding: 1rem 2rem;
@@ -251,6 +252,7 @@
 	font-size: 0.7rem;
 	padding: 0.3rem;
 	color: #428bca;
+	margin-bottom: 3rem;
 }
 .edit-address .defautaddress{
 	flex: 2;

@@ -49,7 +49,7 @@
 			<view class="wrapper wrapper-cont scroll">
 				<view class="good-list">
 					<view class="norest goodItem" v-for="(item,index) in goodList" :key="index" >
-						<view class="good_img">
+						<view class="good_img" :class="{good_img_icon:item.maiwan }">
 							<image  :src="item.defaultSourceImagePath"  @click="toGoodsDetail(item.id)"></image></view>
 						<view class="txt"  @click="toGoodsDetail(item.id)">
 							<view class="name">{{item.name}}</view>
@@ -59,7 +59,7 @@
 								<text>￥{{item.originalPrice}}</text>
 							</view>
 						</view>
-						<view class="addToCaret"  @click="addToCaret(item.id)">添加到购物车</view>
+						<view class="addToCaret"  @click="addToCaret(item.pid)">添加到购物车</view>
 					</view>
 				</view>
 			</view>
@@ -182,6 +182,7 @@
 			console.log(option.shopId); //打印出上个页面传递的参数。
 			var data ={sid:option.shopId};
 			this.shopdetail(data);
+			this.getCartNum();
 			
 		},
 		methods: {
@@ -229,6 +230,7 @@
 			// },
 			async getGoodsList (data,first) {
 			    let result = await this.$api.goodslistBySidAndCatoid(data);
+				console.log(JSON.stringify(result));
 			    if(result.code != '0000') return;
 			    this.queryData.totalPage = result.total;
 			    // 格式化图片
@@ -240,7 +242,14 @@
 			        this.goodList = this.goodList.concat(result.list);
 			    }
 			},
-			
+			getCartNum(){
+				this.$api.getCartNum().then(res =>
+						{
+							if(res.code=='0000'){
+								this.cartNum=res.cartNum;
+							}
+						}); 
+			},
 			//选择分类
 			chooseType(index){
 				this.typeList.forEach((item,i) => {
@@ -257,16 +266,30 @@
 				  this.getGoodsList(this.queryData,true);
 			},
 			//加入购物车
-			addToCaret(goodId){
-				uni.showLoading({
-					 title: '处理中',
-					 mask:true
-				})
-				var that = this;
-				setTimeout(function () {
-					that.cartNum = that.cartNum +1;
-				    uni.hideLoading();
-				}, 300);
+			addToCaret(pid){
+				var data ={pid:pid};
+				console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+				this.$api.ajaxAdd(data).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							this.cartNum = this.cartNum +1;
+							uni.showToast({
+							    title: '添加成功',
+							    duration: 2000
+							});
+						}else if(res.code=='0001'){
+							uni.showToast({
+							    title: res.message,
+							    duration: 2000
+							});
+						}else{
+							uni.showToast({
+							    title: '添加失败',
+							    duration: 2000
+							});
+						}
+					}); 
 				
 			},
 			//跳转商品详情情页
@@ -541,7 +564,7 @@
 					
 			}
 			
-			.norest .good_img:after {
+			.good_img_icon:after {
 			    position: absolute;
 			    bottom: 17px;
 			    left: 1rem;
