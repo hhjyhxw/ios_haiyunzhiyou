@@ -19,9 +19,8 @@
   },
   "permissions": {
     "Payment": {},
-    "Maps": {
-      "coordType": "gcj02"
-    },
+    "OAuth": {},
+    "Contacts": {},
     "UniNView": {
       "description": "UniNView原生渲染"
     }

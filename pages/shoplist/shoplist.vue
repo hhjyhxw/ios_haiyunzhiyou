@@ -134,7 +134,8 @@
 							 //console.log('当前位置的经度：' + JSON.stringify(res));
 						that.longitude = res.longitude;
 						that.latitude = res.latitude;
-						var address = res.address.street+res.address.streetNum;
+						//var address = res.address.street+res.address.streetNum;
+						var address = res.address.street;
 						that.address = address;
 						uni.hideLoading()
 						let data ={
