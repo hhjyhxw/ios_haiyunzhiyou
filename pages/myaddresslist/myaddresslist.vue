@@ -8,13 +8,18 @@
 						<view class="phone">{{item.mobile}}</view>
 					</view>
 					<view class="address">
-						收货地址：{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.village}}{{item.address}}       
+						收货地址：{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.address}}       
 					</view>
 				</view>
 				<view class="edit-address">
-					<view class="defautaddress"><radio>默认地址</radio></view>
-					<view><text class="edit">编辑</text></view>
-					<view><text class="deladdress">删除</text></view>
+					<view class="defautaddress">
+						<!-- <radio :value="item.isDefault" :checked="item.isDefault===true">默认地址</radio> -->
+						<view class="input switchs">
+							<switch :checked="item.isDefault" @change="setDefault(index,$event)" />默认地址
+						</view>
+					</view>
+					<view><text class="edit" @click="editeAddress(item.id)">编辑</text></view>
+					<view><text class="deladdress" @click="deleteAddress(index,item.id)">删除</text></view>
 				</view>
 			</view>
 			
@@ -92,10 +97,59 @@
 				]
 			}
 		},
+		onShow:function(){
+			this.getAddressList();
+		},
 		methods: {
+			//获取我的地址列表
+			getAddressList(){
+				this.$api.addresslist().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+				
+						if(res.list!=null){
+							 this.addresslist = res.list;
+						}
+					}); 
+			},
+			setDefault(index,e){
+				console.log("e==="+JSON.stringify(e.detail.value));
+				console.log("index==="+JSON.stringify(index));
+				if(e.detail.value==true){
+					this.$api.setDefaut({id:this.addresslist[index].id}).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							this.addresslist.forEach(function(p){
+								console.log("p===="+JSON.stringify(p));
+								p.isDefault=false;
+							});
+							this.addresslist[index].isDefault = true;
+						}
+					}); 
+				}
+				
+			},
+			deleteAddress(index,id){
+				this.$api.deleteAddress({id:id}).then(res =>
+				{
+					 console.log(JSON.stringify(res));
+					if(res.code=='0000'){
+						this.addresslist.splice(index,1);
+						uni.showToast({
+							title:'删除成功'
+						})
+					}
+				}); 
+			},
+			editeAddress(id){
+				uni.navigateTo({
+				    url: '/pages/add-address/add-address?id='+id+'&formpage=myaddresslist'
+				});
+			},
 			toAddAddress(){
 				uni.navigateTo({
-				    url: '/pages/add-address/add-address'
+				    url: '/pages/add-address/add-address?formpage=myaddresslist'
 				});
 			},
 			firstPage() {

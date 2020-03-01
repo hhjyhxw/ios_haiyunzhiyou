@@ -8,9 +8,11 @@
 			</view>
 		</view>
 		<!-- 商品搜索-->
-		<view class="search">
+		<!-- 
+		 <view class="search">
 			<input  placeholder="搜索商品" placeholder-class="holderclass"/>
 		</view>
+		-->
 		<!-- 广告列表-->
 		<view class="adlist">
 				<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">

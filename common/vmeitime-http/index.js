@@ -71,9 +71,12 @@ export const createOrder = (data) => { return http.post('/order!createOrder.acti
 //我的地址列表
 export const addresslist = (data) => { return http.get('/address!list.action',data)};
 //添加/编辑地址
-export const saveAddress = (data) => { return http.get('/address!saveorUpdate.action', data)};
-//设置默认地址
+export const saveAddress = (data) => { return http.post('/address!saveorUpdate.action', data)};
+//获取详细地址并编辑
 export const addressDetail = (data) => { return http.get('/address!getDetail.action', data)};
+// 设置默认地址
+export const setDefaut = (data) => { return http.get('/address!setDefaut.action', data)};
+
 //删除地址
 export const deleteAddress = (data) => { return http.get('/address!delete.action', data)};
 //个人中心信息
@@ -104,6 +107,7 @@ export default {
 	addresslist,
 	saveAddress,
 	addressDetail,
+	setDefaut,
 	deleteAddress,
 	myinfo,
 	orderlist,

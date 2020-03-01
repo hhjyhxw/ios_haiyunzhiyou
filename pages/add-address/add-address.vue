@@ -6,7 +6,7 @@
 					<label>收货人</label>
 				</view>
 				<view class="input">
-					<input :value="name" />
+					<input  v-model="name" />
 				</view>
 			</view>
 			<view class="form-item">
@@ -14,7 +14,7 @@
 					<label>联系号码</label>
 				</view>
 				<view class="input">
-					<input :value="mobile" />
+					<input v-model="mobile" />
 				</view>
 			</view>
 			<view class="form-item selectaddone">
@@ -22,7 +22,7 @@
 					<label>选择区域</label>
 				</view>
 				<view class="input" @click="showcity">
-					<input :value="concactAddress"  />
+					<input v-model="concactAddress"  />
 					<view class="selectaddr">
 						<label >请选择</label>
 					</view>
@@ -33,7 +33,7 @@
 					<label>详细地址</label>
 				</view>
 				<view class="input">
-					<input  :value="detailaddress"/>
+					<input  v-model="detailaddress"/>
 				</view>
 			</view>
 			
@@ -42,7 +42,7 @@
 					<label>设置为默认</label>
 				</view>
 				<view class="input switchs">
-					<switch />
+					<switch @change="setDefault"/>
 				</view>
 			</view>
 	</view>
@@ -87,6 +87,24 @@
 				name:'',
 				mobile:'',
 				detailaddress:'',
+				isDefault:false,
+				id:'',
+				formpage:''
+			}
+		},
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option.formpage); //打印出上个页面传递的参数。
+			if(option.formpage!=null){
+				this.formpage = option.formpage;
+			}
+			if(option.id!=null){
+				this.id = option.id;
+			}
+			
+		},
+		onShow:function(){
+			if(this.id!=null || this.id!=''){
+				this.getDetail();
 			}
 		},
 		methods: {
@@ -107,7 +125,109 @@
 			},
 			togglePopup(){
 				this.close()
-			}
+			},
+			
+			setDefault(e){
+				console.log("e==="+JSON.stringify(e.detail.value));
+				this.isDefault = e.detail.value;
+			},
+			//获取地址
+			getDetail(){
+				this.$api.addressDetail({id:this.id}).then(res =>
+				{
+					 console.log(JSON.stringify(res));
+					if(res.code=='0000'){
+						this.provinceName=res.receiver.provinceName;
+						this.cityName=res.receiver.cityName;
+						this.countyName=res.receiver.areaName;
+						this.name=res.receiver.name;
+						this.mobile=res.receiver.mobile;
+						this.detailaddress=res.receiver.address;
+						this.concactAddress = this.provinceName+this.cityName+this.countyName;
+					}
+				}); 
+			},
+			//保存地址
+			toSaveAddress(){
+				if(this.name==null || this.name==''){
+					uni.showToast({
+						title:'请输入用户名'
+					})
+					return;
+				}
+				if(this.mobile==null  || this.mobile==''){
+					uni.showToast({
+						title:'联系电话'
+					})
+					return;
+				}
+				if(this.provinceName==''  || this.cityName=='' || this.countyName==''){
+					uni.showToast({
+						title:'请选择省/市/区县'
+					})
+					return;
+				}
+				if(this.concactAddress==null  || this.concactAddress==''){
+					uni.showToast({
+						title:'请现在区域'
+					})
+					return;
+				}
+				if(this.detailaddress==null  || this.detailaddress==''){
+					uni.showToast({
+						title:'请输入详细地址'
+					})
+					return;
+				}
+				var data = {
+					
+						provinceName:this.provinceName,
+						cityName:this.cityName,
+						areaName:this.countyName,
+						village:this.townName,
+						mobile:this.mobile,
+						phone:this.mobile,
+						name:this.name,
+						address:this.detailaddress,
+						isDefault:this.isDefault,
+						id:this.id
+					
+				};
+				 console.log("data==="+JSON.stringify(data));
+				 var receiver = JSON.stringify(data);
+				this.$api.saveAddress(data).then(res =>
+					{	
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							uni.showToast({
+								title:'保存成功'
+							})
+							if(this.formpage=='formpreorder'){
+								uni.navigateBack({
+									 delta: 2
+								})
+							}
+							if(this.formpage=='myaddresslist'){
+								uni.navigateBack({
+									 delta: 1
+								})
+							}
+						}else{
+							uni.showToast({
+								title:'保存失败'
+							})
+							return;
+						}
+						
+						
+					}); 
+			},
+			//跳转新增地址页面
+			toAddAddress() {
+				uni.navigateTo({
+					url: '/pages/add-address/add-address'
+				})
+			},
 
 		}
 	}

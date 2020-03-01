@@ -8,9 +8,9 @@
 					<image class="lbs" src="../../static/image/ic_ddqr_dz.png"></image>
 				</view>
 				<view class="receiveinfo">
-					<view class="persion"><text>zdh</text><text class="persiontext2">15077144027</text></view>
+					<view class="persion"><text>{{receiver.name}}</text><text class="persiontext2">{{receiver.mobile}}</text></view>
 					<view class="addressdetail">
-						<text>广西壮族自治区 南宁市 西乡唐区衡阳街道广西壮族自治区 南宁市 西乡唐区衡阳街道</text>
+						<text>{{receiver.provinceName}}{{receiver.cityName}}{{receiver.areaName}}{{receiver.address}}</text>
 					</view>
 				</view>
 				<view >
@@ -150,16 +150,20 @@
 					selectAllChecked:false,
 					totalMoney:0.88,
 					totalDistcont:0.88,
-					buyType:''
+					buyType:'',
+					pid:''
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
 			console.log(option.pids); //打印出上个页面传递的参数。
 			console.log(option.buyType); //打印出上个页面传递的参数。
-			var data ={buyType:option.buyType,pids:option.pids};
 			this.buyType = option.buyType;
-			this.getPreOrderList(data);
+			this.pids = option.pids;
 			
+		},
+		onShow:function(){
+			var data ={buyType:this.buyType,pids:this.pids};
+			this.getPreOrderList(data);
 		},
 		
 		methods: {

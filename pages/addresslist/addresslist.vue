@@ -3,7 +3,7 @@
 		
 		<view class="address">
 			<view class="list">
-				<view class="item" v-for="(item,index) in addresslist" :key="index">
+				<view class="item" v-for="(item,index) in addresslist" :key="index"  @click="goBackPreorder(item.id)">
 					<view class="persion"><text>{{item.name}}</text><text class="tel">{{item.mobile}}</text></view>
 					<view class="addressdetail">
 						<text>{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.village}}{{item.address}}</text>
@@ -14,7 +14,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="address-add">
+		<view class="address-add" @click="toAddAddress">
 			<view class="adda">
 				<text>新增收货地址</text>
 			</view>
@@ -58,8 +58,39 @@
 				]
 			}
 		},
-		methods: {
+		onShow: function (option) { //option为object类型，会序列化上个页面传递的参数
 			
+			this.getAddressList();
+			
+		},
+		methods: {
+			//获取我的地址列表
+			getAddressList(){
+				this.$api.addresslist().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+				
+						if(res.list!=null){
+							 this.addresslist = res.list;
+						}
+					}); 
+			},
+			//点击切换地址
+			goBackPreorder(id) {
+				this.$api.setDefaut({id:id}).then(res =>
+				{
+					 console.log(JSON.stringify(res));
+					if(res.code=='0000'){
+						uni.navigateBack()
+					}
+				}); 
+			},
+			//跳转新增地址页面
+			toAddAddress() {
+				uni.navigateTo({
+					url: '/pages/add-address/add-address?formpage=formpreorder'
+				})
+			},
 		}
 	}
 </script>

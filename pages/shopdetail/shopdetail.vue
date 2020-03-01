@@ -1,11 +1,12 @@
 <template>
 	<view>
 		<!-- 头部 -->
+		<!--
 		<form class="search fixed header">
 			<input placeholder="搜索店内商品" class="search-input" placeholder-class="search_placeholder"/>
 			<view class="shop-code"></view>
 		</form>
-		
+		-->
 		<!-- 广告列表-->
 		<view class="adlist">
 				<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">

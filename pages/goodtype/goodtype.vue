@@ -1,10 +1,11 @@
 <template>
 	<view>
 		<!-- 商品搜索-->
+		<!--
 		<view class="search">
 			<input  placeholder="搜索商品" placeholder-class="holderclass"/>
 		</view>
-		
+		-->
 			<!-- all_shop  -->
 			<view class="all_shop">
 				<!-- 店铺与商品列表 -->
