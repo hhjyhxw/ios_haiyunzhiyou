@@ -173,8 +173,8 @@
       box-sizing: border-box;
       border-left: 1px solid #E5E5E5;
       overflow: auto;
-      -webkit-overflow-scrolling: touch;
-}
+      -webkit-overflow-scrolling: touch; 
+	  margin-bottom: 5rem;}
 .norest{
 	  display: -webkit-box;
 	  display: -webkit-flex;
@@ -223,7 +223,7 @@
 			align-items: center;
 			overflow: hidden;
 }
-.norest .good_img:after {
+.good_img_icon:after {
 	    position: absolute;
 	    bottom: 17px;
 	    left: 1rem;

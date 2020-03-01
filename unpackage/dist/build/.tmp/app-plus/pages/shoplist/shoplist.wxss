@@ -63,13 +63,20 @@
   padding: 1rem 0rem;
   border-bottom: 1px solid lightgray;
 }
-.shoplist .shop_img {
+/* 	.shoplist .shop_img{
+		flex: 1;
+	} */
+.shop_img_in {
   width: 2.5rem;
   height: 2.5rem;
   margin-top: 0.5rem;
+  border-radius: 50%;
 }
 .shoplist .shop_info {
   padding-left: 0.3rem;
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+          flex: 2;
 }
 .shoplist .shop_name {
   font-size: 0.7rem;
@@ -106,7 +113,10 @@
 }
 .shop_go {
   width: 40px;
-  border-bottom: 1px solid #EBEBEB;
+  /* border-bottom: 1px solid #EBEBEB; */
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
 }
 .shop_go label {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAhBAMAAAD9tUxFAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAtUExURQAAAMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzGXgKJAAAAAOdFJOUwDzD5AipuZiNb/Td0tKBUQztwAAAG1JREFUCNdjMCxgAIE8ITAV9xhMOb5zAFHM7wJAFJPcC7DovpdgSu3dBRDF/m4BmLvuOZg690wBRHG+2wCiON6hmOf3ENk8lncJSDyoHEQlVB/UFKiZEBug9qm9O4BwC9RlUJOgrobaCfURxH8AygQryV9ZW84AAAAASUVORK5CYII=) 50% 50% no-repeat;
@@ -114,7 +124,7 @@
   color: transparent;
   display: block;
   margin-top: 1.1rem;
-  margin-right: -4.2rem;
+  /* margin-right: -3.2rem; */
   margin-top: 1.1rem;
   float: right;
 }
