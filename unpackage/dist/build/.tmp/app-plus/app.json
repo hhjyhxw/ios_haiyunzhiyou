@@ -17,7 +17,8 @@
     "pages/orderlist/orderlist",
     "pages/login/login",
     "pages/reg/reg",
-    "pages/pwd/pwd"
+    "pages/pwd/pwd",
+    "pages/pay/pay"
   ],
   "window": {
     "navigationBarTextStyle": "black",

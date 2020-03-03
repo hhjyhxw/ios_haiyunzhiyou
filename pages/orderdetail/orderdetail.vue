@@ -2,10 +2,10 @@
 	<view class="main-container">
 		<view class="list">
 			<view class="listitem">
-				<text>订单编号</text><text class="text2">20200102130835</text>
+				<text>订单编号</text><text class="text2">{{order.tid}}</text>
 			</view>
 			<view class="listitem">
-				<text>订单状态</text><text class="text2">订单已超时,支付取消</text>
+				<text>订单状态</text><text class="text2">{{order.tradeStatus}}</text>
 			</view>
 		</view>
 		<!-- 收货地址 -->
@@ -42,36 +42,42 @@
 		<!-- 订单金额信息 -->
 		<view class="list list-tri">
 			<view class="listitem">
-				<text>商品总额</text><text class="text3">￥8.01</text>
+				<text>商品总额</text><text class="text3">￥{{order.totalAmount}}</text>
 			</view>
 			<view class="listitem">
 				<text>优惠金额</text><text class="text3">￥0.00</text>
 			</view>
+			<!--
 			<view class="listitem">
 				<text>配送金额</text><text class="text3">￥8.00</text>
 			</view>
+			-->
 			<view class="listitem">
-				<text>订单总额</text><text class="text3 texttotal" >￥8.01</text>
+				<text>订单总额</text><text class="text3 texttotal" >￥{{order.totalAmount}}</text>
 			</view>
 		</view>
 		
 		<!-- 其他信息 -->
 		<view class="list">
 			<view class="listitem">
-				<text>下单时间</text><text class="text2">2019-01-02 10:00:25</text>
+				<text>下单时间</text><text class="text2">{{order.createDate}}</text>
 			</view>
+			<!--
 			<view class="listitem">
 				<text>买家留言</text><text class="text2"></text>
 			</view>
+			-->
 			<view class="listitem">
 				<text>配送方式</text><text class="text2">送货上门</text>
 			</view>
 			<view class="listitem">
 				<text>支付方式</text><text class="text2">微信支付</text>
 			</view>
+			<!--
 			<view class="listitem">
 				<text>客服电话</text><text class="text2">156851115</text>
 			</view>
+			-->
 			<view class="listitem">
 				<text>在线客服</text><text class="text2"></text>
 			</view>
@@ -84,6 +90,7 @@
 		data() {
 			return {
 				order:{
+					id:-1,
 					shipName:'zdh',
 					shipMobile:'15077144027',
 					shipAddress:'广西壮族自治区南宁市西乡唐区',
@@ -111,8 +118,28 @@
 				}
 			}
 		},
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+		    console.log('id===='+option.id); //打印出上个页面传递的参数。
+			this.order.id = option.id;
+		},
+		onShow: function () {
+			this.getOrderDetail(this.status);
+		},
 		methods: {
-			
+			//获取用户待收货，待支付订单数
+			getOrderDetail(){
+				this.$api.orderdetail({id:this.order.id}).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							let order = res.order;
+							order.orderitemlist.forEach((p) => {
+									p.goodimg = this.$config.imghosturl+p.goodimg
+							});
+							this.order = order;
+						}
+					}); 
+			},
 		}
 	}
 </script>

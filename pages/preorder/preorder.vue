@@ -53,7 +53,7 @@
 							<text>由【{{item.supplierName}}】发货</text><text>门店地址：{{item.supplierAddress}}</text>
 						</view>
 						<view class="message">
-							<label>买家留言:</label><input  />
+							<label>买家留言:</label><input v-model="item.memo"  />
 						</view>
 						<view class="totalinfo">
 							<label class="totalproduct">共计<text class="totalinfo_text">{{item.totalNum}}</text>件商品</label>
@@ -90,7 +90,7 @@
 				</view>
 			</view>
 			
-			<view class="submit">确认</view>
+			<view class="submit"  @click="toCreateOrder">确认</view>
 		</view>
 		
 	</view>
@@ -167,6 +167,44 @@
 		},
 		
 		methods: {
+			
+			//跳转支付页，传入传教订单相关参数
+			toCreateOrder(){
+				if(this.receiver==null){
+					uni.showToast({
+						title:'请选择收货地址'
+					})
+					return;
+				}
+				
+				var data = [];
+				this.supplierList.forEach((p) => {
+					var pids='';
+					var quantitys='';
+					p.careItemList.forEach((k) => {
+						pids+=k.productId+'@@@';
+						quantitys+=k.quantity+'@@@'
+					});
+					var order ={
+						sid:p.id,
+						pids:pids,
+						quantitys:quantitys,
+						memo:p.memo
+					};
+					data.push(order);
+				});
+			
+				var obj = {
+					dataJson:data,
+					receivierId:this.receiver.id
+				}
+				let objJson =JSON.stringify(obj);
+				uni.redirectTo({
+					url: '/pages/pay/pay?objJson='+objJson
+				});
+			},
+			
+			
 			//跳转店铺详情页
 			toShopDetail(shopId) {
 				uni.navigateTo({

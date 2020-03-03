@@ -68,7 +68,11 @@ export const getCartNum = (data) => { return http.get('/cartitem!getCartNum.acti
 //订单确认
 export const preOrder = (data) => { return http.get('/order!preOrder.action',data)};
 //生产支付参数并支付
-export const createOrder = (data) => { return http.post('/order!createOrder.action', data)};
+//export const createOrder = (data) => { return http.post('/order!createOrder.action', data)};
+export const createOrder = (data) => {
+	return http.post('/order!createOrder.action', data)
+};
+
 
 //我的地址列表
 export const addresslist = (data) => { return http.get('/address!list.action',data)};
@@ -86,7 +90,12 @@ export const myinfo = (data) => { return http.get('/mycenter!myinfo.action', dat
 //订单列表
 export const orderlist = (data) => { return http.get('/mycenter!orderlist.action', data)};
 //订单明细
-export const orderdetail = (data) => { return http.get('/order!orderdetail.action', data)};
+export const orderdetail = (data) => { return http.get('/mycenter!orderdetail.action', data)};
+
+//contiToPay 继续支付
+export const contiToPay = (data) => {
+	return http.get('/order!contiToPay.action', data)
+};
 
 export default {
 	login,

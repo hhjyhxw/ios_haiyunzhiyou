@@ -23,15 +23,15 @@
 					<view class="item">
 						<view class="order-hd">
 							<text class="shop">{{item.supplierName}}</text>
-							<text class="state" >{{item.tradeStatusName}}</text>
+							<text class="state" >{{item.tradeStatus.name}}</text>
 						</view>
 					</view>
 					
 					<view class="item" @click="toOrderitem(item.id)">
 						<view class="order-bd">
 							<view class="order-info">
-								<view>
-									<image class="order-img" src="../../static/logo.png" mode=""></image>
+								<view  v-for="(item2,index2) in item.goodsImageVos" :key="index2">
+									<image class="order-img" :src="item2.goodsImage"  mode=""></image>
 								</view>
 								<view class="order-num">
 									<text class="order-num-text">共1件</text>
@@ -42,7 +42,7 @@
 					<view class="order-ft">
 						<view class="time">{{item.createDate}}</view>
 						<view class="money">￥{{item.totalAmount}}</view>
-						<view class="go2pay" v-if="item.tradeStatus=='unprocessed' && item.paymentStatus=='unpaid'"><text>去支付</text></view>
+						<view @click="go2pay(item.tid)" class="go2pay" v-if="item.tradeStatus=='unprocessed' && item.paymentStatus=='unpaid'"><text>去支付</text></view>
 					</view>
 				</view>
 			</view>
@@ -145,22 +145,73 @@
 						createDate:'2019-05-12 00:10:25'
 					}
 				],
+				queryData:{
+					pageNo: 1,// 页码
+					totalPage: 0,//表总页数
+					parameters:'UNCOMPLETED',//订单状态
+				}
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
 		    console.log('status===='+option.status); //打印出上个页面传递的参数。
 			this.status = option.status;
 		},
+		onShow: function () {
+			this.getOderList(this.status);
+		},
+		filters: {
+			//空值过滤
+		  nullImgFilter (value) {
+			if(value==null || value=='null'){
+				return '../../static/image/logo_loading_bg.png';
+			}
+		  },
+		},
 		methods: {
+			
 			//切换订单列表
 			getOderList(status){
+				//获取用户订单列表
+				 this.queryData.parameters=status;
+				 this.queryData.pageNo=1;
+				 this.queryData.totalPage=0;
+				this.toGetOderList(this.queryData,true);
 				this.status = status;
+				
 			},
+			async toGetOderList (data,first) {
+			    let result = await this.$api.orderlist(data);
+				console.log(JSON.stringify(result));
+			    if(result.code != '0000') return;
+			    this.queryData.totalPage = result.total;
+				
+				let list = result.list;
+				list.forEach((p) => {
+					p.goodsImageVos.forEach((k) => {
+						k.goodsImage = this.$config.imghosturl+k.goodsImage
+					});
+				});
+				
+			    if(first) {//是否是刷新 或者第一次加载
+			        this.orderlist = result.list;
+			    } else {
+			        this.orderlist = this.orderlist.concat(result.list);
+			    }
+			},
+			
+			
 			toOrderitem(orderid){
 				uni.navigateTo({
-					 url: '/pages/orderdetail/orderdetail'
+					 url: '/pages/orderdetail/orderdetail?id='+orderid
 				});
 			},
+			
+			go2pay(tid){
+				uni.navigateTo({
+					 url: '/pages/pay/pay?tid='+tid+'@@@&formorderlist=formorderlist'
+				});
+			},
+			
 			firstPage() {
 				uni.redirectTo({
 				    url: '/pages/index/index'
@@ -182,6 +233,28 @@
 				    url: '/pages/mycenter/mycenter'
 				});
 			},
+			
+			
+			
+			onPullDownRefresh(){//下拉刷新
+			    //this.queryData.pageNo = 1;
+			    //this.queryData.totalPage = 0;
+			   // this.getGoodsList(this.queryData,true);
+			   // uni.stopPullDownRefresh();
+			},
+			onReachBottom(){//页面滚动到底部的事件
+				if (this.queryData.pageNo > this.queryData.totalPage) {
+					return false;
+				}
+			    this.queryData.pageNo = this.queryData.pageNo + 1;
+				 console.log("pageNo==="+this.queryData.pageNo);
+				  console.log("totalPage==="+this.queryData.totalPage);
+			    if (this.queryData.pageNo > this.queryData.totalPage) {
+			        return false;
+			    }
+			    this.toGetOderList(this.queryData,false);
+			}
+			
 		}
 	}
 </script>

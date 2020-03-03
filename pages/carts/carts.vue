@@ -146,7 +146,7 @@
 					{
 						 console.log(JSON.stringify(res));
 						  console.log(this.$config.imghosturl);
-						if(res.list!=null){
+						if(res.list!=null && res.list.length>0){
 							let supplierList = res.list;
 							 supplierList.forEach((p) => {
 									p.careItemList.forEach((k) => {
@@ -155,6 +155,10 @@
 							 });
 							 this.supplierList = supplierList;
 							 this.recaculate();
+						}else{
+							uni.redirectTo({
+								url:'/pages/carts_empty/carts_empty'
+							})
 						}
 					}); 
 			},

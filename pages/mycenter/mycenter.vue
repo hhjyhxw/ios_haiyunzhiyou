@@ -4,8 +4,8 @@
 				<view class="userInfo">
 					<image class="heardurl" src="http://thirdwx.qlogo.cn/mmopen/HpicclFcicSt5tNZQSr2vPT1NVZSjiaoUCACetNbCd7Cy2ibIobUFJibHM7M8l7MTIRPqXaxZKoW1ZHuEjFYefhyyVkicvkZ1Fh10D/132"></image>
 					<view class="user">
-						<view class="name">阿木木</view>
-						<view class="phone"><text></text>5077144027</view>
+						<view class="name">{{member.userName}}</view>
+						<view class="phone"><text></text>{{member.mobile}}</view>
 					</view>
 				</view>
 			</view>
@@ -21,13 +21,13 @@
 					<label class="icon icon1"></label>
 					<label class="iconinfo">待付款</label>
 					<label class="arr"></label>
-					<label class="badge2">2</label>
+					<label class="badge2">{{unpaidNum}}</label>
 				</view>
 				<view class="list-group-item"  @click="toOrderList('UNSHIPPED')">
 					<label class="icon icon2"></label>
 					<label class="iconinfo">待收货</label>
 					<label class="arr"></label>
-					<label class="badge2">2</label>
+					<label class="badge2">{{unshippedNum}}</label>
 				</view>
 				<view class="list-group-item"  @click="toOrderList('COMPLETED')">
 					<label class="icon icon3"></label>
@@ -112,12 +112,33 @@
 		data() {
 			return {
 				currentPage:'mycenter',
+				member:{
+					userName:'阿木木',
+					mobile:'15077144027'
+				},
+				unshippedNum:0,//待收货
+				unpaidNum:0,//待付款
 			}
 		},
 		onLoad(){
 			
 		},
+		onShow:function(){
+			this.myinfoAndOrderCount();
+		},
 		methods: {
+			//获取用户待收货，待支付订单数
+			myinfoAndOrderCount(){
+				this.$api.myinfo().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							this.member = res.member;
+							this.unpaidNum = res.unpaidNum;
+							this.unshippedNum = res.unshippedNum;
+						}
+					}); 
+			},
 			//
 			toOrderList(status) {
 				uni.navigateTo({

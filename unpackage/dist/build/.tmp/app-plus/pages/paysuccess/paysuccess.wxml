@@ -1,1 +1,1 @@
-<view></view>
+<view><view data-event-opts="{{[['tap',[['toOrder',['$event']]]]]}}" bindtap="__e">查看订单</view><view data-event-opts="{{[['tap',[['toIndex',['$event']]]]]}}" bindtap="__e">返回首页</view></view>

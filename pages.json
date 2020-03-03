@@ -79,11 +79,15 @@
         }
         ,{
             "path" : "pages/paysuccess/paysuccess",
-            "style" : {}
+            "style": {
+            	"navigationBarTitleText": "支付成功"
+            }
         }
         ,{
             "path" : "pages/payerror/payerror",
-            "style" : {}
+           "style": {
+           	"navigationBarTitleText": "支付失败"
+           }
         }
         ,{
             "path" : "pages/orderlist/orderlist",
@@ -109,6 +113,18 @@
 		    	"navigationBarTitleText": "忘记密码"
 		    }
 		}
+        ,{
+            "path" : "pages/pay/pay",
+            "style": {
+            	"navigationBarTitleText": "支付确认"
+            }
+        }
+        ,{
+            "path" : "pages/carts_empty/carts_empty",
+           "style": {
+           	"navigationBarTitleText": "购物车"
+           }
+        }
     ],
 	"permission": {
 	    "scope.userLocation": {
