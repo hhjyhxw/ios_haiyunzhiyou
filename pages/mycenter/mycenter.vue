@@ -1,11 +1,11 @@
 <template>
 	<view>
 			<view class="carousel">
-				<view class="userInfo">
+				<view class="userInfo" @click="toMyinfo">
 					<image class="heardurl" src="http://thirdwx.qlogo.cn/mmopen/HpicclFcicSt5tNZQSr2vPT1NVZSjiaoUCACetNbCd7Cy2ibIobUFJibHM7M8l7MTIRPqXaxZKoW1ZHuEjFYefhyyVkicvkZ1Fh10D/132"></image>
 					<view class="user">
 						<view class="name">{{member.userName}}</view>
-						<view class="phone"><text></text>{{member.mobile}}</view>
+						<view class="phone"><text></text>{{member.mobile | nullFilter}}</view>
 					</view>
 				</view>
 			</view>
@@ -48,7 +48,7 @@
 					<label class=""></label>
 				</view>
 				<view class="list-group-item" @click="logout()">
-					<label class="icon icon3"></label>
+					<label class="icon icon7"></label>
 					<label class="iconinfo">退出登陆</label>
 					<label class="arr"></label>
 					<label class=""></label>
@@ -126,6 +126,14 @@
 		onShow:function(){
 			this.myinfoAndOrderCount();
 		},
+		filters: {
+			//空值过滤
+		  nullFilter (value) {
+			if(value==null || value=='null'){
+				return '';
+			}
+		  },
+		},
 		methods: {
 			//获取用户待收货，待支付订单数
 			myinfoAndOrderCount(){
@@ -189,6 +197,11 @@
 				    url: '/pages/myaddresslist/myaddresslist'
 				});
 			},
+			toMyinfo(){
+				uni.navigateTo({
+				    url: '/pages/userinfo/userinfo'
+				});
+			}
 		}
 	}
 </script>
@@ -325,6 +338,10 @@
 	.list-group .list-group-item .icon6 {
 		background: url(../../static/image/ic_wd_kfdh.png) 0 50% no-repeat;
 		background-size: 2rem 2rem;
+	}
+	.list-group .list-group-item .icon7 {
+		background: url(../../static/image/set1.png) 23% 50% no-repeat;
+		background-size: 1.5rem 1.5rem;
 	}
 	.active {
 	    background-color: #E13F3F;

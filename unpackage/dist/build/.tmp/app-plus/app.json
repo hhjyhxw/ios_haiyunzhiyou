@@ -18,7 +18,9 @@
     "pages/login/login",
     "pages/reg/reg",
     "pages/pwd/pwd",
-    "pages/pay/pay"
+    "pages/pay/pay",
+    "pages/carts_empty/carts_empty",
+    "pages/userinfo/userinfo"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -23,7 +23,7 @@
 					<view class="item">
 						<view class="order-hd">
 							<text class="shop">{{item.supplierName}}</text>
-							<text class="state" >{{item.tradeStatus.name}}</text>
+							<text class="state" >{{item.tradeStatusName}}</text>
 						</view>
 					</view>
 					

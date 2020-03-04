@@ -30,25 +30,25 @@
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+		 console.log(JSON.stringify(option));
 			//订单列表中未支付的订单跳转
 			if('formorderlist'==option.formorderlist){
 				this.formorderlist = option.formorderlist;
 				this.tid = option.tid;
-			}else{
+				this.toCreateNewPayment();
+			}else if('formorderconfig'==option.formorderconfig){
 				//订单确认页中跳转
 				console.log("objJson==="+option.objJson); 
 				this.objJson = option.objJson;
-			}
-			
-		
-			
-		},
-		onShow: function () {
-			if('formorderlist'==this.formorderlist && this.tid!=''){
-				this.toCreateNewPayment();
-			}else{
 				this.toCreateOrder();
 			}
+		},
+		onShow: function () {
+			//if('formorderlist'==this.formorderlist && this.tid!=''){
+			//	this.toCreateNewPayment();
+			//}else if('formorderconfig'==option.formorderconfig){
+			//	this.toCreateOrder();
+			//}
 			
 		},
 		methods: {
@@ -65,7 +65,7 @@
 			},
 			//继续支付
 			toCreateNewPayment(){
-				this.$api.contiToPay({tid:this.tid}).then(res =>
+				this.$api.contiToPay({tids:this.tid}).then(res =>
 					{
 						 console.log(JSON.stringify(res));
 						if(res.code=='0000'){
@@ -90,7 +90,7 @@
 				    fail: function(res){
 						console.log(JSON.stringify(res));
 						uni.redirectTo({
-							url: '/pages/paysuccess/paysuccess'
+							url: '/pages/payerror/payerror'
 						});
 					}
 				});

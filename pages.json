@@ -125,6 +125,12 @@
            	"navigationBarTitleText": "购物车"
            }
         }
+        ,{
+            "path" : "pages/userinfo/userinfo",
+           "style": {
+           	"navigationBarTitleText": "个人信息"
+           }
+        }
     ],
 	"permission": {
 	    "scope.userLocation": {

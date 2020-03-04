@@ -96,6 +96,19 @@ export const orderdetail = (data) => { return http.get('/mycenter!orderdetail.ac
 export const contiToPay = (data) => {
 	return http.get('/order!contiToPay.action', data)
 };
+//重置密码
+export const repasswordSend = (data) => { return http.get('/user!repasswordSend.action', data)};
+
+//获取用户信息
+export const getUserInfo = (data) => { return http.get('/user!userinfo.action', data)};
+
+//修改信息
+export const modifyInfo = (data) => { return http.post('/user!saveorUpadteUser.action', data)};
+
+
+//上传文件
+//export const uploadFile = (data) => { return http.get('/upload!uploadFile.action', data)};
+
 
 export default {
 	login,
@@ -124,6 +137,9 @@ export default {
 	myinfo,
 	orderlist,
 	orderdetail,
-	getUserIno
+	repasswordSend,
+	modifyInfo,
+	getUserInfo,
+	contiToPay
 
 }

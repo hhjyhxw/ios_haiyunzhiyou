@@ -49,8 +49,8 @@
 				});
 			},
 			toOrder() {
-				uni.switchTab({
-				    url: '/pages/orderlist/orderlist'
+				uni.redirectTo({
+				    url: '/pages/orderlist/orderlist?status=UNPAID'
 				});
 			},
 			toCenter() {

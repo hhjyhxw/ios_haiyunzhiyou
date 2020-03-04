@@ -65,63 +65,7 @@
 		data() {
 			return {
 				supplierList:[
-					{
-						id:1,
-						supplierName:'旗舰店',
-						logoUrl:'',
-						checked:true,
-						careItemList:[
-							{
-								goodsId:1,
-								productId:1,
-								isMarketable:false,
-								pName:'荔枝',
-								price:0.88,
-								listImgPath:'../../static/logo.png',//listImgPath
-								checked:true,
-								quantity:2
-							},
-							{
-								goodsId:1,
-								productId:1,
-								isMarketable:false,
-								pName:'荔枝',
-								price:0.88,
-								listImgPath:'../../static/logo.png',//listImgPath
-								checked:true,
-								quantity:2
-							},
-							
-						]
-					},
-					{
-						id:1,
-						supplierName:'家政服务',
-						checked:true,
-						careItemList:[
-							{
-								goodsId:1,
-								productId:1,
-								isMarketable:false,
-								pName:'荔枝',
-								price:0.88,
-								listImgPath:'../../static/logo.png',//listImgPath
-								checked:true,
-								quantity:2
-							},
-							{
-								goodsId:1,
-								productId:1,
-								isMarketable:false,
-								pName:'荔枝',
-								price:0.88,
-								listImgPath:'../../static/logo.png',//listImgPath
-								checked:true,
-								quantity:2
-							},
-							
-						]
-					}
+					
 				],
 				selectAllChecked:true,
 				totalMoney:0.88,

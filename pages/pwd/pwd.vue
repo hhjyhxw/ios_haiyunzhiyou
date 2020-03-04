@@ -8,7 +8,7 @@
 		</view>
 
 		<view class="btn-row">
-			<button type="primary" class="primary" @tap="findPassword">提交</button>
+			<button type="primary" class="primary" @click="findPassword">提交</button>
 		</view>
 	</view>
 </template>
@@ -38,11 +38,20 @@
 					});
 					return;
 				}
-				uni.showToast({
-					icon: 'none',
-					title: '已发送重置邮件至注册邮箱，请注意查收。',
-					duration: 3000
-				});
+				
+				this.$api.repasswordSend({email:this.email}).then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.code=='0000'){
+							uni.showToast({
+								icon: 'none',
+								title: '已发送重置邮件至注册邮箱，请注意查收。',
+								duration: 5000
+							});
+							uni.navigateBack();
+						}
+					}); 
+				
 			}
 		}
 	}

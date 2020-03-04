@@ -200,7 +200,7 @@
 				}
 				let objJson =JSON.stringify(obj);
 				uni.redirectTo({
-					url: '/pages/pay/pay?objJson='+objJson
+					url: '/pages/pay/pay?objJson='+objJson+'&formorderconfig=formorderconfig'
 				});
 			},
 			
