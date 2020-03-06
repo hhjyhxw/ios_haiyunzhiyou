@@ -69,7 +69,10 @@
 		<!-- 底部 -->
 		<view class="settle show"  @click="toCart">
 			<view class="left">
-				<view class="caret-icon"><label >{{cartNum}}</label></view>
+				<view class="left_one">
+					<view class="caret-icon"><label >{{cartNum}}</label></view>
+					<view class="caret_num"><label >{{cartNum}}</label></view>
+				</view>
 				<view class="total-money"></view>
 			</view>
 			<view class="right">去结算</view>
@@ -633,15 +636,17 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			height: 2.8rem;
-			line-height: 2.8rem;
+			height: 2.5rem;
+			line-height: 2.5rem;
 			font-size: 0;
 			-webkit-transition: -webkit-transform .3s ease;
 			transition: transform .3s ease;
 			-webkit-transform: translateY(120%);
 			-ms-transform: translateY(120%);
 			transform: translateY(120%);
-			 background-color: rgba(0,0,0,0.8);
+			 /* background-color: rgba(0,0,0,0.8); */
+			background-color: white;
+			border:1px solid lightgrey;
 		}
 		 .show {
 				-webkit-transform: translateY(0);
@@ -658,34 +663,59 @@
 			    background-color: rgba(0,0,0,0.8);
 			    position: relative;
 		}
+		.left_one{
+			position: relative;
+		}
 		.settle .right{
 			    display: inline-block;
 			    width: 26%;
 			    color: #fff;
 			    font-size: 0.8rem;
 			    text-align: center;
-			    background-color: #E13F3F;
+			   /* background-color: #E13F3F; */
+				background-color: rgb(255, 0, 0);
+				border-radius: 2rem;
 		}
 		
 		.settle .left .caret-icon{
 				position: absolute;
-			    left: 1.6rem;
+			    left: -5rem;
 			    bottom: -.4rem;
 			    display: block;
-			    width: 2.7rem;
-			    height: 2.7rem;
+			    width: 1.3rem;
+			    height: 1.3rem;
 			    text-align: center;
 			    text-indent: 1em;
-			    background: url(../../static/image/ic_gg_shop.png) 100% 0 no-repeat;
+			  /*  background: url(../../static/image/ic_gg_shop.png) 100% 0 no-repeat; */
+				background: url(../../static/unselectcart.png) 100% 0 no-repeat;
 			    background-size: contain;
 		}
 		.caret-icon label  {
-		    font-size: 0.8rem;
-		    font-style: normal;
+		    font-size: 0.1rem;
+		 /*   font-style: normal;
 		    font-family: Arial;
 		    padding: 0 0.4em;
 		    background-color: #E13F3F;
-		    border-radius: 65%/100%;
+		    border-radius: 65%/100%; */
+		}
+		.caret_num{
+			position: absolute;
+			    bottom: 0.05rem;
+			    left: -4.1rem;
+				height:2rem;
+		/* 	font-size: 0.1rem;
+			   font-style: normal;
+			   font-family: Arial;
+			   padding: 0 0.4em;
+			   background-color: #E13F3F; */
+		}
+		.caret_num label  {
+		    font-size: 0.7rem;
+		   font-style: normal;
+		    font-family: Arial;
+		    padding: 0 0.4em;
+		    background-color: #E13F3F;
+		    border-radius: 65%/100%; 
 		}
 		.settle .left .total-money{
 			

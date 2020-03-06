@@ -1,6 +1,7 @@
 
 .header1{
-	     background-color: #E13F3F;
+	  /*   background-color: #E13F3F; */
+		background-color: #1195db;
 	     height: 2.5rem;
 	     line-height: 2.5rem;
 	     padding: 0 1.6rem;

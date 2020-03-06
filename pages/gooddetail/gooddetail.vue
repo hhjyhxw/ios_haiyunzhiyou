@@ -85,7 +85,8 @@
 		data() {
 			return {
 				 options: [{
-				          icon: '../../static/image/title_but_3_gray.png',
+				          /* icon: '../../static/image/title_but_3_gray.png', */
+						  icon: '../../static/unselectcart.png',
 				          text: '',
 						  info: 0
 				        },
@@ -124,7 +125,7 @@
 					producingArea:'青藏高原',//产地
 					promoteMessage:'每次派1名家政人员工作3小时（100平米内）。办卡仅限同一地址使用',
 					promotionInfo:'一张月卡可以使用四次',
-					isMaiwan:false
+					maiwan:false
 					
 				},
 				supplier:{
@@ -160,12 +161,19 @@
 				this.toCart();
 			  },
 			  buttonClick (e) {
-				console.log(e)
-				if(e.content.id==1){
-					this.addCart();
-				}else if(e.content.id==2){
-					this.toPreorder();
-				}
+				 if(!this.goods.maiwan){
+					 if(e.content.id==1){
+					 		this.addCart();
+					 }else if(e.content.id==2){
+					 		this.toPreorder();
+					 }
+				 }else{
+					 uni.showToast({
+					     title: '商品库存不足',
+					     duration: 2000
+					 });
+				 }
+				
 				//this.addCart();
 			  },
 			  getCartNum(){
@@ -187,6 +195,9 @@
 							regood.defaultSourceImagePath = this.$config.imghosturl+regood.defaultSourceImagePath;
 							this.goods = regood;
 							this.supplier = regood.supplier;
+							if(regood.isMaiwan==true){
+								this.buttonGroup[1].backgroundColor="grey";
+							}
 							if(regood.introduction!=null){
 								this.getData(regood.introduction);
 							}
@@ -222,6 +233,7 @@
 			
 			//跳转立即购买
 			toPreorder() {
+				console.log("this.goods.isManwan==="+this.goods.isMaiwan)
 				uni.navigateTo({
 					 url: '/pages/preorder/preorder?pids='+this.goods.pid+'@@@&buyType=buyNow'
 				})

@@ -1,6 +1,7 @@
 <template>
-	<view>
-			<view class="main-container">
+	<view class="page">
+			
+			<view class="main-container" v-if="supplierList!=null && supplierList.length>0">
 				<view class="header">
 					<view class="btn-back" @click="backPage"></view>
 					<view class="gwc"></view>
@@ -41,7 +42,7 @@
 			<!-- main-container end -->
 			
 			<!-- 底部 -->
-			<view class="footer-count">
+			<view class="footer-count" v-if="supplierList!=null && supplierList.length>0">
 				<view class="total">
 					<view class="flex">
 						<view class="sp1">
@@ -57,6 +58,18 @@
 			</view>
 			
 			
+			<view class="content" v-if="supplierList==null || supplierList=='' || supplierList.length==0">
+					<view class="uni-cart-imgbox">
+						<image class="uni-cart-img" src="../../static/image/pic_gw_k.png"></image>
+					</view>
+					<view class="uni-cart-text1">您的购物车空空哒~</view>
+					<view class="uni-cart-btn" @click="goToIndex"><text class="uni-cart-text1">去逛逛</text></view>
+				</view>
+				<!-- <view class="container999">
+					<tabBar :currentPage="currentPage"></tabBar>
+				</view> -->
+			</view>
+			
 	</view>
 </template>
 
@@ -64,9 +77,7 @@
 	export default {
 		data() {
 			return {
-				supplierList:[
-					
-				],
+				supplierList:null,
 				selectAllChecked:true,
 				totalMoney:0.88,
 			}
@@ -84,6 +95,11 @@
 				     url: '/pages/index/index'
 				});
 			},
+			goToIndex(){
+				uni.switchTab({
+					url:'/pages/index/index'
+				})
+			},
 			//获取购物车商品
 			getcartItemList(){
 				this.$api.cartItemList().then(res =>
@@ -100,9 +116,9 @@
 							 this.supplierList = supplierList;
 							 this.recaculate();
 						}else{
-							uni.redirectTo({
-								url:'/pages/carts_empty/carts_empty'
-							})
+							//uni.redirectTo({
+							//	url:'/pages/carts_empty/carts_empty'
+							//})
 						}
 					}); 
 			},
@@ -440,6 +456,9 @@
 
 <style lang="scss">
 	
+	.page{
+		background: white;
+	}
 	.main-container {
 	    padding-bottom: 4rem;
 	    background-color: #EBEBEB;
@@ -705,5 +724,38 @@
 		display: block;
 		text-align: center;
 		background-color: #E35151;
+	}
+	
+	
+	
+	.content{
+		margin: 10rem auto;
+		font-size: 0.7rem;
+	}
+	.uni-cart-imgbox{
+		display: flex;
+		justify-content: center;
+	}
+	.uni-cart-img{
+		width: 3rem;
+		height: 3rem;
+		
+	}
+	.uni-cart-text1{
+		padding-top:1rem;
+		text-align: center;
+	}
+	
+	.uni-cart-btn{
+		display: block;
+		background: #E13F3F;
+		margin: 1rem auto;
+		width: 60%;
+		height: 2rem;
+		line-height: 2rem;
+		color: white;
+		text-align: center;
+		border-radius: 3px;
+		
 	}
 </style>

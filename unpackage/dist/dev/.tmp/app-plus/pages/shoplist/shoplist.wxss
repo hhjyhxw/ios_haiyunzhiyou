@@ -25,12 +25,13 @@
 /* 透明度 */
 /* 文章场景相关 */
 .header1 {
-  background-color: #E13F3F;
+  /* background-color: #E13F3F; */
+  background-color: #1195db;
   height: 2.5rem;
   line-height: 2.5rem;
   padding: 0 1.6rem;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   position: relative;
 }
 .lbs-btn {

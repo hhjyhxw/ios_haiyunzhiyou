@@ -2,7 +2,7 @@
 	<view>
 			<view class="carousel">
 				<view class="userInfo" @click="toMyinfo">
-					<image class="heardurl" src="http://thirdwx.qlogo.cn/mmopen/HpicclFcicSt5tNZQSr2vPT1NVZSjiaoUCACetNbCd7Cy2ibIobUFJibHM7M8l7MTIRPqXaxZKoW1ZHuEjFYefhyyVkicvkZ1Fh10D/132"></image>
+					<image class="heardurl" :src="temheadurl"></image>
 					<view class="user">
 						<view class="name">{{member.userName}}</view>
 						<view class="phone"><text></text>{{member.mobile | nullFilter}}</view>
@@ -97,27 +97,28 @@
 									</view>
 							</view>
 			</view> -->
-			<view class="container999">
+			<!-- <view class="container999">
 				<tabBar :currentPage="currentPage"></tabBar>
-			</view>
+			</view> -->
 	</view>
 </template>
 
 <script>
-	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
 		components: {
-			tabBar
+			// tabBar
 		},
 		data() {
 			return {
-				currentPage:'mycenter',
+				// currentPage:'mycenter',
 				member:{
 					userName:'阿木木',
 					mobile:'15077144027'
 				},
 				unshippedNum:0,//待收货
 				unpaidNum:0,//待付款
+				temheadurl:'../../static/image/user_touxiang.png',
 			}
 		},
 		onLoad(){
@@ -144,6 +145,11 @@
 							this.member = res.member;
 							this.unpaidNum = res.unpaidNum;
 							this.unshippedNum = res.unshippedNum;
+							
+							this.temheadurl = this.$config.hosturl+res.member.headImgUrl;
+							if(this.temheadurl==null || this.temheadurl==''){
+								this.temheadurl = '../../static/image/user_touxiang.png';
+							}
 						}
 					}); 
 			},

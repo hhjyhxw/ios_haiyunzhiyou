@@ -132,40 +132,88 @@
            }
         }
     ],
-	"permission": {
-	    "scope.userLocation": {
-	      "desc": "你的位置信息将用于位置接口的效果展示"
-	    }
-	  },
-
-	"globalStyle": {
+	
+ 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	},
+	}, 
+	/* "tabBar": {
+		"color": "#A0A0A0",
+		"selectedColor": "#1296db",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/home/index",
+				"iconPath": "static/tab-home.png",
+				"selectedIconPath": "static/tab-home-current.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/scan/index",
+				"iconPath": "static/tab-scan.png",
+				"selectedIconPath": "static/tab-scan-current.png",
+				"text": "扫码充电"
+			},
+			{
+				"pagePath": "pages/stand/no-charging",
+				"iconPath": "static/tab-no.png",
+				"selectedIconPath": "static/tab-no-current.png",
+				"text": "编号充电"
+			},
+			{
+				"pagePath": "pages/stand/index",
+				"iconPath": "static/tab-compass.png",
+				"selectedIconPath": "static/tab-compass-current.png",
+				"text": "附近站点"
+			},
+			{
+				"pagePath": "pages/center/index",
+				"iconPath": "static/tab-center.png",
+				"selectedIconPath": "static/tab-center-current.png",
+				"text": "个人中心"
+			}
+		]
+	}, */
 	"tabBar": {
-	    "color": "#cdcdcd",
-	    "selectedColor": "#50B7EA",
-	    "borderStyle": "white",
+		"color": "#7A7E83",
+	   "selectedColor": "#1296db",
+	   "borderStyle": "black",
+	   "backgroundColor": "#ffffff",
 	    "list": [
 	        {
 	            "pagePath": "pages/index/index",
+				"iconPath": "static/tab-home.png",
+				"selectedIconPath": "static/tab-home-current.png",
 	            "text": "首页"
 	        },
 	        {
 	            "pagePath": "pages/shoplist/shoplist",
+				"iconPath": "static/tab-compass.png",
+				"selectedIconPath": "static/tab-compass-current.png",
 	            "text": "附近小店"
 	        },
 	        {
 	                "pagePath": "pages/carts/carts",
+					"iconPath": "static/unselectcart.png",
+					"selectedIconPath": "static/selectcart.png",
 	                "text": "购物车"
 	        },
 	        {
 	                "pagePath": "pages/mycenter/mycenter",
+					"iconPath": "static/tab-center.png",
+					"selectedIconPath": "static/tab-center-current.png",
 	                "text": "个人中心"
 	        }
 	    ]
-	}
+	},
+	"permission": {
+	    "scope.userLocation": {
+	      "desc": "你的位置信息将用于位置接口的效果展示"
+	    }
+	  }
+	
 	
 }

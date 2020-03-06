@@ -29,24 +29,33 @@
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#cdcdcd",
-    "selectedColor": "#50B7EA",
-    "borderStyle": "white",
+    "color": "#7A7E83",
+    "selectedColor": "#1296db",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
+        "iconPath": "static/tab-home.png",
+        "selectedIconPath": "static/tab-home-current.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/shoplist/shoplist",
+        "iconPath": "static/tab-compass.png",
+        "selectedIconPath": "static/tab-compass-current.png",
         "text": "附近小店"
       },
       {
         "pagePath": "pages/carts/carts",
+        "iconPath": "static/unselectcart.png",
+        "selectedIconPath": "static/selectcart.png",
         "text": "购物车"
       },
       {
         "pagePath": "pages/mycenter/mycenter",
+        "iconPath": "static/tab-center.png",
+        "selectedIconPath": "static/tab-center-current.png",
         "text": "个人中心"
       }
     ]

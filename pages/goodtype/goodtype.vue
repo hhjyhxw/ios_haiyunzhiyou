@@ -343,15 +343,17 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			height: 2.8rem;
-			line-height: 2.8rem;
+			height: 2.5rem;
+			line-height: 2.5rem;
 			font-size: 0;
 			-webkit-transition: -webkit-transform .3s ease;
 			transition: transform .3s ease;
 			-webkit-transform: translateY(120%);
 			-ms-transform: translateY(120%);
 			transform: translateY(120%);
-			 background-color: rgba(0,0,0,0.8);
+			/* background-color: rgba(0,0,0,0.8); */
+			background-color: white;
+			border:1px solid lightgrey;
 		}
 		 .show {
 				-webkit-transform: translateY(0);
@@ -374,7 +376,9 @@
 			    color: #fff;
 			    font-size: 0.8rem;
 			    text-align: center;
-			    background-color: #E13F3F;
+			 /*   background-color: #E13F3F; */
+				background-color: rgb(255, 0, 0);
+				border-radius: 2rem;
 		}
 		
 		.settle .left .caret-icon{
@@ -382,12 +386,13 @@
 			    left: 1.6rem;
 			    bottom: -.4rem;
 			    display: block;
-			    width: 2.7rem;
-			    height: 2.7rem;
+			    width: 1.7rem;
+			    height: 1.7rem;
 			    text-align: center;
 			    text-indent: 1em;
-			    background: url(../../static/image/ic_gg_shop.png) 100% 0 no-repeat;
-			    background-size: contain;
+/* 			    background: url(../../static/image/ic_gg_shop.png) 100% 0 no-repeat; */
+				background: url(../../static/unselectcart.png) 100% 0 no-repeat;
+			    background-size: contain; 
 		}
 		.caret-icon label  {
 		    font-size: 0.8rem;

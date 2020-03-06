@@ -24,6 +24,9 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.page {
+  background: white;
+}
 .main-container {
   padding-bottom: 4rem;
   background-color: #EBEBEB;
@@ -307,5 +310,36 @@ uni-input {
   display: block;
   text-align: center;
   background-color: #E35151;
+}
+.content {
+  margin: 10rem auto;
+  font-size: 0.7rem;
+}
+.uni-cart-imgbox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.uni-cart-img {
+  width: 3rem;
+  height: 3rem;
+}
+.uni-cart-text1 {
+  padding-top: 1rem;
+  text-align: center;
+}
+.uni-cart-btn {
+  display: block;
+  background: #E13F3F;
+  margin: 1rem auto;
+  width: 60%;
+  height: 2rem;
+  line-height: 2rem;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
 }
 

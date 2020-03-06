@@ -7,17 +7,17 @@
 			<view class="uni-cart-text1">您的购物车空空哒~</view>
 			<view class="uni-cart-btn" @click="goToIndex"><text class="uni-cart-text1">首页逛逛</text></view>
 		</view>
-		<view class="container999">
+		<!-- <view class="container999">
 			<tabBar :currentPage="currentPage"></tabBar>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
-	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
 		components: {
-			tabBar
+			// tabBar
 		},
 		data() {
 			return {

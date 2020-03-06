@@ -100,8 +100,9 @@
 	.uni-tab__cart-box {
 		flex: 1;
 		height: 2.8rem;
-		background-color: black;
+		background-color: white;
 		z-index: 900;
+		border:1px solid lightgrey;
 	}
 
 	.uni-tab__cart-sub-box {

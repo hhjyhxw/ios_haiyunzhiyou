@@ -127,6 +127,9 @@
 							this.member = res.member;
 							this.temheadurl = this.$config.hosturl+res.member.headImgUrl;
 							this.index = this.member.gender-1;
+							if(this.temheadurl==null || this.temheadurl==''){
+								this.temheadurl = '../../static/image/user_touxiang.png';
+							}
 						}
 					}); 
 			},
@@ -201,6 +204,8 @@
 .headImgUrl{
 	height: 2.5rem;
 	width: 2.5rem;
+	border: 1px solid #CDCDCD;
+	border-radius: 100%;
 }
 .inputtext1{
 	text-align: right;

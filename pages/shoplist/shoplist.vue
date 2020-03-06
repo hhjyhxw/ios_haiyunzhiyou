@@ -54,21 +54,21 @@
 									</view>
 							</view>
 			</view> -->
-			<view class="container999">
+			<!-- <view class="container999">
 				<tabBar :currentPage="currentPage"></tabBar>
-			</view>
+			</view> -->
 	</view>
 </template>
 
 <script>
-	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
 		components: {
-			tabBar
+			// tabBar
 		},
 		data() {
 			return {
-				currentPage:'shoplist',
+				// currentPage:'shoplist',
 				address:'西乡塘区',
 				longitude:'',
 				latitude:'',
@@ -131,7 +131,7 @@
 				    type: 'wgs84',
 					geocode:true,
 				    success: function (res) {
-							 //console.log('当前位置的经度：' + JSON.stringify(res));
+							 console.log('当前位置的经度：' + JSON.stringify(res));
 						that.longitude = res.longitude;
 						that.latitude = res.latitude;
 						//var address = res.address.street+res.address.streetNum;
@@ -209,12 +209,13 @@
 
 <style lang="scss">
 	.header1{
-		     background-color: #E13F3F;
+		     /* background-color: #E13F3F; */
+			 background-color: #1195db;
 		     height: 2.5rem;
 		     line-height: 2.5rem;
 		     padding: 0 1.6rem;
 		     color: #fff;
-		     font-size: 0.8rem;
+		     font-size: 0.7rem;
 		     position: relative;
 	}
 	.lbs-btn{

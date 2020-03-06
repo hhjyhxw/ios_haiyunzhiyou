@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "购物车",
-  "usingComponents": {
-    "tab-bar": "/components/zwy-tabBar/tabBar"
-  }
+  "usingComponents": {}
 }

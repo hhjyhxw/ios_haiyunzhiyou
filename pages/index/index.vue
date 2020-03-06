@@ -90,9 +90,9 @@
 	</view> -->
 	
 	
-		 <view class="container999">
+		<!-- <view class="container999">
 			<tabBar :currentPage="currentPage"></tabBar>
-		</view>
+		</view> -->
 	</view>
 	
 	
@@ -100,11 +100,11 @@
 
 <script>
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue";
-	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	export default {
 		components: {
 			uniSwiperDot,
-			tabBar
+			// tabBar
 		},
 		data() {
 			return {
@@ -265,7 +265,8 @@
 
 <style>
 	.header1{
-		     background-color: #E13F3F;
+		  /*   background-color: #E13F3F; */
+			background-color: #1195db;
 		     height: 2.5rem;
 		     line-height: 2.5rem;
 		     padding: 0 1.6rem;

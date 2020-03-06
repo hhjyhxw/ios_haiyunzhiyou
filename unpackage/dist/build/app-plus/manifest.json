@@ -7,7 +7,7 @@
   "id": "__UNI__ADA8003",
   "name": "海韵之友",
   "version": {
-    "name": "1.0.0",
+    "name": "1.0.5",
     "code": "100"
   },
   "description": "",
@@ -92,7 +92,13 @@
           "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
         ]
       },
-      "apple": {},
+      "apple": {
+        "privacyDescription": {
+          "NSPhotoLibraryUsageDescription": "编辑用户信息时选择相册作为头像",
+          "NSCameraUsageDescription": "编辑用户信息时条用摄像头拍照作为用头像",
+          "NSLocationWhenInUseUsageDescription": "获取用户当前位置提示用户"
+        }
+      },
       "plugins": {
         "maps": {},
         "payment": {
