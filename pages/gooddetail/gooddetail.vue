@@ -145,7 +145,9 @@
 			
 		},
 		onShow:function(){
-			this.getCartNum();
+			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
+				this.getCartNum();
+			}
 		},
 		filters: {
 			//空值过滤
@@ -206,37 +208,43 @@
 			},
 			//添加构成车
 			addCart(){
-				var data ={pid:this.goods.pid};
-				console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
-				this.$api.ajaxAdd(data).then(res =>
-					{
-						 console.log(JSON.stringify(res));
-						if(res.code=='0000'){
-							this.options[0].info++;
-							uni.showToast({
-							    title: '添加成功',
-							    duration: 2000
-							});
-						}else if(res.code=='0001'){
-							uni.showToast({
-							    title: res.message,
-							    duration: 2000
-							});
-						}else{
-							uni.showToast({
-							    title: '添加失败',
-							    duration: 2000
-							});
-						}
-					}); 
+				if(uni.getStorageSync('accessToken')=='undefined' || uni.getStorageSync('accessToken')==null || uni.getStorageSync('accessToken')==''){				uni.navigateTo({url: '/pages/login/login'});
+				}else{
+					var data ={pid:this.goods.pid};
+					console.log("data==="+JSON.stringify(data)); //打印出上个页面传递的参数。
+					this.$api.ajaxAdd(data).then(res =>
+						{
+							 console.log(JSON.stringify(res));
+							if(res.code=='0000'){
+								this.options[0].info++;
+								uni.showToast({
+									title: '添加成功',
+									duration: 2000
+								});
+							}else if(res.code=='0001'){
+								uni.showToast({
+									title: res.message,
+									duration: 2000
+								});
+							}else{
+								uni.showToast({
+									title: '添加失败',
+									duration: 2000
+								});
+							}
+						}); 
+					}
 			},
 			
 			//跳转立即购买
 			toPreorder() {
-				console.log("this.goods.isManwan==="+this.goods.isMaiwan)
-				uni.navigateTo({
-					 url: '/pages/preorder/preorder?pids='+this.goods.pid+'@@@&buyType=buyNow'
-				})
+				if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){				console.log("this.goods.isManwan==="+this.goods.isMaiwan)
+					uni.navigateTo({
+						 url: '/pages/preorder/preorder?pids='+this.goods.pid+'@@@&buyType=buyNow'
+					})
+				}else{
+					uni.navigateTo({url: '/pages/login/login'});
+				}
 			},
 			//跳转店铺详情页
 			toShopDetail(shopId) {

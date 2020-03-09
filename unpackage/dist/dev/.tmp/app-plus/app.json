@@ -20,7 +20,8 @@
     "pages/pwd/pwd",
     "pages/pay/pay",
     "pages/carts_empty/carts_empty",
-    "pages/userinfo/userinfo"
+    "pages/userinfo/userinfo",
+    "pages/logout/logout"
   ],
   "window": {
     "navigationBarTextStyle": "black",

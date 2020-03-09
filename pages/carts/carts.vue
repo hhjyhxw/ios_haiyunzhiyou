@@ -3,7 +3,7 @@
 			
 			<view class="main-container" v-if="supplierList!=null && supplierList.length>0">
 				<view class="header">
-					<view class="btn-back" @click="backPage"></view>
+				<!-- 	<view class="btn-back" @click="backPage"></view> -->
 					<view class="gwc"></view>
 					<view class="del-caret" @click="deleteAll"></view>
 				</view>
@@ -58,7 +58,8 @@
 			</view>
 			
 			
-			<view class="content" v-if="supplierList==null || supplierList=='' || supplierList.length==0">
+			<view class="content" v-if="(supplierList==null || supplierList=='' || supplierList.length==0) && accessToken!=null">
+					
 					<view class="uni-cart-imgbox">
 						<image class="uni-cart-img" src="../../static/image/pic_gw_k.png"></image>
 					</view>
@@ -68,7 +69,16 @@
 				<!-- <view class="container999">
 					<tabBar :currentPage="currentPage"></tabBar>
 				</view> -->
-			</view>
+			
+			<view class="content" v-if="accessToken==null">
+					<view class="login_btn" @click="tologin" >
+						<view class="login_text">登陆/注册</view>
+					</view>
+				</view>
+				<!-- <view class="container999">
+					<tabBar :currentPage="currentPage"></tabBar>
+				</view> -->
+			<!-- </view> -->
 			
 	</view>
 </template>
@@ -80,13 +90,20 @@
 				supplierList:null,
 				selectAllChecked:true,
 				totalMoney:0.88,
+				accessToken:null,
 			}
 		},
 		onLoad(){
 			
 		},
 		onShow(){
-			this.getcartItemList();
+			this.supplierList = null;
+			this.selectAllChecked = false;
+			this.totalMoney = 0;
+			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
+				this.accessToken = uni.getStorageSync('accessToken')
+				this.getcartItemList();
+			}
 		},
 		methods: {
 			//返回
@@ -445,10 +462,14 @@
 					this.totalMoney = total;
 				}
 				
+			},
+			
+			
+			tologin(){
+				uni.navigateTo({
+					url:'/pages/login/login'
+				})
 			}
-			
-			
-			
 			
 		}
 	}
@@ -757,5 +778,24 @@
 		text-align: center;
 		border-radius: 3px;
 		
+	}
+	.login_btn{
+		display: flex;
+		background: white;
+		margin-top: 1rem;
+		padding: 1rem 0rem;
+		justify-content: center;
+		text-align: center;
+		color: #0066CC;
+	}
+	.login_text{
+		
+		    display: block;
+		    width: 30%;
+		    background: lightblue;
+		    height: 2rem;
+		    line-height: 2rem;
+		    color: white;
+			border-radius: 2rem;
 	}
 </style>

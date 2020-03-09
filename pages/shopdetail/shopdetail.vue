@@ -185,8 +185,13 @@
 			console.log(option.shopId); //打印出上个页面传递的参数。
 			var data ={sid:option.shopId};
 			this.shopdetail(data);
-			this.getCartNum();
 			
+			
+		},
+		onShow:function(){
+			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
+				this.getCartNum();
+			}
 		},
 		methods: {
 			//滚动图改变

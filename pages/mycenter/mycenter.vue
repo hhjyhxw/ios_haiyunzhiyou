@@ -3,9 +3,14 @@
 			<view class="carousel">
 				<view class="userInfo" @click="toMyinfo">
 					<image class="heardurl" :src="temheadurl"></image>
-					<view class="user">
+					<view class="user" v-if="accessToken!=null">
 						<view class="name">{{member.userName}}</view>
-						<view class="phone"><text></text>{{member.mobile | nullFilter}}</view>
+						<!-- <view class="phone"><text></text>{{member.mobile | nullFilter}}</view> -->
+					</view>
+					<view class="user" v-if="accessToken==null">
+						<view class="login_btn" @click="tologin" >
+							<view class="login_text">登陆/注册</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -49,7 +54,7 @@
 				</view>
 				<view class="list-group-item" @click="logout()">
 					<label class="icon icon7"></label>
-					<label class="iconinfo">退出登陆</label>
+					<label class="iconinfo">设置</label>
 					<label class="arr"></label>
 					<label class=""></label>
 				</view>
@@ -113,19 +118,28 @@
 			return {
 				// currentPage:'mycenter',
 				member:{
-					userName:'阿木木',
+					userName:'..',
 					mobile:'15077144027'
 				},
 				unshippedNum:0,//待收货
 				unpaidNum:0,//待付款
 				temheadurl:'../../static/image/user_touxiang.png',
+				accessToken:null
+				
 			}
 		},
 		onLoad(){
 			
 		},
 		onShow:function(){
-			this.myinfoAndOrderCount();
+			this.member ={userName:''};
+			this.temheadurl = '../../static/image/user_touxiang.png';
+			this.unpaidNum = 0;
+			this.unshippedNum = 0;
+			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
+				this.accessToken = uni.getStorageSync('accessToken');
+				this.myinfoAndOrderCount();
+			}
 		},
 		filters: {
 			//空值过滤
@@ -155,9 +169,13 @@
 			},
 			//
 			toOrderList(status) {
-				uni.navigateTo({
-				    url: '/pages/orderlist/orderlist?status='+status
-				});
+				if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){				uni.navigateTo({
+					    url: '/pages/orderlist/orderlist?status='+status
+					});
+				}else{
+					uni.navigateTo({url: '/pages/login/login'});
+				}
+				
 			},
 			//打电话
 			calling(phone){
@@ -166,14 +184,21 @@
 				});
 			},
 			logout(){
-				try {
-				    uni.clearStorageSync();
-				} catch (e) {
-				    // error
+				if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){				uni.navigateTo({
+					   url: '/pages/logout/logout'
+					});
+				}else{
+					uni.navigateTo({url: '/pages/login/login'});
 				}
-				uni.redirectTo({
-					url: '/pages/login/login'
-				});
+				// try {
+				//     uni.clearStorageSync();
+				// } catch (e) {
+				//     // error
+				// }
+				// uni.switchTab({
+				// 	url: '/pages/mycenter/mycenter'
+				// });
+				
 			},
 			
 			
@@ -199,15 +224,27 @@
 				});
 			},
 			toMyaddresslist() {
-				uni.navigateTo({
-				    url: '/pages/myaddresslist/myaddresslist'
-				});
+				if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){				uni.navigateTo({
+						url: '/pages/myaddresslist/myaddresslist'
+					});
+				}else{
+					uni.navigateTo({url: '/pages/login/login'});
+				}
 			},
 			toMyinfo(){
+				if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){				uni.navigateTo({
+						url: '/pages/userinfo/userinfo'
+					});
+				}else{
+					uni.navigateTo({url: '/pages/login/login'});
+				}
+			},
+			tologin(){
 				uni.navigateTo({
-				    url: '/pages/userinfo/userinfo'
-				});
+					url:'/pages/login/login'
+				})
 			}
+			
 		}
 	}
 </script>
@@ -221,7 +258,8 @@
 		    width: 100%;
 		    padding: 1rem;
 		    box-sizing: border-box;
-		    background-color: #e13f3f;
+		  /*  background-color: lightblue; */
+		  background-color:white;
 		    border-bottom: 1px solid #EBEBEB;
 		    display: -webkit-box;
 		    display: -webkit-flex;
@@ -246,7 +284,7 @@
 	    -webkit-flex: 1;
 	    -ms-flex: 1;
 	    flex: 1;
-	    color: #fff;
+	    color: black;
 	    line-height: 1.6;
 	    background: url(../../static/image/ic_fj_arrow.png) 100% 50% no-repeat;
 	    background-size: 5.5px auto;
@@ -260,6 +298,7 @@
 	.userInfo .user .phone text {
 	    width: 1.2rem;
 	    height: 2rem;
+		 color: black;
 	    background: url(../../static/image/ico.png) left no-repeat;
 		background-position: -0.5rem 0;
 		background-size: 3.1rem;
@@ -371,6 +410,26 @@
 		    list-style: none;
 		    width: 100%;
 		}
+	
+	.login_btn{
+		display: flex;
+		background: white;
+		margin-top: 1rem;
+		padding: 1rem 0rem;
+		justify-content: center;
+		text-align: center;
+		color: #0066CC;
+	}
+	.login_text{
+		
+		    display: block;
+		    width: 50%;
+		    background: lightblue;
+		    height: 2rem;
+		    line-height: 2rem;
+		    color: white;
+			border-radius: 2rem;
+	}
 	
 		.menus .menu {
 		    font-size: 0.6rem;

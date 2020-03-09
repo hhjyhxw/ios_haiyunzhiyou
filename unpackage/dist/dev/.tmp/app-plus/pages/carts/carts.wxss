@@ -342,4 +342,26 @@ uni-input {
   text-align: center;
   border-radius: 3px;
 }
+.login_btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background: white;
+  margin-top: 1rem;
+  padding: 1rem 0rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  text-align: center;
+  color: #0066CC;
+}
+.login_text {
+  display: block;
+  width: 30%;
+  background: lightblue;
+  height: 2rem;
+  line-height: 2rem;
+  color: white;
+  border-radius: 2rem;
+}
 

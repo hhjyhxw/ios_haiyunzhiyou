@@ -94,9 +94,11 @@
       },
       "apple": {
         "privacyDescription": {
-          "NSPhotoLibraryUsageDescription": "编辑用户信息时选择相册作为头像",
-          "NSCameraUsageDescription": "编辑用户信息时条用摄像头拍照作为用头像",
-          "NSLocationWhenInUseUsageDescription": "获取用户当前位置提示用户"
+          "NSPhotoLibraryUsageDescription": "读取相册仅用于读取相册图片作为个人头像",
+          "NSCameraUsageDescription": "摄像头调用仅用于拍摄图片作为个人头像",
+          "NSLocationWhenInUseUsageDescription": "你的位置信息将用于位置接口的效果展示",
+          "NSLocationAlwaysUsageDescription": "你的位置信息将用于位置接口的效果展示",
+          "NSLocationAlwaysAndWhenInUseUsageDescription": "你的位置信息将用于位置接口的效果展示"
         }
       },
       "plugins": {
@@ -116,7 +118,7 @@
     },
     "allowsInlineMediaPlayback": true,
     "safearea": {
-      "background": "#FFFFFF",
+      "background": "#ffffff",
       "bottom": {
         "offset": "auto"
       }
@@ -131,24 +133,33 @@
       }
     },
     "tabBar": {
-      "color": "#cdcdcd",
-      "selectedColor": "#50B7EA",
-      "borderStyle": "rgba(255,255,255,0.4)",
+      "color": "#7A7E83",
+      "selectedColor": "#1296db",
+      "borderStyle": "rgba(0,0,0,0.4)",
+      "backgroundColor": "#ffffff",
       "list": [
         {
           "pagePath": "pages/index/index",
+          "iconPath": "static/tab-home.png",
+          "selectedIconPath": "static/tab-home-current.png",
           "text": "首页"
         },
         {
           "pagePath": "pages/shoplist/shoplist",
+          "iconPath": "static/tab-compass.png",
+          "selectedIconPath": "static/tab-compass-current.png",
           "text": "附近小店"
         },
         {
           "pagePath": "pages/carts/carts",
+          "iconPath": "static/unselectcart.png",
+          "selectedIconPath": "static/selectcart.png",
           "text": "购物车"
         },
         {
           "pagePath": "pages/mycenter/mycenter",
+          "iconPath": "static/tab-center.png",
+          "selectedIconPath": "static/tab-center-current.png",
           "text": "个人中心"
         }
       ],

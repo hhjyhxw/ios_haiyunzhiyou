@@ -131,6 +131,12 @@
            	"navigationBarTitleText": "个人信息"
            }
         }
+        ,{
+            "path" : "pages/logout/logout",
+            "style": {
+            	"navigationBarTitleText": "设置"
+            }
+        }
     ],
 	
  	"globalStyle": {
