@@ -223,15 +223,15 @@
 	.shop_detail_name{
 		padding: 0 0 0 4.2rem;
 		background: url(../../static/image/ic_dh_shop.png) 0 100% no-repeat;
-		height: 3.5rem;
-		line-height: 3.5rem;
+		height: 3rem;
+		line-height: 3rem;
 		position: relative;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 	}
 	.time_send{
 		    padding: 0 1.6rem 0 4rem;
 			margin-top:-1rem;
-			font-size: 0.7rem;
+			font-size: 0.6rem;
 			height: 2rem;
 	}
 	.shop-icon{

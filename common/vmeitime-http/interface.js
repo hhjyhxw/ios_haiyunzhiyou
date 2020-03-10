@@ -97,6 +97,14 @@ export default {
 				_reslog(response);
 				if (statusCode === 200) { //成功
 					if(response.data.code == '4001' || response.data.code == '4002') { //服务器token过期
+						try {
+						    // uni.clearStorageSync();
+							uni.removeStorageSync('accessToken');
+							uni.clearStorageSync();
+						} catch (e) {
+							console.log("【accessToken失效】 结果：" + JSON.stringify(e))
+						    // error
+						}
 						uni.navigateTo({url: '/pages/login/login'});
 					} else if(response.data.code == '-1' || response.data.code == '500') {
 						uni.showModal({title: '提示', content: '系统出错了~',showCancel:false});

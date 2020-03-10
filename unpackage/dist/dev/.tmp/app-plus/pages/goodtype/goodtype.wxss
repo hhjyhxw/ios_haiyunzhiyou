@@ -46,15 +46,15 @@
 .shop_detail_name{
 		padding: 0 0 0 4.2rem;
 		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoBAMAAAB+0KVeAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAnUExURQAAAP///////////////////////////////////////////////649SjkAAAANdFJOUwDu/ogQXzPRdCNGuqQH9+gRAAAA9ElEQVQoz2NgIBq4uLg4YAgKKSmpYAguDQ3VwmaCMDbB49gEmxywCCYtwCLIuNkYBQSABLkVBZGBkAFIkEMARWPQBBDJpYYiuB1CaSCLsUB5u5EFWTUhtCGyIHcBhF6UgCTo1IBKI1nOwMB+ANNyBmYBTMvhFqKwWVQxLWdgqMG0HCWYYZYjs+CWMzBMOgwPTEQ4MCJCVBIuyFOAJUJYVbAIcmqkQUAKkmC6EgzsRCgUDxWKWrVq1Qr1CHG4ILMIwyRQvPKIMCxagGQ5IyheuTcwMMF9yaHJkIShkkWwQ9wBbHYzwkyG2VBb05WOICdyNJpYAADxODM4LK8xcgAAAABJRU5ErkJggg==) 0 100% no-repeat;
-		height: 3.5rem;
-		line-height: 3.5rem;
+		height: 3rem;
+		line-height: 3rem;
 		position: relative;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 }
 .time_send{
 		    padding: 0 1.6rem 0 4rem;
 			margin-top:-1rem;
-			font-size: 0.7rem;
+			font-size: 0.6rem;
 			height: 2rem;
 }
 .shop-icon{

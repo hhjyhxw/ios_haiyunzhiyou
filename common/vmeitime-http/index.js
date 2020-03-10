@@ -43,6 +43,20 @@ export const shopdetail = (data) => {return http.get('/supplier!shopdetail.actio
 //点击分类 获取对应分类商品
 export const goodslistBySidAndCatoid = (data) => {return http.get('/supplier!goodslistBySidAndCatoid.action', data)};
 
+//专题位置列表
+export const productlist = (data) => {return http.get('/goods!ajaxGetOperating.action', data)};
+//获取专题对象
+export const getZhuantDetail = (data) => {return http.get('/goods!getZhuantDetail.action', data)};
+
+//根据专题id查询商品
+export const getGoodlistByPid = (data) => {return http.get('/goods!ajaxProjectList.action', data)};
+
+//keywordlist
+export const keywordlist = (data) => {return http.get('/goods!keywordlist.action', data)};
+
+//根据关键字查询商品
+export const getGoodlistByKeyword = (data) => {return http.get('/goods!getGoodlistByKeyword.action', data)};
+
 
 //###################首页广告列表######
 export const getAdsList = () => { return http.post('/ads!getAdvertisementList.action')};
@@ -113,10 +127,15 @@ export const modifyInfo = (data) => { return http.post('/user!saveorUpadteUser.a
 export default {
 	login,
 	register,
+	productlist,
 	getAdsList,
 	perfectgoods,
 	gooddetail,
 	shoplist,
+	getGoodlistByPid,
+	getZhuantDetail,
+	keywordlist,
+	getGoodlistByKeyword,
 	goodtypelist,
 	shopdetail,
 	goodslistBySidAndCatoid,

@@ -27,8 +27,8 @@
 .header1 {
   /* background-color: #E13F3F; */
   background-color: #1195db;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  height: 2rem;
+  line-height: 2rem;
   padding: 0 1.6rem;
   color: #fff;
   font-size: 0.7rem;
@@ -37,8 +37,8 @@
 .lbs-btn {
   color: #fff;
   display: inline-block;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  height: 2rem;
+  line-height: 2rem;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;

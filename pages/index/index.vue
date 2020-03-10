@@ -8,11 +8,11 @@
 			</view>
 		</view>
 		<!-- 商品搜索-->
-		<!-- 
-		 <view class="search">
+		 
+		 <view class="search" @click="gotsearch">
 			<input  placeholder="搜索商品" placeholder-class="holderclass"/>
 		</view>
-		-->
+		
 		<!-- 广告列表-->
 		<view class="adlist">
 				<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
@@ -41,6 +41,21 @@
 	
 	<view class="out_shop_name">
 	</view>
+	
+	<!-- 专题列表 -->
+	<view class="link-sale">
+		<view class="link-sale-a" v-for="(item,indexs) in productList" :key="indexs" @click="toproductList(item.id,item.httpUrl)">
+			<view class="link-sale-text">
+				<view class="p1" v-bind:style="{ color: item.titleColor}">{{item.title}}</view>
+				<view class="p2" v-bind:style="{ color: item.subTitleColor}">{{item.subTitle}}</view>
+				<view class="p3" v-bind:style="{ color: item.descriptionColor}">{{item.description}}</view>
+			</view>
+			<view class="link-img">
+				<image class="imgs" :src="item.imgUrl"></image>
+			</view>
+		</view>
+	</view>
+	
 	<!-- 优选商品	-->
 	<view class="shop-name">
 		<text class="shop-name-text">优选商品</text>
@@ -158,17 +173,20 @@
 						defaultSourceImagePath:'../../static/image/temp/good-demo.jpg',
 						marketPrice:'289.00'
 					}
-				]
+				],
+				productList:[],//专题位置列表
 			}
 		},
 		onLoad() {
 			this.getLocationInfo();
 			this.getAdsList();
+			this.getproductlist();
 			 uni.$on('LoginBack',()=> {
 				 this.getAdsList();
 				
 			 });
 		},
+		
 		methods: {
 			//滚动图改变
 			 change(e) {
@@ -225,6 +243,18 @@
 						}
 					}); 
 			},
+			//获取专题位置列表
+			getproductlist(){
+				this.$api.productlist().then(res =>
+					{
+						 console.log(JSON.stringify(res));
+						if(res.list!=null){
+							var list = res.list;
+							list.forEach(p => p.imgUrl = this.$config.imghosturl+p.imgUrl);
+							this.productList = list;
+						}
+					}); 
+			},
 			//跳转商品分类
 			toGoogType(goodsCategoryId) {
 				uni.navigateTo({
@@ -235,6 +265,27 @@
 			toGoodsDetail(goodId) {
 				uni.navigateTo({
 					 url: '/pages/gooddetail/gooddetail?goodId='+goodId
+				})
+			},
+			//跳转专题列表
+			toproductList(id,httpUrl) {
+				var arry = httpUrl.split("=");
+				console.log(JSON.stringify('arry==='+arry));
+				this.$api.getZhuantDetail({pid:arry[1]}).then(res =>
+				{
+					 console.log(JSON.stringify(res));
+					if(res.zhuanti!=null){
+						var zhuanti = res.zhuanti;
+						uni.navigateTo({
+							 url: '/pages/productlist/productlist?pid='+zhuanti.id+'&themeType='+zhuanti.themeType
+						})
+					}
+				}); 
+				
+			},
+			gotsearch(){
+				uni.navigateTo({
+					 url: '/pages/HM-search/HM-search'
 				})
 			},
 			
@@ -259,7 +310,16 @@
 				    url: '/pages/mycenter/mycenter'
 				});
 			},
-		}
+		},
+	    onPullDownRefresh() {
+			  console.log('refresh');
+			  setTimeout(function () {
+				  uni.stopPullDownRefresh();
+				  uni.showToast({
+				  	title:'数据已加载完...'
+				  })
+			  }, 500);
+		  }
 	}
 </script>
 
@@ -267,8 +327,8 @@
 	.header1{
 		  /*   background-color: #E13F3F; */
 			background-color: #1195db;
-		     height: 2.5rem;
-		     line-height: 2.5rem;
+		     height: 2rem;
+		     line-height: 2rem;
 		     padding: 0 1.6rem;
 		     color: #fff;
 		     font-size: 0.7rem;
@@ -277,8 +337,8 @@
 	.lbs-btn{
 		    color: #fff;
 		    display: inline-block;
-		    height: 2.5rem;
-		    line-height: 2.5rem;
+		    height: 2rem;
+		    line-height: 2rem;
 		    width: 100%;
 		    white-space: nowrap;
 		    overflow: hidden;
@@ -310,13 +370,13 @@
 		   -webkit-flex: 1;
 		   -ms-flex: 1;
 		   flex: 1;
-		   height: 1.8rem;
+		   height: 1.5rem;
 		   padding: 0 1.5rem 0 28px;
 		    background: url(../../static/image/ic_sy_search.png) 8px center no-repeat scroll #fff;
 		    background-size: 14px 14px;
 		    border: 1px solid #CCC;
 		    outline: 0;
-		    border-radius: 5px;
+		    border-radius: 26px;
 		    font-size: 0.7rem;
 	}
 	.holderclass{
@@ -346,42 +406,42 @@
 		    display: inline-block;
 		    width: 25%;
 		    text-align: center;
-			padding: 3rem 0 0 0;
+			padding: 2.3rem 0 0 0;
 			font-size: 0.7rem;
 			color: #666;
-			background-size: 2.8rem 2.8rem;
+			background-size: 2.5rem 2.5rem;
 	}
 	.itemone{
 		background:url(../../static/image/ic_sy_lsxc.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemtwo{
 		background:url(../../static/image/ic_sy_xxsg.png) center center no-repeat scroll;
-	    background-size: 2.8rem 2.8rem;    
+	   background-size: 2.5rem 2.5rem;   
 	}
 	.itemthird{
 		background:url(../../static/image/ic_sy_jsyl.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemfour{
 		background:url(../../static/image/ic_sy_sxsp.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemfive{
 		background:url(../../static/image/ic_sy_yxsc.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemsix{
 		background:url(../../static/image/ic_sy_lyfs.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemseven{
 		background:url(../../static/image/ic_sy_jjry.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.itemeig{
 		background:url(../../static/image/ic_sy_jzfw.png) center center no-repeat scroll;
-		background-size: 2.8rem 2.8rem;
+		background-size: 2.5rem 2.5rem;
 	}
 	.shoptype_item_text{
 		display: block;
@@ -393,6 +453,53 @@
 		width: 100%;
 		display: block;
 		margin-top: 0.8rem;
+	}
+	
+	 .link-sale .link-sale-a {
+	    border-bottom: 1px solid #ddd;
+	    background: #fff;
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: -ms-flexbox;
+	    display: flex;
+	    flex-items: center;
+	}
+
+	.link-sale .link-sale-text {
+	       -webkit-box-flex: 1;
+	       -webkit-flex: 1;
+		   padding: 1.3rem;
+	}
+	.link-sale-a .link-sale-text .p1 {
+	    font-size: 1rem;
+	    font-weight: bold;
+		color:#673BB8
+	}
+
+	.link-sale-a .link-sale-text .p2 {
+	    font-size: 0.7rem;
+	    font-weight: bold;
+		color:#673BB8
+	}
+	.link-sale-a ..link-sale-text .p3 {
+	    font-size: 0.6rem;
+	    font-weight: bold;
+		color:#673BB8
+	}
+	.link-sale-a .link-img{
+		    display: flex;
+		    -webkit-justify-content: center;
+		    justify-content: center;
+		    flex: 1;
+		    align-items: center;
+	}
+	
+	.link-sale-a .link-img .imgs{
+		    width:100%;
+			height: 5rem;
+		    overflow: hidden;
+			display: flex;
+			padding: 0.5rem;
 	}
 	.shop-name{
 		      height: 2rem;

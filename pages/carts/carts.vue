@@ -103,6 +103,8 @@
 			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
 				this.accessToken = uni.getStorageSync('accessToken')
 				this.getcartItemList();
+			}else{
+				this.accessToken = null;
 			}
 		},
 		methods: {
@@ -791,11 +793,11 @@
 	.login_text{
 		
 		    display: block;
-		    width: 30%;
-		    background: lightblue;
-		    height: 2rem;
-		    line-height: 2rem;
-		    color: white;
-			border-radius: 2rem;
+			width: 35%;
+			background: lightblue;
+			height: 2.2rem;
+			line-height: 2.2rem;
+			color: white;
+			border-radius: 1rem;
 	}
 </style>

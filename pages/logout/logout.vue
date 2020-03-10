@@ -16,7 +16,9 @@
 		methods: {
 			logout(){
 				try {
-				    uni.clearStorageSync();
+				    // uni.clearStorageSync();
+					uni.removeStorageSync('accessToken');
+					uni.clearStorageSync();
 				} catch (e) {
 				    // error
 				}

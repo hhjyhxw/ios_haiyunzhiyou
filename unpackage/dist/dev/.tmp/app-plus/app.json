@@ -21,7 +21,10 @@
     "pages/pay/pay",
     "pages/carts_empty/carts_empty",
     "pages/userinfo/userinfo",
-    "pages/logout/logout"
+    "pages/logout/logout",
+    "pages/goodssearch/goodssearch",
+    "pages/HM-search/HM-search",
+    "pages/productlist/productlist"
   ],
   "window": {
     "navigationBarTextStyle": "black",

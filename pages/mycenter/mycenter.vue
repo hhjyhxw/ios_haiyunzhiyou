@@ -139,7 +139,10 @@
 			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
 				this.accessToken = uni.getStorageSync('accessToken');
 				this.myinfoAndOrderCount();
+			}else{
+				this.accessToken = null;
 			}
+			console.log("【uni.getStorageSync('accessToken')】 结果：" + JSON.stringify(uni.getStorageSync('accessToken')))
 		},
 		filters: {
 			//空值过滤

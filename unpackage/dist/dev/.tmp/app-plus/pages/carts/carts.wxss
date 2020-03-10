@@ -357,11 +357,11 @@ uni-input {
 }
 .login_text {
   display: block;
-  width: 30%;
+  width: 35%;
   background: lightblue;
-  height: 2rem;
-  line-height: 2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
   color: white;
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
 
