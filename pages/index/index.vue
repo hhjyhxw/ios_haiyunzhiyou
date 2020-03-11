@@ -13,6 +13,10 @@
 			<input  placeholder="搜索商品" placeholder-class="holderclass"/>
 		</view>
 		
+		<view class="container999" >
+			<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>
+		</view>
+		
 		<!-- 广告列表-->
 		<view class="adlist">
 				<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
@@ -108,6 +112,7 @@
 		<!-- <view class="container999">
 			<tabBar :currentPage="currentPage"></tabBar>
 		</view> -->
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 	
 	
@@ -116,16 +121,28 @@
 <script>
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue";
 	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	import backTop from '@/components/back-top/back-top.vue';
+	import navTab from "@/components/navTabIndex.vue";
 	export default {
 		components: {
 			uniSwiperDot,
+			backTop,
+			navTab
 			// tabBar
 		},
 		data() {
 			return {
+				currentTab: 0, //sweiper所在页
+				tabTitle:['真龙','牛肉','柴米','油盐','衣服','蔬果','生鲜','芒果','牙膏','饮料'], //导航栏格式
 				autoplay: true,
 				interval: 2500,
 				duration: 500,
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				scrollTop: 0,
+				
 				currentPage:'index',
 				address:'西乡塘区',
 				longitude:'',
@@ -175,19 +192,37 @@
 					}
 				],
 				productList:[],//专题位置列表
+				queryData:{
+					pageNo: 1,//商品列表 页码
+					pageSize:10,
+					totalPage: 0,//商品列表总页数
+				}
 			}
 		},
 		onLoad() {
-			this.getLocationInfo();
-			this.getAdsList();
-			this.getproductlist();
-			 uni.$on('LoginBack',()=> {
-				 this.getAdsList();
+			this.init();
+			/* uni.$on('LoginBack',()=> {
 				
-			 });
+				
+			 }); */
 		},
 		
 		methods: {
+			init() {
+				this.getLocationInfo();
+				this.getAdsList();
+				this.getproductlist();
+				this.getPerfectGoodsList(this.queryData,true);
+				this.getAdsList();
+			},
+			//选择分类
+			changeTab(index){
+				this.currentTab = index;
+				var keyword = this.tabTitle[index];
+				uni.navigateTo({
+					url:'/pages/HM-search/HM-search?keyword='+keyword
+				})
+			},
 			//滚动图改变
 			 change(e) {
 				this.current = e.detail.current;
@@ -222,16 +257,16 @@
 							list.forEach(p => p.adImage = this.$config.imghosturl+p.adImage);
 							this.info = list;
 						}
-						//获取优选商品
-						if(res.list!=null){
-							this.getPerfectGoodsList();
-						}
+						// //获取优选商品
+						// if(res.list!=null){
+						// 	this.getPerfectGoodsList();
+						// }
 						
 						
 					}); 
 			},
 			//获取优选商品
-			getPerfectGoodsList(){
+			/* getPerfectGoodsList(){
 				this.$api.perfectgoods().then(res =>
 					{
 						 console.log(JSON.stringify(res));
@@ -242,7 +277,25 @@
 							this.perfectGoodsList = perfectGoodsList;
 						}
 					}); 
+			}, */
+			
+			//异步获取商品列表
+			async getPerfectGoodsList (data,first) {
+				console.log(JSON.stringify(data));
+			    let result = await this.$api.perfectgoods(data);
+				console.log(JSON.stringify(result));
+			    if(result.code != '0000') return;
+			    this.queryData.totalPage = result.total;
+				var perfectGoodsList = result.list;
+				perfectGoodsList.forEach(p => p.defaultSourceImagePath = this.$config.imghosturl+p.defaultSourceImagePath);
+			   //console.log("result.list=="+JSON.stringify(result.list));
+			   if(first) {//是否是刷新 或者第一次加载
+			       this.perfectGoodsList = perfectGoodsList ;
+			   } else {
+			       this.perfectGoodsList = this.perfectGoodsList.concat(perfectGoodsList);
+			   }
 			},
+			
 			//获取专题位置列表
 			getproductlist(){
 				this.$api.productlist().then(res =>
@@ -311,14 +364,26 @@
 				});
 			},
 		},
-	    onPullDownRefresh() {
-			  console.log('refresh');
-			  setTimeout(function () {
-				  uni.stopPullDownRefresh();
-				  uni.showToast({
-				  	title:'数据已加载完...'
-				  })
-			  }, 500);
+	   onPageScroll(e) {
+	   	this.backTop.scrollTop = e.scrollTop;
+	   },
+		  onPullDownRefresh(){//下拉刷新
+		      this.queryData.pageNo = 1;
+		      this.queryData.totalPage = 0;
+		      this.getPerfectGoodsList(this.queryData,true);
+		      uni.stopPullDownRefresh();
+		  },
+		  onReachBottom(){//页面滚动到底部的事件
+		  	if (this.queryData.pageNo > this.queryData.totalPage) {
+		  		return false;
+		  	}
+		      this.queryData.pageNo = this.queryData.pageNo + 1;
+		  	 console.log("pageNo==="+this.queryData.pageNo);
+		  	  console.log("totalPage==="+this.queryData.totalPage);
+		      if (this.queryData.pageNo > this.queryData.totalPage) {
+		          return false;
+		      }
+		      this.getPerfectGoodsList(this.queryData,false);
 		  }
 	}
 </script>

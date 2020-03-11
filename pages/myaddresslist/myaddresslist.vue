@@ -60,20 +60,30 @@
 							</view>
 			</view> 
 			-->
-			<view class="container999">
+		<!-- 	<view class="container999">
 				<tabBar :currentPage="currentPage"></tabBar>
-			</view>
+			</view> -->
+			
+			<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
-	import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
-			tabBar
+			// tabBar
+			backTop
 		},
 		data() {
 			return {
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				scrollTop: 0,
+				
 				currentPage:'mycenter',
 				addresslist:[
 					{
@@ -174,7 +184,10 @@
 				});
 			},
 			
-		}
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 	}
 </script>
 

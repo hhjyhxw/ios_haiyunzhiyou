@@ -102,11 +102,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/uni-swiper-dot/uni-swiper-dot":1,"components/uni-goods-nav/uni-goods-nav":1,"components/zwy-tabBar/tabBar":1,"components/semp-city/semp-city":1,"components/m-input":1,"components/mehaotian-search-revision/mehaotian-search-revision":1,"components/navTab":1,"components/m-icon/m-icon":1};
+/******/ 		var cssChunks = {"components/back-top/back-top":1,"components/navTabIndex":1,"components/uni-swiper-dot/uni-swiper-dot":1,"components/uni-goods-nav/uni-goods-nav":1,"components/semp-city/semp-city":1,"components/m-input":1,"components/mehaotian-search-revision/mehaotian-search-revision":1,"components/navTab":1,"components/m-icon/m-icon":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/uni-swiper-dot/uni-swiper-dot":"components/uni-swiper-dot/uni-swiper-dot","components/uni-goods-nav/uni-goods-nav":"components/uni-goods-nav/uni-goods-nav","components/zwy-tabBar/tabBar":"components/zwy-tabBar/tabBar","components/semp-city/semp-city":"components/semp-city/semp-city","components/m-input":"components/m-input","components/mehaotian-search-revision/mehaotian-search-revision":"components/mehaotian-search-revision/mehaotian-search-revision","components/navTab":"components/navTab","components/m-icon/m-icon":"components/m-icon/m-icon"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/back-top/back-top":"components/back-top/back-top","components/navTabIndex":"components/navTabIndex","components/uni-swiper-dot/uni-swiper-dot":"components/uni-swiper-dot/uni-swiper-dot","components/uni-goods-nav/uni-goods-nav":"components/uni-goods-nav/uni-goods-nav","components/semp-city/semp-city":"components/semp-city/semp-city","components/m-input":"components/m-input","components/mehaotian-search-revision/mehaotian-search-revision":"components/mehaotian-search-revision/mehaotian-search-revision","components/navTab":"components/navTab","components/m-icon/m-icon":"components/m-icon/m-icon"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

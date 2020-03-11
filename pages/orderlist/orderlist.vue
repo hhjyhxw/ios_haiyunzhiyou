@@ -82,17 +82,25 @@
 		<!-- <view class="container999">
 			<tabBar :currentPage="currentPage"></tabBar>
 		</view> -->
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
 	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			// tabBar
+			backTop
 		},
 		data() {
 			return {
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				scrollTop: 0,
 				currentPage:'mycenter',
 				status:'UNCOMPLETED',//订单状态：未支付 、待发货、已完成、全部
 				orderlist:[
@@ -234,13 +242,18 @@
 				});
 			},
 			
-			
+			onPageScroll(e) {
+				this.backTop.scrollTop = e.scrollTop;
+			},
 			
 			onPullDownRefresh(){//下拉刷新
-			    //this.queryData.pageNo = 1;
-			    //this.queryData.totalPage = 0;
-			   // this.getGoodsList(this.queryData,true);
-			   // uni.stopPullDownRefresh();
+				setTimeout(function () {
+					  uni.stopPullDownRefresh();
+				}, 500);
+			    this.queryData.pageNo = 1;
+			    this.queryData.totalPage = 0;
+			   this.toGetOderList(this.queryData,false);
+			   
 			},
 			onReachBottom(){//页面滚动到底部的事件
 				if (this.queryData.pageNo > this.queryData.totalPage) {

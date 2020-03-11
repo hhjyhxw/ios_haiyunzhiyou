@@ -432,6 +432,7 @@
 		    line-height: 2rem;
 		    color: white;
 			border-radius: 2rem;
+			font-size: 0.8rem;
 	}
 	
 		.menus .menu {

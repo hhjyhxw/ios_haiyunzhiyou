@@ -23,7 +23,7 @@ const webUrl_dev = 'http://www.haiyunzy.com/newapp';
 const apiUrl_dev = 'http://www.haiyunzy.com/newapp';
 const loginUrl_dev = 'http://www.haiyunzy.com/newapp';
 const hosturl_dev = 'http://www.haiyunzy.com/';
-const imghosturl_dev =  'http://www.haiyunzy.com/mall/';
+const imghosturl_dev =  'http://res.haiyunzy.com/mall/';
 
 /**
  * 正式服务器地址
@@ -32,7 +32,7 @@ const webUrl_pro = 'http://www.haiyunzy.com/newapp';
 const apiUrl_pro = 'http://www.haiyunzy.com/newapp';
 const loginUrl_pro = 'http://www.haiyunzy.com/newapp';
 const hosturl_pro = 'http://www.haiyunzy.com/';
-const imghosturl_pro =  'http://www.haiyunzy.com/mall/';
+const imghosturl_pro =  'http://res.haiyunzy.com/mall/';
 
 
 export default {

@@ -89,7 +89,7 @@
 			return {
 				supplierList:null,
 				selectAllChecked:true,
-				totalMoney:0.88,
+				totalMoney:0.00,
 				accessToken:null,
 			}
 		},
@@ -97,7 +97,7 @@
 			
 		},
 		onShow(){
-			this.supplierList = null;
+			 this.supplierList = null;
 			this.selectAllChecked = false;
 			this.totalMoney = 0;
 			if(uni.getStorageSync('accessToken')!='undefined' && uni.getStorageSync('accessToken')!=null && uni.getStorageSync('accessToken')!=''){
@@ -105,7 +105,7 @@
 				this.getcartItemList();
 			}else{
 				this.accessToken = null;
-			}
+			} 
 		},
 		methods: {
 			//返回
@@ -484,7 +484,8 @@
 	}
 	.main-container {
 	    padding-bottom: 4rem;
-	    background-color: #EBEBEB;
+	    // background-color: #EBEBEB;
+		background: white;
 	    position: relative;
 	    z-index: 1;
 	    opacity: 1;
@@ -527,8 +528,8 @@
 	.caret-list {
 	    margin: 0.7rem 0;
 	    background-color: #fff;
-	    border-top: 1px solid #E2E2E2;
-	    border-bottom: 1px solid #E2E2E2;
+	    // border-top: 1px solid #E2E2E2;
+	    border-bottom: 10px solid lightblue;
 	}
 	.shop_header{
 		position: relative;
@@ -676,19 +677,26 @@
 		    left: 0;
 		    right: 0;
 		    z-index: 10;
-		    height: 2.5rem;
-		    line-height: 2.5rem;
-		    font-size: 0.7rem;
-		    display: flex;
+			    height: 2rem;
+			    line-height: 2rem;
+			    font-size: 0.7rem;
+			    display: -webkit-box;
+			    display: -webkit-flex;
+			    display: flex;
+			   /* border: 1px solid lightgrey; */
+			    /* border-radius: 22px; */
 	}
 	.footer-count .total {
 	    float: left;
+		left: 1rem;
 	   padding: 0;
 	   width: 76%;
-	   background-color: rgba(0,0,0,0.8);
-	    color: #fff;
+	   // background-color: rgba(0,0,0,0.8);
+	    color: black;
 	    box-sizing: border-box;
-	    background-color: #262626;
+	    // background-color: #262626;
+		background-color:white;
+		 border: 1px solid lightgrey;
 	}
 	
 	 .flex {
@@ -742,11 +750,12 @@
 		}
 	.footer-count .submit {
 		float: left;
-		width: 30%;
+		width: 25%;
 		color: #fff;
 		display: block;
 		text-align: center;
 		background-color: #E35151;
+		/* border-radius: 2rem; */
 	}
 	
 	
@@ -795,9 +804,10 @@
 		    display: block;
 			width: 35%;
 			background: lightblue;
-			height: 2.2rem;
-			line-height: 2.2rem;
+			height: 2rem;
+			line-height: 2rem;
 			color: white;
 			border-radius: 1rem;
+			font-size: 0.8rem;        
 	}
 </style>

@@ -69,9 +69,13 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="goodList==null || goodList.length==0" class="nonegoods">~暂无数据~</view>
+				<view v-if="goodList==null || goodList.length==0" class="nonegoods">~暂无搜索结果哦，请换个关键词试试看吧~
+
+</view>
 			</view>
 		</view>
+		
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
@@ -79,10 +83,11 @@
 	//引用mSearch组件，如不需要删除即可
 	import mSearch from '@/components/mehaotian-search-revision/mehaotian-search-revision.vue';
 	import navTab from "@/components/navTab.vue";
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			//引用mSearch组件，如不需要删除即可
-			mSearch,navTab
+			mSearch,navTab,backTop
 		},
 		data() {
 			return {
@@ -93,7 +98,7 @@
 				keywordList: [],
 				forbid: '',//关键字列表
 				isShowKeywordList: false,
-				goodslistbox:true,
+				goodslistbox:false,
 				shSearchbox:true,
 				
 				 currentTab: 0, //sweiper所在页
@@ -110,12 +115,22 @@
 					isDiscount:'',//促销
 					isSelect:'',//优选
 					keyword:'',//搜索关键字
-				 }
+				 },
+				 
+				 backTop: {
+				 	src: '../../static/back-top/top.png',
+				 	scrollTop: 0
+				 },
+				 scrollTop: 0
 				 
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			this.init();
+			if(option.keyword!=null && option.keyword!=undefined && option.keyword!=''){
+				this.doSearch(option.keyword);
+			}
+			
 		},
 		filters: {
 			//空值过滤
@@ -285,7 +300,6 @@
 				//this.isShowKeywordList = false;
 				this.goodslistbox = true;
 				this.shSearchbox = false;
-				
 				this.queryData.keyword = key;
 				this.getGoodlistByKeyword(this.queryData,true);
 				//以下是示例跳转淘宝搜索，可自己实现搜索逻辑
@@ -349,12 +363,16 @@
 			
 			
 		},
-		
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onPullDownRefresh(){//下拉刷新
 		    this.queryData.pageNo = 1;
 		    this.queryData.totalPage = 0;
 		    this.getGoodlistByKeyword(this.queryData,true);
-		    uni.stopPullDownRefresh();
+		   setTimeout(function () {
+		              uni.stopPullDownRefresh();
+		          }, 500);
 		},
 		onReachBottom(){//页面滚动到底部的事件
 			if (this.queryData.pageNo > this.queryData.totalPage) {
@@ -407,7 +425,7 @@
 	}
 	
 	.goodlist{
-		
+		z-index: 9999;
 	}
 	.nonegoods{
 		    text-align: center;

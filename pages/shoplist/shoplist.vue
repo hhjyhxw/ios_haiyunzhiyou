@@ -57,14 +57,18 @@
 			<!-- <view class="container999">
 				<tabBar :currentPage="currentPage"></tabBar>
 			</view> -->
+			
+			<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
 	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			// tabBar
+			backTop
 		},
 		data() {
 			return {
@@ -101,7 +105,13 @@
 						distances:299
 					},
 					
-				]
+				],
+				
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				scrollTop: 0
 			}
 		},
 		onLoad(){
@@ -204,14 +214,22 @@
 				});
 			},
 		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onPullDownRefresh() {
-			  console.log('refresh');
-			  setTimeout(function () {
-				  uni.stopPullDownRefresh();
-				  uni.showToast({
-				  	title:'数据已加载完...'
-				  })
-			  }, 500);
+			setTimeout(function () {
+							  uni.stopPullDownRefresh();
+							  // uni.showToast({
+							  // 	title:'数据已加载完...'
+							  // })
+			}, 500);
+			  let data ={
+			  	lng:that.longitude,
+			  	lat:that.latitude
+			  };
+			  this.getshopList(data);
+			 
 		  }
 	}
 </script>

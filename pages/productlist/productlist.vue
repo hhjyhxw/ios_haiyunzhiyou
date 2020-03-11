@@ -2,6 +2,19 @@
 	<view>
 		<view class="flex">
 			<view v-if="themeType==1" class="body zone1">
+					
+					<view class="adlist">
+							<uni-swiper-dot  :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
+							    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
+							        <swiper-item>
+							            <view class="swiper-item">
+											<image src="../../static/image/banner_1.png"></image>
+							            </view>
+							        </swiper-item>
+							    </swiper>
+							</uni-swiper-dot>
+					</view>
+					
 					<view class="link">
 						<view class="wrap over" v-for="(item,index) in goodList" :key="index" @click="toGoodsDetail(item.id)">
 							<text class="tags"></text>
@@ -25,6 +38,18 @@
 			
 			
 			<view v-if="themeType==2" class="body zone2">
+					<view class="adlist">
+							<uni-swiper-dot  :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
+							    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
+							        <swiper-item>
+							            <view class="swiper-item">
+											<image src="../../static/image/banner_2.png"></image>
+							            </view>
+							        </swiper-item>
+							    </swiper>
+							</uni-swiper-dot>
+					</view>
+				
 					<view class="link">
 						<view class="wrap over" v-for="(item,index) in goodList" :key="index" @click="toGoodsDetail(item.id)">
 							<text class="tags"></text>
@@ -48,6 +73,18 @@
 			
 			
 			<view v-if="themeType==3" class="body zone3">
+					<view class="adlist">
+							<uni-swiper-dot  :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
+							    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
+							        <swiper-item>
+							            <view class="swiper-item">
+											<image src="../../static/image/banner_3.png"></image>
+							            </view>
+							        </swiper-item>
+							    </swiper>
+							</uni-swiper-dot>
+					</view>
+					
 					<view class="link">
 						<view class="wrap over" v-for="(item,index) in goodList" :key="index" @click="toGoodsDetail(item.id)">
 							<text class="tags"></text>
@@ -71,6 +108,18 @@
 			
 			
 			<view v-if="themeType==4" class="body zone4">
+					<view class="adlist">
+							<uni-swiper-dot  :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
+							    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
+							        <swiper-item>
+							            <view class="swiper-item">
+											<image src="../../static/image/banner_4.png"></image>
+							            </view>
+							        </swiper-item>
+							    </swiper>
+							</uni-swiper-dot>
+					</view>
+					
 					<view class="link">
 						<view class="wrap over" v-for="(item,index) in goodList" :key="index" @click="toGoodsDetail(item.id)">
 							<text class="tags"></text>
@@ -94,6 +143,18 @@
 			
 			
 			<view v-if="themeType==5" class="body zone5">
+					<view class="adlist">
+							<uni-swiper-dot  :current="current" field="content" :mode="mode" class="uni-swiper-dot_class">
+							    <swiper class="swiper-box" @change="change" :autoplay="autoplay" :interval="interval" :duration="duration">
+							        <swiper-item>
+							            <view class="swiper-item">
+											<image src="../../static/image/banner_5.png"></image>
+							            </view>
+							        </swiper-item>
+							    </swiper>
+							</uni-swiper-dot>
+					</view>
+					
 					<view class="link">
 						<view class="wrap over" v-for="(item,index) in goodList" :key="index" @click="toGoodsDetail(item.id)">
 							<text class="tags"></text>
@@ -116,15 +177,27 @@
 			</view>
 			
 			
-			
+			<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue";
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
+		components: {
+			uniSwiperDot,
+			backTop
+			// tabBar
+		},
 		data() {
 			return {
+				current: 0,//广告列表属性
+				mode: 'dot',//广告列表属性
+				autoplay: true,
+				interval: 2500,
+				duration: 500,
 				pid:null,
 				themeType:0,
 				goodList:[],
@@ -133,7 +206,13 @@
 					pageSize:10,
 					totalPage: 0,//商品列表总页数
 					pid:'',
-				}
+				},
+				
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				scrollTop: 0
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
@@ -175,12 +254,17 @@
 			},
 			
 		},
-		
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onPullDownRefresh(){//下拉刷新
 		    this.queryData.pageNo = 1;
 		    this.queryData.totalPage = 0;
 		    this.getGoodlistByPid(this.queryData,true);
-		    uni.stopPullDownRefresh();
+		   
+			 setTimeout(function () {
+			            uni.stopPullDownRefresh();
+			        }, 500);
 		},
 		onReachBottom(){//页面滚动到底部的事件
 			if (this.queryData.pageNo > this.queryData.totalPage) {
@@ -353,4 +437,12 @@
 	  
 	  .zone5 .link {
 	    background-color: #fec10a; }
+		
+		.adlist{
+			height: 100%;
+		}
+		.adlist image{
+			height: 150px;
+			width: 100%;
+		}
 </style>
