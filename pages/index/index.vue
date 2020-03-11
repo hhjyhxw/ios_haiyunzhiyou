@@ -9,8 +9,13 @@
 		</view>
 		<!-- 商品搜索-->
 		 
-		 <view class="search" @click="gotsearch">
+		<!-- <view class="search" @click="gotsearch">
 			<input  placeholder="搜索商品" placeholder-class="holderclass"/>
+		</view> -->
+		
+		<view class="search-box" @click="gotsearch">
+			<!-- mSearch组件 如果使用原样式，删除组件元素-->
+			<mSearch class="mSearch-input-box" button="inside" placeholder="搜索商品"></mSearch>
 		</view>
 		
 		<view class="container999" >
@@ -119,6 +124,7 @@
 </template>
 
 <script>
+	import mSearch from '@/components/mehaotian-search-revision/mehaotian-search-revision.vue';
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue";
 	// import tabBar from '../../components/zwy-tabBar/tabBar.vue';
 	import backTop from '@/components/back-top/back-top.vue';
@@ -127,7 +133,8 @@
 		components: {
 			uniSwiperDot,
 			backTop,
-			navTab
+			navTab,
+			mSearch
 			// tabBar
 		},
 		data() {
@@ -144,7 +151,7 @@
 				scrollTop: 0,
 				
 				currentPage:'index',
-				address:'西乡塘区',
+				address:'海韵之友',
 				longitude:'',
 				latitude:'',
 				info: [{
@@ -700,4 +707,12 @@
 			background:url(../../static/image/ic_dh_me.png) center center no-repeat scroll;
 			background-size: 23px;
 		}
+		
+		.search-box {width:95%;background-color:rgb(242,242,242);padding:15upx 2.5%;display:flex;justify-content:space-between;}
+		.search-box .mSearch-input-box{width: 100%;}
+		.search-box .input-box {width:85%;flex-shrink:1;display:flex;justify-content:center;align-items:center;}
+		.search-box .search-btn {width:15%;margin:0 0 0 2%;display:flex;justify-content:center;align-items:center;flex-shrink:0;font-size:28upx;color:#fff;background:linear-gradient(to right,#ff9801,#ff570a);border-radius:60upx;}
+		.search-box .input-box>input {width:100%;height:60upx;font-size:32upx;border:0;border-radius:60upx;-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:0 3%;margin:0;background-color:#ffffff;}
+		.placeholder-class {color:#9e9e9e;}
+		.search-keyword {width:100%;background-color:rgb(242,242,242);}
 </style>

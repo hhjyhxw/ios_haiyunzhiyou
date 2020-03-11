@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "增加收货地址",
-  "usingComponents": {
-    "semp-city": "/components/semp-city/semp-city"
-  }
-}

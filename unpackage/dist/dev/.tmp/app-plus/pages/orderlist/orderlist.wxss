@@ -1,4 +1,7 @@
 
+.content{
+	background:#fff;
+}
 .tab {
 }
 .tab .tab-nav {

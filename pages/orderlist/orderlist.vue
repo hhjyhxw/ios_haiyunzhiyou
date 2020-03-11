@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="content">
 		<view class="tab tab-fixed">
 			<view class="tab-nav">
 				<view class="tab-title active" v-if="status=='UNCOMPLETED'" >全部订单</view>
@@ -247,12 +247,10 @@
 			},
 			
 			onPullDownRefresh(){//下拉刷新
-				setTimeout(function () {
-					  uni.stopPullDownRefresh();
-				}, 500);
 			    this.queryData.pageNo = 1;
 			    this.queryData.totalPage = 0;
 			   this.toGetOderList(this.queryData,false);
+			   uni.stopPullDownRefresh();
 			   
 			},
 			onReachBottom(){//页面滚动到底部的事件
@@ -273,6 +271,9 @@
 </script>
 
 <style>
+	.content{
+		background:#fff;
+	}
 	.tab {
 	}
 	.tab .tab-nav {

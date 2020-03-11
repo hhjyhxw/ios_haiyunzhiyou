@@ -780,9 +780,10 @@
 	
 	.uni-cart-btn{
 		display: block;
-		background: #E13F3F;
+		/* background: #E13F3F; */
+		background-color: #1195db;
 		margin: 1rem auto;
-		width: 60%;
+		width: 50%;
 		height: 2rem;
 		line-height: 2rem;
 		color: white;
@@ -803,7 +804,8 @@
 		
 		    display: block;
 			width: 35%;
-			background: lightblue;
+			/* background: lightblue; */
+			background-color: #1195db;
 			height: 2rem;
 			line-height: 2rem;
 			color: white;

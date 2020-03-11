@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "专题列表",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
-    "back-top": "/components/back-top/back-top"
-  }
-}

@@ -2,7 +2,7 @@
     "name" : "海韵之友",
     "appid" : "__UNI__ADA8003",
     "description" : "",
-    "versionName" : "1.0.5",
+    "versionName" : "1.0.7",
     "versionCode" : "100",
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -83,6 +83,14 @@
                         "settings@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/87.png",
                         "notification@2x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/40.png",
                         "notification@3x" : "C:/Users/Lenovo/Pictures/ios/newios/AppIcons (2)/Assets.xcassets/AppIcon.appiconset/60.png"
+                    }
+                }
+            },
+            "splashscreen" : {
+                "ios" : {
+                    "iphone" : {
+                        "portrait-896h@3x" : "",
+                        "retina55" : ""
                     }
                 }
             }

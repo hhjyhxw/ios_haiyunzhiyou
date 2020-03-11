@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "附近小店",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "back-top": "/components/back-top/back-top"
-  }
-}

@@ -10,7 +10,7 @@
 	export default {
 		data() {
 			return {
-				
+				keyword:''
 			}
 		},
 		methods: {
@@ -49,7 +49,8 @@
 		
 		    display: block;
 		    width: 30%;
-		    background: lightblue;
+		    /* background: lightblue; */
+			background-color: #1195db;
 		    height: 2rem;
 		    line-height: 2rem;
 		    color: white;

@@ -203,7 +203,7 @@
 			//加载默认搜索关键字
 			loadDefaultKeyword() {
 				//定义默认搜索关键字，可以自己实现ajax请求数据再赋值,用户未输入时，以水印方式显示在输入框，直接不输入内容搜索会搜索默认关键字
-				this.defaultKeyword = "默认关键字";
+				this.defaultKeyword = "真龙";
 			},
 			//加载历史搜索,自动读取本地Storage
 			loadOldKeyword() {
@@ -344,6 +344,7 @@
 			},
 			//异步获取商品列表
 			async getGoodlistByKeyword (data,first) {
+				
 				console.log(JSON.stringify(data));
 			    let result = await this.$api.getGoodlistByKeyword(data);
 				console.log(JSON.stringify(result));
@@ -370,9 +371,12 @@
 		    this.queryData.pageNo = 1;
 		    this.queryData.totalPage = 0;
 		    this.getGoodlistByKeyword(this.queryData,true);
-		   setTimeout(function () {
-		              uni.stopPullDownRefresh();
-		          }, 500);
+			try {
+			    uni.stopPullDownRefresh();
+			} catch (e) {
+			    // error
+			}
+		   
 		},
 		onReachBottom(){//页面滚动到底部的事件
 			if (this.queryData.pageNo > this.queryData.totalPage) {
@@ -389,6 +393,7 @@
 	}
 </script>
 <style>
+	
 	view{display:block;}
 	.search-box {width:95%;background-color:rgb(242,242,242);padding:15upx 2.5%;display:flex;justify-content:space-between;}
 	.search-box .mSearch-input-box{width: 100%;}
@@ -412,7 +417,9 @@
 	.keyword-box .keyword-block .hide-hot-tis {display:flex;justify-content:center;font-size:28upx;color:#6b6b6b;}
 	.keyword-box .keyword-block .keyword>view {display:flex;justify-content:center;align-items:center;border-radius:60upx;padding:0 20upx;margin:10upx 20upx 10upx 0;height:60upx;font-size:28upx;background-color:rgb(242,242,242);color:#6b6b6b;}
 	
-	
+	.content{
+		background:#fff;
+	}
 	
 	.goods_list{
 		/* z-index: 9999; */

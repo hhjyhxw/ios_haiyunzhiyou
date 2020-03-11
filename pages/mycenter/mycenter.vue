@@ -427,7 +427,8 @@
 		
 		    display: block;
 		    width: 50%;
-		    background: lightblue;
+		   /* background: lightblue; */
+			background-color: #1195db;
 		    height: 2rem;
 		    line-height: 2rem;
 		    color: white;
